@@ -20,7 +20,9 @@ import kotlin.coroutines.suspendCoroutine
 object WanNet {
     private val netService = ServiceCreator.create<NetService>()
 
-    suspend fun register(data: RegisterReq) = netService.register(data).await()
+    suspend fun register(map: Map<String,String>) = netService.register(map).await()
+
+    suspend fun login(map: Map<String,String>) = netService.login(map).await()
 
     private suspend fun <T> Call<T>.await(): T {
         return suspendCoroutine {

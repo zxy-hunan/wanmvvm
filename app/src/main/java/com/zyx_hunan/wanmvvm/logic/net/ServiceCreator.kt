@@ -14,7 +14,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ServiceCreator {
     private val BASEURL = "https://www.wanandroid.com"
     private val retrofit =
-        Retrofit.Builder().baseUrl(BASEURL).addConverterFactory(GsonConverterFactory.create())
+        Retrofit.Builder()
+            .baseUrl(BASEURL)
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
 
     fun <T> create(serviceClass: Class<T>): T = retrofit.create(serviceClass)

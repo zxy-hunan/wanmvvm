@@ -1,3 +1,4 @@
 rootProject.name = "WanMvvm"
 include ':app'
 include ':baseutil'
+include ':baseview'
