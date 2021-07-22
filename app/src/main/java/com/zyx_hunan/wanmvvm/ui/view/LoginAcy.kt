@@ -39,11 +39,13 @@ class LoginAcy:AppCompatActivity() {
         })
         viewModel.userData.observe(this, Observer {
             if (it.isSuccess){
-                val result=it.getOrNull()?.let {
+                it.getOrNull()?.let {
                     it as Regdata
-
+                }?.let {
+                    binding.name.setText(it.username)
+                    binding.pwd.setText(it.password)
+                    Toast.makeText(this,it.nickname,Toast.LENGTH_LONG).show()
                 }
-                Toast.makeText(this,result.toString(),Toast.LENGTH_LONG).show()
             }
         })
     }

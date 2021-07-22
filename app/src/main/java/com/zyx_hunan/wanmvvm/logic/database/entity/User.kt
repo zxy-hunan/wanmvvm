@@ -13,14 +13,9 @@ import androidx.room.PrimaryKey
  */
 @Entity
 data class User(
-    val admin: Boolean, val chapterTops: MutableList<String>, val coinCount: Int,
-    val collectIds: MutableList<String>, val icon: String, val id: Int,
     val nickname: String,
     val password: String,
-    val publicName: String,
-    val token: String,
-    val type: Int,
-    val username: String
+    val publicName: String
 ) {
     @PrimaryKey(autoGenerate = true)
     var c_id: Long = 0

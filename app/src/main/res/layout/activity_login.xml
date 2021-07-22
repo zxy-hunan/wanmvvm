@@ -28,11 +28,12 @@
     <EditText
         android:id="@+id/name"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
         android:ems="10"
+        android:background="@drawable/et_shape"
         android:inputType="textPersonName"
         android:hint="用户名"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
@@ -42,16 +43,19 @@
     <EditText
         android:id="@+id/pwd"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="密码"
         android:inputType="textPassword"
+        android:background="@drawable/et_shape"
         app:layout_constraintEnd_toEndOf="@+id/name"
         app:layout_constraintStart_toStartOf="@+id/name"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
-    <Button
+
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
         android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -60,9 +64,17 @@
         android:layout_marginEnd="20dp"
         android:text="登录"
         android:onClick="login"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:gravity="center"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register" />
+        app:layout_constraintTop_toBottomOf="@+id/register"
+        app:qmui_radius="4dp"
+        tools:ignore="MissingConstraints,OnClick" />
+
+
 
     <TextView
         android:id="@+id/register"

@@ -35,6 +35,6 @@ class LoginViewModel : ViewModel() {
     }
 
     fun findLocal(){
-//      userLiveData.value="1"
+      userLiveData.value="1"
     }
 }

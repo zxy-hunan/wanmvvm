@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.zyx_hunan.wanmvvm.logic.database.converter.ChapterTopConverter
+import com.zyx_hunan.wanmvvm.logic.database.converter.CollectidConverter
 import com.zyx_hunan.wanmvvm.logic.database.dao.UserDao
 import com.zyx_hunan.wanmvvm.logic.database.entity.User
 import com.zyx_hunan.wanmvvm.logic.model.Regdata
@@ -16,7 +19,8 @@ import com.zyx_hunan.wanmvvm.logic.model.Regdata
  *
  *@time 2021,2021/7/21 0021,下午 5:15
  */
-@Database(version = 1, entities = [Regdata::class])
+@Database(version = 1, entities = [Regdata::class],exportSchema = false)
+@TypeConverters(ChapterTopConverter::class,CollectidConverter::class)
 abstract class AppDataBase : RoomDatabase() {
     abstract val userDao: UserDao
 
