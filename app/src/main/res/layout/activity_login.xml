@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".ui.view.MainActivity"
     tools:ignore="MissingDefaultResource">
 
     <androidx.constraintlayout.widget.Guideline
@@ -25,20 +25,41 @@
         app:srcCompat="@mipmap/ic_launcher_round" />
 
 
-    <EditText
-        android:id="@+id/name"
+    <RelativeLayout
+        android:id="@+id/relayout"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
-        android:ems="10"
         android:background="@drawable/et_shape"
-        android:inputType="textPersonName"
-        android:hint="用户名"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <ImageView
+            android:id="@+id/more"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:onClick="more"
+            android:layout_centerInParent="true"
+            app:srcCompat="@drawable/qmui_icon_chevron" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/more"
+            android:background="@null"
+            android:ems="10"
+            android:hint="用户名"
+            android:inputType="textPersonName" />
+
+    </RelativeLayout>
+
+
 
     <EditText
         android:id="@+id/pwd"
@@ -49,10 +70,9 @@
         android:hint="密码"
         android:inputType="textPassword"
         android:background="@drawable/et_shape"
-        app:layout_constraintEnd_toEndOf="@+id/name"
-        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintEnd_toEndOf="@+id/relayout"
+        app:layout_constraintStart_toStartOf="@+id/relayout"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
 
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
@@ -75,19 +95,19 @@
         tools:ignore="MissingConstraints,OnClick" />
 
 
-
     <TextView
         android:id="@+id/register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
-        android:textColor="@color/black"
+        android:textColor="@color/btn_ghost_blue_border_normal"
         android:textSize="16sp"
         android:text="去注册"
         android:onClick="registers"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pwd" />
+        app:layout_constraintTop_toBottomOf="@+id/pwd"
+        tools:ignore="OnClick" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -95,4 +115,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@drawable/et_shape"
+        android:layout_marginBottom="10dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

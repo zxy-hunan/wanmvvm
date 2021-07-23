@@ -31,9 +31,9 @@ object Repository {
             val registerRep: RegisterModel = WanNet.register(map)
             if (registerRep.errorCode == 0) {
                 val data = registerRep.data
-                Log.i("test",data.toString())
-                val rId=userDao?.insertUser(data)
-                Log.i("test","rId:$rId")
+                Log.i("test", data.toString())
+                val rId = userDao?.insertUser(data)
+                Log.i("test", "rId:$rId")
                 Result.success(data)
             } else {
                 Result.failure(RuntimeException("response errorCode is${registerRep.errorCode}"))
@@ -61,13 +61,17 @@ object Repository {
     }
 
 
-    fun findLocal() = liveData(Dispatchers.IO) {
+    fun findLocal(type: Int = 0) = liveData(Dispatchers.IO) {
         val result = try {
-            var user: Regdata? = null
+            var user: Any? = null
             val userList = userDao.finAllUser()
-            for (reg in userList) {
-                user = reg
-                break
+            if (type != 1) {
+                for (reg in userList) {
+                    user = reg
+                    break
+                }
+            } else {
+                user = userList
             }
             if (user != null) {
                 Result.success(user)

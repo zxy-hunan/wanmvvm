@@ -19,7 +19,8 @@ import com.zyx_hunan.wanmvvm.logic.model.Regdata
  */
 class LoginViewModel : ViewModel() {
     private val loginLiveData = MutableLiveData<Map<String, String>>()
-    private val userLiveData=MutableLiveData<String>()
+    private val userLiveData = MutableLiveData<String>()
+    private val userLocalData = MutableLiveData<List<Regdata>>()
 
     val liveData = Transformations.switchMap(loginLiveData) {
         Repository.login(it)
@@ -34,7 +35,11 @@ class LoginViewModel : ViewModel() {
         Repository.findLocal()
     }
 
-    fun findLocal(){
-      userLiveData.value="1"
+    val localData = Transformations.switchMap(userLocalData) {
+        Repository.findLocal(1)
     }
+
+    fun findLocal(type: Int = 0) =
+        if (type != 1) userLiveData.value = "1" else userLocalData.value=null
+
 }
