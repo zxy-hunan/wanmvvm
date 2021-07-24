@@ -2,9 +2,6 @@ package com.zyx_hunan.wanmvvm.logic.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.zyx_hunan.wanmvvm.logic.database.converter.ChapterTopConverter
-import com.zyx_hunan.wanmvvm.logic.database.converter.CollectidConverter
 
 /**
  *

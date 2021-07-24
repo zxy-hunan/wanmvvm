@@ -56,7 +56,7 @@ class LoginAcy : AppCompatActivity() {
                     it as Regdata
                 }?.let {
                     binding.name.setText(it.username)
-                    binding.pwd.setText(it.password)
+                    binding.pwd.setText("11111111")
                     Toast.makeText(this, it.nickname, Toast.LENGTH_LONG).show()
                 }
             }

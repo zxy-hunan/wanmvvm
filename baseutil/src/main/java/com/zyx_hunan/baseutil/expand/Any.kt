@@ -2,6 +2,8 @@ package com.zyx_hunan.baseutil.expand
 
 import android.content.Context
 import android.widget.Toast
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  *
@@ -14,3 +16,14 @@ import android.widget.Toast
 
 fun Any.showToast(context: Context) =
     Toast.makeText(context, this.toString(), Toast.LENGTH_LONG).show()
+
+
+fun Any.convertDate(): String? {
+    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    var date: String? = "null"
+    when (this) {
+        is Long -> date = sdf.format(Date(this))
+        else -> null
+    }
+    return date
+}

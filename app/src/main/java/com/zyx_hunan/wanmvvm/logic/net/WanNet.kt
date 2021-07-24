@@ -24,6 +24,10 @@ object WanNet {
 
     suspend fun login(map: Map<String,String>) = netService.login(map).await()
 
+    suspend fun articleList(page: Int) = netService.articleList(page).await()
+
+
+
     private suspend fun <T> Call<T>.await(): T {
         return suspendCoroutine {
             enqueue(object : Callback<T> {

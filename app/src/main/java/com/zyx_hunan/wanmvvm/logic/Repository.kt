@@ -1,16 +1,13 @@
 package com.zyx_hunan.wanmvvm.logic
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.liveData
-import com.zyx_hunan.baseutil.expand.showToast
 import com.zyx_hunan.wanmvvm.WanApplication
 import com.zyx_hunan.wanmvvm.logic.database.AppDataBase
 import com.zyx_hunan.wanmvvm.logic.database.dao.UserDao
 import com.zyx_hunan.wanmvvm.logic.model.Regdata
 import com.zyx_hunan.wanmvvm.logic.model.RegisterModel
 import com.zyx_hunan.wanmvvm.logic.net.WanNet
-import com.zyx_hunan.wanmvvm.logic.net.req.RegisterReq
 import kotlinx.coroutines.Dispatchers
 import java.lang.Exception
 
