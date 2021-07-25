@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
+import com.qmuiteam.qmui.widget.tab.QMUIBasicTabSegment
 import com.qmuiteam.qmui.widget.tab.QMUITabBuilder
 import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.databinding.ActivityMainBinding
@@ -16,6 +17,8 @@ import com.zyx_hunan.wanmvvm.ui.view.fragment.HomeFragment
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var pagerMap: MutableMap<Int, Fragment>? = null
+    private var checkedIndex=0
+    private var tabNames= mutableMapOf(0 to "首页",1 to "项目",2 to "问答")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +27,26 @@ class MainActivity : AppCompatActivity() {
         initTabs()
         initPagers()
         setContentView(binding.root)
+        binding.topbar.setTitle(tabNames[checkedIndex])
+        binding.tabs.addOnTabSelectedListener(object :QMUIBasicTabSegment.OnTabSelectedListener{
+            //被选中
+            override fun onTabSelected(index: Int) {
+                binding.topbar.setTitle(tabNames[index])
+            }
+
+            //被取消
+            override fun onTabUnselected(index: Int) {
+            }
+
+            //选中状态下再次被选中
+            override fun onTabReselected(index: Int) {
+            }
+
+            //双击时
+            override fun onDoubleTap(index: Int) {
+            }
+
+        })
     }
 
     class PagerAdapter(fm: FragmentManager, val pagerMap: MutableMap<Int, Fragment>) :
@@ -68,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                     R.mipmap.icon_tabbar_component_selected
                 )
             )
-            .setText("首页")
+            .setText(tabNames[0])
             .build(this)
         val util = builder
             .setNormalDrawable(ContextCompat.getDrawable(this, R.mipmap.icon_tabbar_util))
@@ -78,7 +101,7 @@ class MainActivity : AppCompatActivity() {
                     R.mipmap.icon_tabbar_util_selected
                 )
             )
-            .setText("项目")
+            .setText(tabNames[1])
             .build(this)
         val lab = builder
             .setNormalDrawable(ContextCompat.getDrawable(this, R.mipmap.icon_tabbar_lab))
@@ -88,7 +111,7 @@ class MainActivity : AppCompatActivity() {
                     R.mipmap.icon_tabbar_lab_selected
                 )
             )
-            .setText("问答")
+            .setText(tabNames[2])
             .build(this)
         binding.tabs.addTab(component)
             .addTab(util)

@@ -26,6 +26,8 @@ object WanNet {
 
     suspend fun articleList(page: Int) = netService.articleList(page).await()
 
+    suspend fun bannerList() = netService.bannerList().await()
+
 
 
     private suspend fun <T> Call<T>.await(): T {

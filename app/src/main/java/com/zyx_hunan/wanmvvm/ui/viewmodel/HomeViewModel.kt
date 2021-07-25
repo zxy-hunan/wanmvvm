@@ -21,11 +21,21 @@ class HomeViewModel : ViewModel() {
         MainRepository.articleList(it)
     }
 
-    fun articleList(page: Int) {
+    val bannerData=Transformations.switchMap(articleLiveData){
+        MainRepository.bannerList(it)
+    }
+
+    fun articleList(page: Int = 0) {
         articleLiveData.value = page
     }
 
-    fun refreshOrLoadMore(b: Boolean)=if (b) articleLiveData.value=
-        articleLiveData.value?.minus(1) else articleLiveData.value= articleLiveData.value?.plus(1)
+    fun refreshOrLoadMore(b: Boolean) = if (b) {
+        if (articleLiveData.value != 0) articleLiveData.value?.minus(1) else articleLiveData.value =
+            0
+    } else {
+        articleLiveData.value = articleLiveData.value?.plus(1)
+    }
+
+
 
 }

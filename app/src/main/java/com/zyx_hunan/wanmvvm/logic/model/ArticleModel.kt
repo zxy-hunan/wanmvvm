@@ -57,4 +57,16 @@ data class Articledata(
     val userId: Int,
     val visible: Int,
     val zan: Int
-)
+){
+    constructor(desc: String,
+                id: Int,
+                imagePath: String,
+                isVisible: Int,
+                order: Int,
+                title: String,
+                type: Int,
+                url: String):this(imagePath,0,"",false,0,""
+    ,false,0,desc,"","",false,"",id,url,"",
+    "","","","",0,0,0,0,"",
+    0,"",title,type,0,isVisible,0)
+}

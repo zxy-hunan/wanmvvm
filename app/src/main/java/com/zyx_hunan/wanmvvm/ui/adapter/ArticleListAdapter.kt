@@ -25,11 +25,14 @@ class ArticleListAdapter(ctx: Context, list: List<Articledata>?) :
         holder?.let {
             val itemView = it?.getView(R.id.QMUICommonListItemView) as QMUICommonListItemView
             itemView.run {
+                textView.textSize= 16F
+                textView.letterSpacing = 0.05F
                 text = item.title
                 accessoryType = QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON
+                setTipPosition(QMUICommonListItemView.TIP_POSITION_LEFT)
+                showNewTip(item.fresh)
             }
             with(it) {
-                if (item.fresh){ setText(R.id.textView2, "新")}
                 setText(R.id.textView3, item.shareUser)
                 setText(R.id.textView4, item.publishTime.convertDate())
                 setText(R.id.textView5, "${item.superChapterName} / ${item.chapterName}")

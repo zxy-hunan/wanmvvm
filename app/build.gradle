@@ -30,6 +30,8 @@ dependencies {
 
     implementation 'com.github.tencent.qmui_android:qmui:2.0.0-alpha11'
 
+    implementation 'io.github.youth5201314:banner:2.2.2'
+
 }
 
 android {
