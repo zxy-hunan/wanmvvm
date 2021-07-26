@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey
  *
  *@time 2021,2021/7/20 0020,下午 3:54
  */
-data class BannerModel(val data: Bannerdata, val errorCode: Int, val errorMsg: String)
+data class BannerModel(val data: List<Bannerdata>, val errorCode: Int, val errorMsg: String)
 
 data class Bannerdata(
     val desc: String,

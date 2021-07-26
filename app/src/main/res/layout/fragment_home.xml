@@ -1,45 +1,10 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/qmui_config_color_white">
-
-
-    <com.qmuiteam.qmui.widget.QMUIAppBarLayout
-        android:id="@+id/QMUIAppBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="256dp"
-        android:fitsSystemWindows="true">
-
-        <com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout
-            android:id="@+id/collapsing_topbar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:minHeight="?attr/qmui_topbar_height"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:qmui_collapsedTitleGravity="center"
-            app:qmui_contentScrim="?attr/qmui_config_color_blue"
-            app:qmui_expandedTitleGravity="center_horizontal|bottom"
-            app:qmui_expandedTitleMarginBottom="20dp"
-            app:qmui_followTopBarCommonSkin="true"
-            app:qmui_statusBarScrim="?attr/qmui_config_color_blue">
-
-            <com.youth.banner.Banner
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="false"/>
-
-            <com.qmuiteam.qmui.widget.QMUITopBar
-                android:id="@+id/topbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/qmui_topbar_height"
-                android:background="@color/qmui_config_color_transparent"
-                android:fitsSystemWindows="true"
-                app:qmui_bottomDividerHeight="0px"
-                app:qmui_layout_collapseMode="pin" />
-        </com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout>
-    </com.qmuiteam.qmui.widget.QMUIAppBarLayout>
+    android:background="@color/qmui_config_color_white"
+    android:orientation="vertical">
 
 
     <com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout
@@ -47,14 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/qmui_skin_support_color_background"
-        android:scrollbars="none"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:scrollbars="none">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:qmui_is_target="true" />
+            app:qmui_is_target="true"
+           />
 
         <com.qmuiteam.qmui.widget.pullLayout.QMUIPullLoadMoreView
             android:layout_width="match_parent"
@@ -76,4 +41,4 @@
             app:qmui_pull_rate="0.45"
             app:qmui_target_view_trigger_offset="wrap" />
     </com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

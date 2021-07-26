@@ -40,6 +40,7 @@ class HomeFragment : Fragment() {
 
 
     override fun onResume() {
+
         super.onResume()
         activity?.let { adapter = ArticleListAdapter(it, listArticleAll)
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -57,19 +58,19 @@ class HomeFragment : Fragment() {
         viewModel.bannerData.observe(this, Observer {
             if (it.isSuccess) {
                 it.getOrNull()?.let {
-                    val listBanner= mutableListOf<Articledata>()
+                    /*val listBanner= mutableListOf<Articledata>()
                     for (ba in (it as List<Bannerdata>)){
                         listBanner.add(Articledata(ba.desc,
                         ba.id,ba.imagePath,ba.isVisible,ba.order,ba.title,ba.type,ba.url))
                     }
-                    listArticleAll.addAll(listBanner)
-                    adapter.setData(listArticleAll)
+                    listArticleAll.addAll(listBanner)*/
+                    adapter.setBannerData(it as List<Bannerdata>)
                 }
             }
         })
 
 
-/*        binding.pullLayout.setActionListener {
+        binding.pullLayout.setActionListener {
 
             if (it.pullEdge == QMUIPullLayout.PULL_EDGE_TOP) {
                 viewModel.refreshOrLoadMore(true)
@@ -78,12 +79,6 @@ class HomeFragment : Fragment() {
             }
             binding.pullLayout.finishActionRun(it)
 
-        }*/
-        
-        binding.collapsingTopbarLayout.setScrimUpdateListener { 
-            
         }
-
-        binding.collapsingTopbarLayout.addOnOffsetUpdateListener { layout, offset, expandFraction ->  }
     }
 }
