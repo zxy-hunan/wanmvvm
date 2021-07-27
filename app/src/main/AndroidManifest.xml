@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".ui.view.RegisterAcy"/>
         <activity android:name=".ui.view.MainActivity"/>
+        <activity android:name=".ui.view.ArticleItemAcy"/>
     </application>
 
 </manifest>

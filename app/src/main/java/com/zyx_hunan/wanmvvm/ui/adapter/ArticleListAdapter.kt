@@ -1,11 +1,11 @@
 package com.zyx_hunan.wanmvvm.ui.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.View
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.youth.banner.Banner
-import com.youth.banner.adapter.BannerAdapter
 import com.youth.banner.indicator.RoundLinesIndicator
 import com.zyx_hunan.baseutil.expand.convertDate
 import com.zyx_hunan.baseview.BaseRecyclerAdapter
@@ -13,8 +13,7 @@ import com.zyx_hunan.baseview.RecyclerViewHolder
 import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.logic.model.Articledata
 import com.zyx_hunan.wanmvvm.logic.model.Bannerdata
-import com.zyx_hunan.wanmvvm.ui.view.MainActivity
-import com.zyx_hunan.wanmvvm.ui.view.fragment.HomeFragment
+import com.zyx_hunan.wanmvvm.ui.view.ArticleItemAcy
 
 /**
  *
@@ -58,11 +57,13 @@ class ArticleListAdapter(private val ctx: Context, list: List<Articledata>?) :
                     setText(R.id.textView3, item.shareUser)
                     setText(R.id.textView4, item.publishTime.convertDate())
                     setText(R.id.textView5, "${item.superChapterName} / ${item.chapterName}")
-                    setOnItemClickListener(object: OnItemClickListener{
-                       override fun onItemClick(itemView: View?, pos: Int) {
-
-                       }
-                   })
+                    setOnItemClickListener(object : OnItemClickListener {
+                        override fun onItemClick(itemView: View?, pos: Int) {
+                            val intent = Intent(ctx, ArticleItemAcy::class.java)
+                            intent.putExtra("url", item.link)
+                            ctx.startActivity(intent)
+                        }
+                    })
                 }
             }
         } else {

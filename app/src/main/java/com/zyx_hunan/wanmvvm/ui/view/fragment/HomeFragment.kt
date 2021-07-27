@@ -26,9 +26,9 @@ import com.zyx_hunan.wanmvvm.ui.viewmodel.HomeViewModel
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel by lazy { ViewModelProvider(this).get(HomeViewModel::class.java) }
-    private val listArticleAll= mutableListOf<Articledata>()
+    private val listArticleAll = mutableListOf<Articledata>()
     private lateinit var adapter: ArticleListAdapter
-
+    private var pullAction: QMUIPullLayout.PullAction?=null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,9 +42,10 @@ class HomeFragment : Fragment() {
     override fun onResume() {
 
         super.onResume()
-        activity?.let { adapter = ArticleListAdapter(it, listArticleAll)
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-        binding.recyclerView.adapter = adapter
+        activity?.let {
+            adapter = ArticleListAdapter(it, listArticleAll)
+            binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+            binding.recyclerView.adapter = adapter
         }
         viewModel.articleList()
         viewModel.articleData.observe(this, Observer {
@@ -52,33 +53,28 @@ class HomeFragment : Fragment() {
                 it.getOrNull()?.let {
                     listArticleAll.addAll(it)
                     adapter.setData(listArticleAll)
+                    pullAction?.let {
+                        binding.pullLayout.finishActionRun(it)
+                    }
                 }
             }
         })
-        viewModel.bannerData.observe(this, Observer {
+
+        viewModel.bannerData.observe(this, Observer { it ->
             if (it.isSuccess) {
                 it.getOrNull()?.let {
-                    /*val listBanner= mutableListOf<Articledata>()
-                    for (ba in (it as List<Bannerdata>)){
-                        listBanner.add(Articledata(ba.desc,
-                        ba.id,ba.imagePath,ba.isVisible,ba.order,ba.title,ba.type,ba.url))
-                    }
-                    listArticleAll.addAll(listBanner)*/
                     adapter.setBannerData(it as List<Bannerdata>)
                 }
             }
         })
 
-
         binding.pullLayout.setActionListener {
-
+            pullAction = it
             if (it.pullEdge == QMUIPullLayout.PULL_EDGE_TOP) {
                 viewModel.refreshOrLoadMore(true)
             } else if (it.pullEdge == QMUIPullLayout.PULL_EDGE_BOTTOM) {
                 viewModel.refreshOrLoadMore(false)
             }
-            binding.pullLayout.finishActionRun(it)
-
         }
     }
 }

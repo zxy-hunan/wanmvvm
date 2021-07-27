@@ -21,7 +21,7 @@ class HomeViewModel : ViewModel() {
         MainRepository.articleList(it)
     }
 
-    val bannerData=Transformations.switchMap(articleLiveData){
+    val bannerData = Transformations.switchMap(articleLiveData) {
         MainRepository.bannerList(it)
     }
 
@@ -30,12 +30,8 @@ class HomeViewModel : ViewModel() {
     }
 
     fun refreshOrLoadMore(b: Boolean) = if (b) {
-        if (articleLiveData.value != 0) articleLiveData.value?.minus(1) else articleLiveData.value =
-            0
+        articleLiveData.value = 0
     } else {
         articleLiveData.value = articleLiveData.value?.plus(1)
     }
-
-
-
 }
