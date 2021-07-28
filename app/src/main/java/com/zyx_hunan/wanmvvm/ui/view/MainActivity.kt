@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var pagerMap: MutableMap<Int, Fragment>? = null
     private var checkedIndex=0
-    private var tabNames= mutableMapOf(0 to "首页",1 to "项目",2 to "问答")
+    private var tabNames= mutableMapOf(0 to "首页",1 to "体系",2 to "问答",3 to "公众号",4 to "我的")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +60,9 @@ class MainActivity : AppCompatActivity() {
         val homeFragment = HomeFragment()
         val homeFragment1 = HomeFragment()
         val homeFragment2 = HomeFragment()
-        pagerMap = mutableMapOf(0 to homeFragment, 1 to homeFragment1, 2 to homeFragment2)
+        val homeFragment3 = HomeFragment()
+        val homeFragment4 = HomeFragment()
+        pagerMap = mutableMapOf(0 to homeFragment, 1 to homeFragment1, 2 to homeFragment2, 3 to homeFragment3, 4 to homeFragment4)
 
         binding.pager.adapter = PagerAdapter(
             supportFragmentManager,
@@ -82,39 +84,67 @@ class MainActivity : AppCompatActivity() {
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this,
-                    R.mipmap.icon_tabbar_component
+                    R.mipmap.icon_tabbar_home
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this,
-                    R.mipmap.icon_tabbar_component_selected
+                    R.mipmap.icon_tabbar_home_selected
                 )
             )
             .setText(tabNames[0])
             .build(this)
         val util = builder
-            .setNormalDrawable(ContextCompat.getDrawable(this, R.mipmap.icon_tabbar_util))
+            .setNormalDrawable(ContextCompat.getDrawable(this, R.mipmap.icon_tabbar_knowlage))
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this,
-                    R.mipmap.icon_tabbar_util_selected
+                    R.mipmap.icon_tabbar_knowlage_selected
                 )
             )
             .setText(tabNames[1])
             .build(this)
         val lab = builder
-            .setNormalDrawable(ContextCompat.getDrawable(this, R.mipmap.icon_tabbar_lab))
+            .setNormalDrawable(ContextCompat.getDrawable(this, R.mipmap.icon_tabbar_question))
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this,
-                    R.mipmap.icon_tabbar_lab_selected
+                    R.mipmap.icon_tabbar_question_selected
                 )
             )
             .setText(tabNames[2])
             .build(this)
-        binding.tabs.addTab(component)
+
+
+        val wechat = builder
+            .setNormalDrawable(ContextCompat.getDrawable(this, R.mipmap.icon_tabbar_wechat))
+            .setSelectedDrawable(
+                ContextCompat.getDrawable(
+                    this,
+                    R.mipmap.icon_tabbar_wechat_selected
+                )
+            )
+            .setText(tabNames[3])
+            .build(this)
+
+
+        val mine = builder
+            .setNormalDrawable(ContextCompat.getDrawable(this, R.mipmap.icon_tabbar_mine))
+            .setSelectedDrawable(
+                ContextCompat.getDrawable(
+                    this,
+                    R.mipmap.icon_tabbar_mine_selected
+                )
+            )
+            .setText(tabNames[4])
+            .build(this)
+
+        binding.tabs
+            .addTab(component)
             .addTab(util)
             .addTab(lab)
+            .addTab(wechat)
+            .addTab(mine)
     }
 }
