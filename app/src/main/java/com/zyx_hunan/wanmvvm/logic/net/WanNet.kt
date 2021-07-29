@@ -28,6 +28,9 @@ object WanNet {
 
     suspend fun bannerList() = netService.bannerList().await()
 
+    suspend fun knowledgeList() = netService.knowledgeList().await()
+
+
 
 
     private suspend fun <T> Call<T>.await(): T {

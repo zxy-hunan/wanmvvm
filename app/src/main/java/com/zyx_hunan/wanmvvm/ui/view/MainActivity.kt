@@ -13,6 +13,7 @@ import com.qmuiteam.qmui.widget.tab.QMUITabBuilder
 import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.databinding.ActivityMainBinding
 import com.zyx_hunan.wanmvvm.ui.view.fragment.HomeFragment
+import com.zyx_hunan.wanmvvm.ui.view.fragment.KnowledgeFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         initTabs()
         initPagers()
         setContentView(binding.root)
-        binding.topbar.setTitle(tabNames[checkedIndex])
+        binding.topbar.setTitle(tabNames[checkedIndex]).setTextColor(resources.getColor(R.color.qmui_config_color_gray_7))
         binding.tabs.addOnTabSelectedListener(object :QMUIBasicTabSegment.OnTabSelectedListener{
             //被选中
             override fun onTabSelected(index: Int) {
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initPagers() {
         val homeFragment = HomeFragment()
-        val homeFragment1 = HomeFragment()
+        val homeFragment1 = KnowledgeFragment()
         val homeFragment2 = HomeFragment()
         val homeFragment3 = HomeFragment()
         val homeFragment4 = HomeFragment()
