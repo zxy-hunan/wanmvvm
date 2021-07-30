@@ -12,8 +12,7 @@ import com.qmuiteam.qmui.widget.tab.QMUIBasicTabSegment
 import com.qmuiteam.qmui.widget.tab.QMUITabBuilder
 import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.databinding.ActivityMainBinding
-import com.zyx_hunan.wanmvvm.ui.view.fragment.HomeFragment
-import com.zyx_hunan.wanmvvm.ui.view.fragment.KnowledgeFragment
+import com.zyx_hunan.wanmvvm.ui.view.fragment.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         initTabs()
         initPagers()
         setContentView(binding.root)
-        binding.topbar.setTitle(tabNames[checkedIndex]).setTextColor(resources.getColor(R.color.qmui_config_color_gray_7))
+        binding.topbar.setTitle(tabNames[checkedIndex]).setTextColor(resources.getColor(R.color.white))
         binding.tabs.addOnTabSelectedListener(object :QMUIBasicTabSegment.OnTabSelectedListener{
             //被选中
             override fun onTabSelected(index: Int) {
@@ -50,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    class PagerAdapter(fm: FragmentManager, val pagerMap: MutableMap<Int, Fragment>) :
+    class PagerAdapter(fm: FragmentManager, private val pagerMap: MutableMap<Int, Fragment>) :
         FragmentPagerAdapter(fm) {
         override fun getCount() = pagerMap.size
         override fun getItem(position: Int): Fragment = pagerMap.get(position)!!
@@ -60,9 +59,9 @@ class MainActivity : AppCompatActivity() {
     private fun initPagers() {
         val homeFragment = HomeFragment()
         val homeFragment1 = KnowledgeFragment()
-        val homeFragment2 = HomeFragment()
-        val homeFragment3 = HomeFragment()
-        val homeFragment4 = HomeFragment()
+        val homeFragment2 = QuestionFragment()
+        val homeFragment3 = WechatFragment()
+        val homeFragment4 = MineFragment()
         pagerMap = mutableMapOf(0 to homeFragment, 1 to homeFragment1, 2 to homeFragment2, 3 to homeFragment3, 4 to homeFragment4)
 
         binding.pager.adapter = PagerAdapter(

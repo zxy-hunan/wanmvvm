@@ -30,6 +30,9 @@ object WanNet {
 
     suspend fun knowledgeList() = netService.knowledgeList().await()
 
+    suspend fun weChatChapters() = netService.weChatChapters().await()
+
+    suspend fun weChatDetail(cid:String,page:Int) = netService.weChatDetail(cid,page).await()
 
 
 

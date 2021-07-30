@@ -93,7 +93,7 @@ abstract class BaseRecyclerAdapter<T>(ctx: Context, list:List<T>?) :
         notifyItemRemoved(pos)
     }
 
-    fun setOnItemClickListener(listener: OnItemClickListener?) {
+    fun setOnItemClickListener(listener: OnItemClickListener) {
         mClickListener = listener
     }
 

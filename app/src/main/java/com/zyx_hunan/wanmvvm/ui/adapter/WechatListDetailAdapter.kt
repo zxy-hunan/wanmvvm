@@ -2,17 +2,13 @@ package com.zyx_hunan.wanmvvm.ui.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
-import com.youth.banner.Banner
-import com.youth.banner.indicator.RoundLinesIndicator
 import com.zyx_hunan.baseutil.expand.convertDate
 import com.zyx_hunan.baseview.BaseRecyclerAdapter
 import com.zyx_hunan.baseview.RecyclerViewHolder
 import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.logic.model.Articledata
-import com.zyx_hunan.wanmvvm.logic.model.Bannerdata
 import com.zyx_hunan.wanmvvm.ui.view.ArticleItemAcy
 
 /**
@@ -21,28 +17,17 @@ import com.zyx_hunan.wanmvvm.ui.view.ArticleItemAcy
  *
  *@author Administrator
  *
- *@time 2021,2021/7/24 0024,下午 2:21
+ *@time 2021,2021/7/30 0030,下午 3:17
  */
-class ArticleListAdapter(private val ctx: Context, list: List<Articledata>?) :
+class WechatListDetailAdapter (private val ctx: Context, list: List<Articledata>?) :
     BaseRecyclerAdapter<Articledata>(ctx, list) {
-    private var vType = 1
-    private val bannerData = mutableListOf<Bannerdata>()
-    private val bannerAdapter = ImageAdapter(bannerData)
-    var banner: Banner<Bannerdata, ImageAdapter>? = null
 
     override fun getItemLayoutId(viewType: Int): Int {
-        vType = viewType
-        Log.e("test", "vType:$vType")
-        return if (viewType == 0) {
-            R.layout.banner_item
-        } else {
-            R.layout.article_list_item
-        }
+        return  R.layout.article_list_item
     }
 
 
     override fun bindData(holder: RecyclerViewHolder?, position: Int, item: Articledata) {
-        if (vType == 1) {
             holder?.let {
                 val itemView = it?.getView(R.id.QMUICommonListItemView) as QMUICommonListItemView
                 itemView.run {
@@ -66,33 +51,5 @@ class ArticleListAdapter(private val ctx: Context, list: List<Articledata>?) :
                     })
                 }
             }
-        } else {
-            holder?.let {
-                if (banner == null) {
-                    banner = it?.getView(R.id.banner) as Banner<Bannerdata, ImageAdapter>
-                    banner?.apply {
-                        setBannerRound(0f)
-                        indicator = RoundLinesIndicator(ctx)
-                        setAdapter(bannerAdapter)
-                    }
-                }
-            }
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        Log.e("test", "position:$position")
-        return if (position == 0) {
-            vType = 0
-            return 0
-        } else {
-            1
-        }
-    }
-
-    fun setBannerData(data: List<Bannerdata>) {
-        data?.let {
-            bannerAdapter.setDatas(data)
-        }
     }
 }

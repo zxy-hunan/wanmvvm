@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WanMvvm">
-        <activity android:name=".ui.view.LoginAcy">
+        <activity android:name=".ui.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.view.RegisterAcy"/>
-        <activity android:name=".ui.view.MainActivity"/>
+        <activity android:name=".ui.view.LoginAcy"/>
         <activity android:name=".ui.view.ArticleItemAcy"/>
     </application>
 

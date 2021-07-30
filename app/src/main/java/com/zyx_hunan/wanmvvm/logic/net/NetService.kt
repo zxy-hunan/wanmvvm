@@ -1,9 +1,6 @@
 package com.zyx_hunan.wanmvvm.logic.net
 
-import com.zyx_hunan.wanmvvm.logic.model.ArticleModel
-import com.zyx_hunan.wanmvvm.logic.model.BannerModel
-import com.zyx_hunan.wanmvvm.logic.model.KnowledgeModel
-import com.zyx_hunan.wanmvvm.logic.model.RegisterModel
+import com.zyx_hunan.wanmvvm.logic.model.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -33,5 +30,11 @@ interface NetService {
 
     @GET("/tree/json")
     fun knowledgeList(): Call<KnowledgeModel>
+
+    @GET("/wxarticle/chapters/json")
+    fun weChatChapters(): Call<WeChatListModel>
+
+    @GET("/wxarticle/list/{cid}/{page}/json")
+    fun weChatDetail(@Path("cid") cid: String,@Path("page") page: Int): Call<ArticleModel>
 
 }

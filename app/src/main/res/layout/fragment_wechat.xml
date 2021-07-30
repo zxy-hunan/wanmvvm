@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView2"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
+
+
+    <com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout
+        android:id="@+id/pull_layout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="?attr/qmui_skin_support_color_background"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/recyclerView2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:qmui_is_target="true" />
+
+        <com.qmuiteam.qmui.widget.pullLayout.QMUIPullLoadMoreView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:qmui_action_view_init_offset="0dp"
+            app:qmui_can_over_pull="true"
+            app:qmui_need_receive_fling_from_target_view="true"
+            app:qmui_pull_edge="bottom"
+            app:qmui_pull_rate="0.45"
+            app:qmui_target_view_trigger_offset="wrap" />
+
+        <com.qmuiteam.qmui.widget.pullLayout.QMUIPullRefreshView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:qmui_action_view_init_offset="-20dp"
+            app:qmui_can_over_pull="true"
+            app:qmui_need_receive_fling_from_target_view="false"
+            app:qmui_pull_edge="top"
+            app:qmui_pull_rate="0.45"
+            app:qmui_target_view_trigger_offset="wrap" />
+    </com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
