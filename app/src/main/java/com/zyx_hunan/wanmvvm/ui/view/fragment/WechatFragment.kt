@@ -106,10 +106,7 @@ class WechatFragment : Fragment() {
                 listWeChatAll?.run {
                     var i=0
                     while (i<size){
-                        if (i==pos){
-                            this[i].selected=true
-                        }
-                        this[i].selected=false
+                        this[i].selected = i==pos
                         i++
                     }
                 }

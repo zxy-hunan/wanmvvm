@@ -25,9 +25,9 @@ class WechatListAdapter(private val ctx: Context, list: List<WcData>?) :
             with(it) {
                 setText(R.id.text, item.name)
                 if (!item.selected){
-                    setBackground(R.id.text,ctx.resources.getColor(R.color.teal_700))
+                    setBackgroundColor(R.id.text,R.color.btn_ghost_blue_border_normal)
                 }else{
-                    setBackground(R.id.text,ctx.resources.getColor(R.color.white))
+                    setBackgroundColor(R.id.text,R.color.white)
                 }
             }
         }

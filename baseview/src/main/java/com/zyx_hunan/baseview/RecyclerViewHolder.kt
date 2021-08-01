@@ -62,6 +62,14 @@ class RecyclerViewHolder(ctx: Context?, itemView: View?) :
         return this
     }
 
+    fun setBackgroundColor(viewId: Int, resId: Int): RecyclerViewHolder {
+        val view = findViewById<View>(viewId)!!
+        view.setBackgroundColor(resId)
+        return this
+    }
+
+
+
     fun setClickListener(viewId: Int, listener: View.OnClickListener?): RecyclerViewHolder {
         val view = findViewById<View>(viewId)!!
         view.setOnClickListener(listener)
