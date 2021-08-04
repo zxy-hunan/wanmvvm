@@ -14,6 +14,7 @@ import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.databinding.FragmentMineBinding
 import com.zyx_hunan.wanmvvm.ui.view.LoginAcy
+import com.zyx_hunan.wanmvvm.ui.view.SettingAcy
 import com.zyx_hunan.wanmvvm.ui.viewmodel.KnowledgeViewModel
 
 /**
@@ -24,7 +25,7 @@ import com.zyx_hunan.wanmvvm.ui.viewmodel.KnowledgeViewModel
  *
  *@time 2021,2021/7/30 0030,上午 11:05
  */
-class MineFragment : Fragment() {
+class MineFragment : Fragment(),View.OnClickListener {
     private lateinit var binding: FragmentMineBinding
     private val viewModel by lazy { ViewModelProvider(this).get(KnowledgeViewModel::class.java) }
 
@@ -80,10 +81,10 @@ class MineFragment : Fragment() {
             )
 
         QMUIGroupListView.newSection(activity).setTitle("个人中心")
-            .addItemView(item1,null)
-            .addItemView(item2,null)
-            .addItemView(item3,null)
-            .addItemView(item4,null).addTo(binding.groupListView)
+            .addItemView(item1,this)
+            .addItemView(item2,this)
+            .addItemView(item3,this)
+            .addItemView(item4,this).addTo(binding.groupListView)
 
         val item5: QMUICommonListItemView =
             binding.groupListView.createItemView(
@@ -96,7 +97,7 @@ class MineFragment : Fragment() {
             )
 
         QMUIGroupListView.newSection(activity).setTitle("设置")
-            .addItemView(item5,null).addTo(binding.groupListView)
+            .addItemView(item5,this).addTo(binding.groupListView)
     }
 
 
@@ -104,6 +105,14 @@ class MineFragment : Fragment() {
         super.onResume()
         binding.textlogin.setOnClickListener {
             startActivity(Intent(activity,LoginAcy::class.java))
+        }
+    }
+
+    override fun onClick(v: View?) {
+        if (v is QMUICommonListItemView){
+             when(v.text){
+                 "系统设置" -> startActivity(Intent(activity,SettingAcy::class.java))
+             }
         }
     }
 

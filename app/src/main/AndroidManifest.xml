@@ -21,6 +21,7 @@
         <activity android:name=".ui.view.RegisterAcy"/>
         <activity android:name=".ui.view.LoginAcy"/>
         <activity android:name=".ui.view.ArticleItemAcy"/>
+        <activity android:name=".ui.view.SettingAcy"/>
     </application>
 
 </manifest>
