@@ -63,7 +63,6 @@ class MainActivity : AppCompatActivity() {
         val homeFragment3 = WechatFragment()
         val homeFragment4 = MineFragment()
         pagerMap = mutableMapOf(0 to homeFragment, 1 to homeFragment1, 2 to homeFragment2, 3 to homeFragment3, 4 to homeFragment4)
-
         binding.pager.adapter = PagerAdapter(
             supportFragmentManager,
             pagerMap!!

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zyx_hunan.baseview.BaseFragment
 import com.zyx_hunan.baseview.BaseRecyclerAdapter
 import com.zyx_hunan.wanmvvm.databinding.FragmentWechatBinding
 import com.zyx_hunan.wanmvvm.logic.model.Articledata
@@ -24,7 +25,7 @@ import com.zyx_hunan.wanmvvm.ui.viewmodel.WeChatViewModel
  *
  *@time 2021,2021/7/30 0030,上午 11:32
  */
-class WechatFragment : Fragment() {
+class WechatFragment : BaseFragment() {
     private lateinit var binding: FragmentWechatBinding
     private val viewModel by lazy { ViewModelProvider(this).get(WeChatViewModel::class.java) }
     private val listWeChatAll = mutableListOf<WcData>()
@@ -34,6 +35,9 @@ class WechatFragment : Fragment() {
     private lateinit var cid: String
     private var tempCid: String=""
     private var page: Int = 0
+    override fun requestData() {
+        viewModel.getWechatList()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,15 +54,12 @@ class WechatFragment : Fragment() {
             adapter = WechatListAdapter(it, listWeChatAll)
             binding.recyclerView2.layoutManager = LinearLayoutManager(activity)
             binding.recyclerView2.adapter = adapter
-
             adapter1 = WechatListDetailAdapter(it, listArticleAll)
             binding.recyclerView.layoutManager = LinearLayoutManager(activity)
             binding.recyclerView.adapter = adapter1
-
             setOnclick()
         }
 
-        viewModel.getWechatList()
         viewModel.weChatLiveData.observe(this, Observer {
             if (it.isSuccess) {
                 it.getOrNull()?.let {
@@ -103,15 +104,7 @@ class WechatFragment : Fragment() {
     private fun setOnclick() {
         adapter.setOnItemClickListener(object : BaseRecyclerAdapter.OnItemClickListener{
             override fun onItemClick(itemView: View?, pos: Int) {
-                listWeChatAll?.run {
-                    var i=0
-                    while (i<size){
-                        this[i].selected = i==pos
-                        i++
-                    }
-                }
-                adapter.notifyDataSetChanged()
-
+                adapter.setDefaultItem(pos)
                 page=1
                 cid=listWeChatAll.get(pos).id.toString()
                 viewModel.weChatDetail(cid, page)

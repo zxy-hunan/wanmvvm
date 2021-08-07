@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewbinding.ViewBinding
 import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout
+import com.zyx_hunan.baseview.BaseFragment
 import com.zyx_hunan.wanmvvm.databinding.FragmentHomeBinding
 import com.zyx_hunan.wanmvvm.logic.model.Articledata
 import com.zyx_hunan.wanmvvm.logic.model.Bannerdata
@@ -23,12 +25,21 @@ import com.zyx_hunan.wanmvvm.ui.viewmodel.HomeViewModel
  *
  *@time 2021,2021/7/23 0023,下午 4:10
  */
-class HomeFragment : Fragment() {
+class HomeFragment<FragmentHomeBinding> : BaseFragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel by lazy { ViewModelProvider(this).get(HomeViewModel::class.java) }
     private val listArticleAll = mutableListOf<Articledata>()
     private lateinit var adapter: ArticleListAdapter
     private var pullAction: QMUIPullLayout.PullAction?=null
+
+    override fun requestData() {
+        viewModel.articleList()
+    }
+
+    override fun getViewBinding(): ViewBinding {
+        return FragmentHomeBinding.inflate(inflater, container, false)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,14 +51,13 @@ class HomeFragment : Fragment() {
 
 
     override fun onResume() {
-
         super.onResume()
         activity?.let {
             adapter = ArticleListAdapter(it, listArticleAll)
             binding.recyclerView.layoutManager = LinearLayoutManager(activity)
             binding.recyclerView.adapter = adapter
         }
-        viewModel.articleList()
+
         viewModel.articleData.observe(this, Observer {
             if (it.isSuccess) {
                 it.getOrNull()?.let {

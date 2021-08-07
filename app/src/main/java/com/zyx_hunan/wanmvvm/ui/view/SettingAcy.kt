@@ -2,16 +2,10 @@ package com.zyx_hunan.wanmvvm.ui.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.zyx_hunan.baseutil.expand.value
-import com.zyx_hunan.wanmvvm.databinding.ActivityRegisterBinding
 import com.zyx_hunan.wanmvvm.databinding.ActivitySettingBinding
-import com.zyx_hunan.wanmvvm.logic.model.Regdata
 import com.zyx_hunan.wanmvvm.ui.viewmodel.RegisterViewModel
 
 /**
@@ -30,7 +24,6 @@ class SettingAcy : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
     }
 
 

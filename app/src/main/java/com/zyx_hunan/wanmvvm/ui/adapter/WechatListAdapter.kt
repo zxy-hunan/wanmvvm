@@ -16,21 +16,29 @@ import com.zyx_hunan.wanmvvm.logic.model.WcData
  */
 class WechatListAdapter(private val ctx: Context, list: List<WcData>?) :
     BaseRecyclerAdapter<WcData>(ctx, list) {
+    private var defaultItem: Int = -1
 
-    override fun getItemLayoutId(viewType: Int) = R.layout.simple_list_item
+    override fun getItemLayoutId(viewType: Int) = R.layout.wechat_list_item
 
 
     override fun bindData(holder: RecyclerViewHolder?, position: Int, item: WcData) {
         holder?.let {
             with(it) {
                 setText(R.id.text, item.name)
-                if (!item.selected){
-                    setBackgroundColor(R.id.text,R.color.btn_ghost_blue_border_normal)
-                }else{
-                    setBackgroundColor(R.id.text,R.color.white)
+                if (defaultItem != -1) {
+                    if (defaultItem == position) {
+                        setBackground(R.id.layout, R.color.btn_ghost_blue_border_normal)
+                    } else {
+                        setBackground(R.id.layout, R.color.white)
+                    }
                 }
             }
         }
+    }
+
+    fun setDefaultItem(position: Int) {
+        defaultItem = position
+        notifyDataSetChanged()
     }
 
 }
