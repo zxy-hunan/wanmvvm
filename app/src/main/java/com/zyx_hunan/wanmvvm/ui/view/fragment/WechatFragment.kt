@@ -1,10 +1,5 @@
 package com.zyx_hunan.wanmvvm.ui.view.fragment
-
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,8 +20,7 @@ import com.zyx_hunan.wanmvvm.ui.viewmodel.WeChatViewModel
  *
  *@time 2021,2021/7/30 0030,上午 11:32
  */
-class WechatFragment : BaseFragment() {
-    private lateinit var binding: FragmentWechatBinding
+class WechatFragment : BaseFragment<FragmentWechatBinding>() {
     private val viewModel by lazy { ViewModelProvider(this).get(WeChatViewModel::class.java) }
     private val listWeChatAll = mutableListOf<WcData>()
     private val listArticleAll = mutableListOf<Articledata>()
@@ -37,15 +31,6 @@ class WechatFragment : BaseFragment() {
     private var page: Int = 0
     override fun requestData() {
         viewModel.getWechatList()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentWechatBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     override fun onResume() {

@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager,
             pagerMap!!
         )
+        binding.pager.offscreenPageLimit= pagerMap!!.size-1
         binding.tabs.setupWithViewPager(binding.pager, false)
     }
 
