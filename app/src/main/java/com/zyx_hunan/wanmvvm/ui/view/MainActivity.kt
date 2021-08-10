@@ -14,7 +14,7 @@ import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.databinding.ActivityMainBinding
 import com.zyx_hunan.wanmvvm.ui.view.fragment.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
     private lateinit var binding: ActivityMainBinding
     private var pagerMap: MutableMap<Int, Fragment>? = null
     private var checkedIndex=0
@@ -58,16 +58,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun initPagers() {
         val homeFragment = HomeFragment()
-        val homeFragment1 = KnowledgeFragment()
-        val homeFragment2 = QuestionFragment()
-        val homeFragment3 = WechatFragment()
-        val homeFragment4 = MineFragment()
-        pagerMap = mutableMapOf(0 to homeFragment, 1 to homeFragment1, 2 to homeFragment2, 3 to homeFragment3, 4 to homeFragment4)
+        val knowledgeFragment = KnowledgeFragment()
+        val questionFragment = QuestionFragment()
+        val wechatFragment = WechatFragment()
+        val mineFragment = MineFragment()
+        pagerMap = mutableMapOf(0 to homeFragment, 1 to knowledgeFragment, 2 to questionFragment, 3 to wechatFragment, 4 to mineFragment)
         binding.pager.adapter = PagerAdapter(
             supportFragmentManager,
             pagerMap!!
         )
-        binding.pager.offscreenPageLimit= pagerMap!!.size-1
         binding.tabs.setupWithViewPager(binding.pager, false)
     }
 

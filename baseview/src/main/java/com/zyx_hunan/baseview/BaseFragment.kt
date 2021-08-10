@@ -18,27 +18,27 @@ import java.lang.reflect.ParameterizedType
  *
  *@time 2021,2021/8/7 0007,下午 5:05
  */
-abstract class BaseFragment<VB : ViewBinding> : Fragment() {
-    var TAG="BaseFragment"
+open class BaseFragment<VB : ViewBinding> : Fragment() {
+    private val TAG="BaseFragment"
     lateinit var binding: VB
 
     //fragment是否显示
-    private var fragmentViewVisibility = false
+    private var mIsVisibleToUser = false
 
     //fragment是否被加载
-    private var fragmentViewCreated = false
+    private var mIsViewCreatetd = false
 
     //是否显示加载数据
-    private var fragmentDataLoded = false
+    private var mIsDataLoaded = false
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Log.e(TAG,"onAttach"+this.toString())
+        Log.e(TAG,"onAttach:"+this.targetFragment)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.e(TAG,"onCreate"+this.toString())
+        Log.e(TAG,"onCreate:"+this.targetFragment)
     }
 
     override fun onCreateView(
@@ -55,65 +55,65 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
             Boolean::class.java
         )
         binding = method.invoke(null, layoutInflater, container, false) as VB
-        Log.e(TAG,"onCreateView"+this.toString())
+        Log.e(TAG,"onCreateView:"+this.targetFragment)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log.e(TAG,"onActivityCreated"+this.toString())
-        if (fragmentViewVisibility && !fragmentDataLoded) {
+        Log.e(TAG,"onActivityCreated:"+this.targetFragment)
+        if (mIsVisibleToUser && !mIsDataLoaded) {
             lazyLoad()
         }
     }
 
     override fun onStart() {
         super.onStart()
-        Log.e(TAG,"onStart"+this.toString())
+        Log.e(TAG,"onStart:"+this.targetFragment)
     }
 
 
     override fun onResume() {
         super.onResume()
-        Log.e(TAG,"onResume"+this.toString())
+        Log.e(TAG,"onResume:"+this.targetFragment)
     }
 
 
     override fun onPause() {
         super.onPause()
-        Log.e(TAG,"onPause"+this.toString())
+        Log.e(TAG,"onPause:"+this.targetFragment)
     }
 
 
     override fun onStop() {
         super.onStop()
-        Log.e(TAG,"onStop"+this.toString())
+        Log.e(TAG,"onStop:"+this.targetFragment)
     }
 
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.e(TAG,"onDestroyView"+this.toString())
+        mIsViewCreatetd = false
+        mIsVisibleToUser = false
+        Log.e(TAG,"onDestroyView:"+this.targetFragment)
     }
 
 
     override fun onDestroy() {
         super.onDestroy()
-        fragmentViewCreated = false
-        fragmentDataLoded = false
-        Log.e(TAG,"onDestroy"+this.toString())
+        Log.e(TAG,"onDestroy:"+this.targetFragment)
     }
 
 
     override fun onDetach() {
         super.onDetach()
-        Log.e(TAG,"onDetach"+this.toString())
+        Log.e(TAG,"onDetach:"+this.targetFragment)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fragmentViewCreated = true
-        Log.e(TAG,"onViewCreated"+this.toString())
+        mIsViewCreatetd = true
+        Log.e(TAG,"onViewCreated:"+this.targetFragment)
     }
 
     /**
@@ -121,18 +121,21 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
      */
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
-        Log.e(TAG,"setUserVisibleHint"+this.toString())
-        fragmentViewVisibility = isVisibleToUser
+        Log.e(TAG,"setUserVisibleHint:"+isVisibleToUser)
+        mIsVisibleToUser = isVisibleToUser
         lazyLoad()
     }
 
     fun lazyLoad() {
-        if (fragmentViewVisibility && fragmentViewCreated && !fragmentDataLoded) {
+        Log.e(TAG,"startmIsVisibleToUser:"+mIsVisibleToUser+";  mIsViewCreatetd:"+mIsViewCreatetd+";  mIsDataLoaded:"+mIsDataLoaded)
+        if (mIsVisibleToUser && mIsViewCreatetd && !mIsDataLoaded) {
+            Log.e(TAG,"lazyLoad()")
             requestData()
-            fragmentDataLoded = true
+            mIsDataLoaded = true
         }
+        Log.e(TAG,"endmIsVisibleToUser:"+mIsVisibleToUser+";  mIsViewCreatetd:"+mIsViewCreatetd+";  mIsDataLoaded:"+mIsDataLoaded)
     }
 
-    abstract fun requestData()
+    open fun requestData(){}
 
 }

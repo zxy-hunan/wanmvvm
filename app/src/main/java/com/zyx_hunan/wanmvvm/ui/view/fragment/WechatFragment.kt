@@ -1,4 +1,5 @@
 package com.zyx_hunan.wanmvvm.ui.view.fragment
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -29,7 +30,9 @@ class WechatFragment : BaseFragment<FragmentWechatBinding>() {
     private lateinit var cid: String
     private var tempCid: String=""
     private var page: Int = 0
+
     override fun requestData() {
+        Log.e("BaseFragment","requestData()")
         viewModel.getWechatList()
     }
 

@@ -15,6 +15,7 @@ import com.qmuiteam.qmui.widget.popup.QMUIPopups
 import com.zyx_hunan.baseutil.expand.isEmpty
 import com.zyx_hunan.baseutil.expand.showToast
 import com.zyx_hunan.baseutil.expand.value
+import com.zyx_hunan.baseview.BaseActivity
 import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.databinding.ActivityLoginBinding
 import com.zyx_hunan.wanmvvm.logic.model.Regdata
@@ -30,15 +31,13 @@ import java.util.*
  *
  *@time 2021,2021/7/21 0021,下午 2:32
  */
-class LoginAcy : AppCompatActivity() {
+class LoginAcy : BaseActivity<ActivityLoginBinding>() {
     private val viewModel by lazy { ViewModelProvider(this).get(LoginViewModel::class.java) }
-    private lateinit var binding: ActivityLoginBinding
     private lateinit var mNormalPopup: QMUIPopup
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onResume() {
+        super.onResume()
+        viewModel.findLocal()
         viewModel.liveData.observe(this, Observer {
             if (it.isSuccess) {
                 val result = it.getOrNull()?.let {
@@ -46,7 +45,7 @@ class LoginAcy : AppCompatActivity() {
                     startActivity(Intent(this, MainActivity::class.java))
                     this.finish()
                 }
-            }else{
+            } else {
                 it.showToast(this)
             }
         })
@@ -69,7 +68,7 @@ class LoginAcy : AppCompatActivity() {
                     val adapter =
                         UserAdapter(this, R.layout.simple_list_item, it as List<Regdata>)
                     val onItemClickListener =
-                        AdapterView.OnItemClickListener {  parent,view,position,id->
+                        AdapterView.OnItemClickListener { parent, view, position, id ->
                             binding.name.setText(it[position].username)
                             if (mNormalPopup != null) {
                                 mNormalPopup.dismiss()
@@ -91,15 +90,9 @@ class LoginAcy : AppCompatActivity() {
 
                         }
                         .show(binding.more)
-
                 }
             }
         })
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.findLocal()
     }
 
     fun login(view: View) {
