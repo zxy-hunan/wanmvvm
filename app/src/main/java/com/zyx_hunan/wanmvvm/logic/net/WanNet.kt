@@ -34,6 +34,7 @@ object WanNet {
 
     suspend fun weChatDetail(cid:String,page:Int) = netService.weChatDetail(cid,page).await()
 
+    suspend fun wendaList(page:Int) = netService.wendaList(page).await()
 
 
     private suspend fun <T> Call<T>.await(): T {

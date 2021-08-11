@@ -1,11 +1,9 @@
 package com.zyx_hunan.wanmvvm.ui.view
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.qmuiteam.qmui.skin.QMUISkinManager
@@ -21,7 +19,6 @@ import com.zyx_hunan.wanmvvm.databinding.ActivityLoginBinding
 import com.zyx_hunan.wanmvvm.logic.model.Regdata
 import com.zyx_hunan.wanmvvm.ui.adapter.UserAdapter
 import com.zyx_hunan.wanmvvm.ui.viewmodel.LoginViewModel
-import java.util.*
 
 /**
  *

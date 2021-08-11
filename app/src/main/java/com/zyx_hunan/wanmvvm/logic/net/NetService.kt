@@ -37,4 +37,7 @@ interface NetService {
     @GET("/wxarticle/list/{cid}/{page}/json")
     fun weChatDetail(@Path("cid") cid: String,@Path("page") page: Int): Call<ArticleModel>
 
+    @GET("/wenda/list/{page}/json")
+    fun wendaList(@Path("page") page: Int): Call<QuestionListModel>
+
 }

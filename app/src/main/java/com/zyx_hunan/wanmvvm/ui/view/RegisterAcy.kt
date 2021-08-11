@@ -1,13 +1,12 @@
 package com.zyx_hunan.wanmvvm.ui.view
 
-import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.zyx_hunan.baseutil.expand.value
+import com.zyx_hunan.baseview.BaseActivity
 import com.zyx_hunan.wanmvvm.databinding.ActivityRegisterBinding
 import com.zyx_hunan.wanmvvm.logic.model.Regdata
 import com.zyx_hunan.wanmvvm.ui.viewmodel.RegisterViewModel
@@ -20,14 +19,11 @@ import com.zyx_hunan.wanmvvm.ui.viewmodel.RegisterViewModel
  *
  *@time 2021,2021/7/21 0021,上午 9:29
  */
-class RegisterAcy : AppCompatActivity() {
+class RegisterAcy : BaseActivity<ActivityRegisterBinding>() {
     private val viewModel by lazy { ViewModelProvider(this).get(RegisterViewModel::class.java) }
-    private lateinit var binding: ActivityRegisterBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onResume() {
+        super.onResume()
         viewModel.livedata.observe(this, Observer {
             val result = it.getOrNull()?.let { it as Regdata }
             Toast.makeText(this, result?.nickname, Toast.LENGTH_LONG).show()

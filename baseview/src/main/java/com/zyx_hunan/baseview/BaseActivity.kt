@@ -2,11 +2,7 @@ package com.zyx_hunan.baseview
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import java.lang.reflect.ParameterizedType
 
@@ -31,7 +27,6 @@ open class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
             setContentView(binding.root)
         }
     }
-
 }
 
 

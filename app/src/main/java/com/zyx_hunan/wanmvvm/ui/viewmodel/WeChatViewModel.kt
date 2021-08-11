@@ -1,5 +1,6 @@
 package com.zyx_hunan.wanmvvm.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
@@ -18,6 +19,7 @@ class WeChatViewModel : ViewModel() {
     private var requestBol = MutableLiveData<Boolean>()
 
     val weChatLiveData = Transformations.switchMap(requestBol) {
+        Log.e("wechat","requestBol:"+requestBol.value)
         WeChatRepository.weChatChapters()
     }
 
