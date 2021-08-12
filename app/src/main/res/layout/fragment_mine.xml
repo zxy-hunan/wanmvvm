@@ -7,25 +7,16 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            app:srcCompat="@mipmap/user" />
+        android:padding="5dp"
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/textlogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="去登陆"
-            android:layout_centerInParent="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="5dp"
             android:textSize="16sp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/black"/>
     </RelativeLayout>
 
     <ScrollView

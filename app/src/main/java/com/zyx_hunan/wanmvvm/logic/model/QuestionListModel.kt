@@ -1,5 +1,7 @@
 package com.zyx_hunan.wanmvvm.logic.model
 
+import java.io.Serializable
+
 /**
  *
  *
@@ -58,6 +60,6 @@ data class QuestionModel(
     val visible: Int,
     val zan: Int,
     val superChapterName: String
-)
+):Serializable
 
 data class Tag(val name: String,val url: String)

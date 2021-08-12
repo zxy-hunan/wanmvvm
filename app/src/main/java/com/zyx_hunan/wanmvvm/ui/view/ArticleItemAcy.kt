@@ -1,9 +1,11 @@
 package com.zyx_hunan.wanmvvm.ui.view
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.FrameLayout
 import android.widget.ZoomButtonsController
 import androidx.appcompat.app.AppCompatActivity
@@ -26,30 +28,37 @@ class ArticleItemAcy : AppCompatActivity() {
     private var mWebView: QDWebView? = null
     private lateinit var binding: ActivityArticleitemBinding
     private lateinit var url: String
+    private lateinit var title: String
+    private var collect: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityArticleitemBinding.inflate(layoutInflater)
         url = intent.getStringExtra("url").toString()
+        title = intent.getStringExtra("title").toString()
+        collect = intent.getBooleanExtra("collect", false)
         setContentView(binding.root)
         initTopbar()
         initWebView()
+    }
+
+    private fun initTopbar() {
+        binding.topbar.setTitle(title).setTextColor(resources.getColor(R.color.white))
+        binding.topbar.addLeftBackImageButton()
+            .setOnClickListener {
+                this.finish()
+            }
+/*        if (collect) binding.topbar.addRightImageButton(R.mipmap.heartsel, 101) else
+            binding.topbar.addRightImageButton(R.mipmap.heartunsle, 101)*/
     }
 
     fun needDispatchSafeAreaInset(): Boolean {
         return false
     }
 
-    private fun initTopbar() {
-        binding.topbar.addLeftBackImageButton()
-            .setOnClickListener {
-                this.finish()
-            }
-    }
-
     private fun initWebView() {
         mWebView = QDWebView(this)
         val needDispatchSafeAreaInset = needDispatchSafeAreaInset()
-        mWebView?.let {binding.webviewcontainer.addWebView(it, needDispatchSafeAreaInset)}
+        mWebView?.let { binding.webviewcontainer.addWebView(it, needDispatchSafeAreaInset) }
 
         binding.webviewcontainer.setCustomOnScrollChangeListener(QMUIWebView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
             onScrollWebContent(
@@ -67,13 +76,16 @@ class ArticleItemAcy : AppCompatActivity() {
         )
         binding.webviewcontainer.layoutParams = containerLp
         mWebView?.let {
+            //QMUIWebViewClient(needDispatchSafeAreaInset, true)
             it.webChromeClient = WebChromeClient()
-            it.webViewClient = QMUIWebViewClient(needDispatchSafeAreaInset, true)
+            it.webViewClient = getWebViewClient()
             it.requestFocus(View.FOCUS_DOWN)
             setZoomControlGone(it)
             it.loadUrl(url)
         }
     }
+
+
 
 
     protected fun onScrollWebContent(
@@ -114,6 +126,23 @@ class ArticleItemAcy : AppCompatActivity() {
             e.printStackTrace()
         } catch (e: NoSuchFieldException) {
             e.printStackTrace()
+        }
+    }
+
+     fun getWebViewClient(): WebViewClient {
+        return ExplorerWebViewClient(needDispatchSafeAreaInset())
+    }
+
+     class ExplorerWebViewClient(needDispatchSafeAreaInset: Boolean) :
+        QMUIWebViewClient(needDispatchSafeAreaInset, true) {
+        override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {
+            super.onPageStarted(view, url, favicon)
+
+        }
+
+        override fun onPageFinished(view: WebView, url: String) {
+            super.onPageFinished(view, url)
+
         }
     }
 

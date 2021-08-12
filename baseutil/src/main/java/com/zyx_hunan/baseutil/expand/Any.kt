@@ -27,3 +27,5 @@ fun Any.convertDate(): String? {
     }
     return date
 }
+
+fun Any?.isNull() = (this == null)

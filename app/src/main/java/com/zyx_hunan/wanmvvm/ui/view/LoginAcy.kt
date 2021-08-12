@@ -15,6 +15,7 @@ import com.zyx_hunan.baseutil.expand.showToast
 import com.zyx_hunan.baseutil.expand.value
 import com.zyx_hunan.baseview.BaseActivity
 import com.zyx_hunan.wanmvvm.R
+import com.zyx_hunan.wanmvvm.WanApplication
 import com.zyx_hunan.wanmvvm.databinding.ActivityLoginBinding
 import com.zyx_hunan.wanmvvm.logic.model.Regdata
 import com.zyx_hunan.wanmvvm.ui.adapter.UserAdapter
@@ -38,8 +39,8 @@ class LoginAcy : BaseActivity<ActivityLoginBinding>() {
         viewModel.liveData.observe(this, Observer {
             if (it.isSuccess) {
                 val result = it.getOrNull()?.let {
-                    it as Regdata
-                    startActivity(Intent(this, MainActivity::class.java))
+//                    startActivity(Intent(this, MainActivity::class.java))
+                    WanApplication.user = it as Regdata
                     this.finish()
                 }
             } else {

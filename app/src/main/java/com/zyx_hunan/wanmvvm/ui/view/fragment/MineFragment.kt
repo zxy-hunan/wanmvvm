@@ -11,7 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
+import com.zyx_hunan.baseview.BaseFragment
 import com.zyx_hunan.wanmvvm.R
+import com.zyx_hunan.wanmvvm.WanApplication
 import com.zyx_hunan.wanmvvm.databinding.FragmentMineBinding
 import com.zyx_hunan.wanmvvm.ui.view.LoginAcy
 import com.zyx_hunan.wanmvvm.ui.view.SettingAcy
@@ -40,6 +42,7 @@ class MineFragment : Fragment(),View.OnClickListener {
     }
 
     private fun createView() {
+        binding.textlogin.text="当前登录用户:  ${WanApplication.user?.username}"
         val height =
             QMUIResHelper.getAttrDimen(activity, com.qmuiteam.qmui.R.attr.qmui_list_item_height)
 

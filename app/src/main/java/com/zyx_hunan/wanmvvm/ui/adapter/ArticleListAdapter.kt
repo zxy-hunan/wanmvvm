@@ -49,7 +49,7 @@ class ArticleListAdapter(private val ctx: Context, list: List<Articledata>?) :
                     textView.textSize = 16F
                     textView.letterSpacing = 0.05F
                     text = item.title
-                    accessoryType = QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON
+                    accessoryType = QMUICommonListItemView.ACCESSORY_TYPE_NONE
                     setTipPosition(QMUICommonListItemView.TIP_POSITION_LEFT)
                     showNewTip(item.fresh)
                 }

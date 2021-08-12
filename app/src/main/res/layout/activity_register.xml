@@ -6,37 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.view.MainActivity">
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="409dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="50dp"
-        android:background="?android:attr/listDivider"
+
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:background="@color/btn_ghost_blue_border_normal"
+        android:fitsSystemWindows="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="注册"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/divider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
 
     <EditText
         android:id="@+id/name"
@@ -54,16 +34,15 @@
         android:id="@+id/pwd"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:hint="请输入密码"
-        android:text="11111111"
         android:background="@drawable/et_shape"
+        android:ems="10"
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        android:text="11111111"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/name"
         app:layout_constraintStart_toStartOf="@+id/name"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        app:layout_constraintVertical_bias="0.26" />
+        app:layout_constraintTop_toTopOf="@+id/topbar" />
 
     <EditText
         android:id="@+id/pwd2"

@@ -12,9 +12,10 @@
         android:id="@+id/QMUICommonListItemView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageheart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3"
@@ -87,6 +88,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageheart"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/QMUICommonListItemView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/QMUICommonListItemView"
+        app:srcCompat="@mipmap/heartunsle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

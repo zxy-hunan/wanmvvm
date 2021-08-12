@@ -33,7 +33,8 @@ class QuestionListAdapter(private val ctx: Context, list: List<QuestionModel>?) 
                     textView.textSize = 16F
                     textView.letterSpacing = 0.05F
                     text = item.title
-                    accessoryType = QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON
+                    accessoryType = QMUICommonListItemView.ACCESSORY_TYPE_NONE
+//                    addAccessoryCustomView(likeBtn)
                     setTipPosition(QMUICommonListItemView.TIP_POSITION_LEFT)
                     showNewTip(item.fresh)
                 }
@@ -41,13 +42,20 @@ class QuestionListAdapter(private val ctx: Context, list: List<QuestionModel>?) 
                     setText(R.id.textView3, item.shareUser)
                     setText(R.id.textView4, item.publishTime.convertDate())
                     setText(R.id.textView5, "${item.superChapterName} / ${item.chapterName}")
+                    if(item.collect) setBackground(R.id.imageheart,R.mipmap.heartsel) else setBackground(R.id.imageheart,R.mipmap.heartunsle)
                     setOnItemClickListener(object : OnItemClickListener {
                         override fun onItemClick(itemView: View?, pos: Int) {
                             val intent = Intent(ctx, ArticleItemAcy::class.java)
                             intent.putExtra("url", item.link)
+                            intent.putExtra("title", item.title)
+                            intent.putExtra("collect", item.collect)
                             ctx.startActivity(intent)
                         }
                     })
+
+                    setClickListener(R.id.imageheart){
+
+                    }
                 }
             }
     }

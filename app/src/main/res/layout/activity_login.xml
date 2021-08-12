@@ -15,6 +15,17 @@
         app:layout_constraintGuide_percent="0.3" />
 
 
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:background="@color/btn_ghost_blue_border_normal"
+        android:fitsSystemWindows="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <RelativeLayout
         android:id="@+id/relayout"
         android:layout_width="0dp"
@@ -73,7 +84,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
         android:text="登录"
-        android:onClick="loginOrLoginOut"
+        android:onClick="login"
         android:layout_gravity="center"
         android:clickable="true"
         android:gravity="center"
@@ -120,7 +131,7 @@
         app:layout_constraintBottom_toTopOf="@+id/relayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/loginjob" />
+        app:layout_constraintTop_toBottomOf="@+id/topbar"
+        app:srcCompat="@mipmap/openlogo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

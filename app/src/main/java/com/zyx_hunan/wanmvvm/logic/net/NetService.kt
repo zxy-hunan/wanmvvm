@@ -40,4 +40,8 @@ interface NetService {
     @GET("/wenda/list/{page}/json")
     fun wendaList(@Path("page") page: Int): Call<QuestionListModel>
 
+    @POST("/lg/collect/{id}/json")
+    fun collectArticle(@Path("id") id: Int):Call<QuestionListModel>
+
+
 }

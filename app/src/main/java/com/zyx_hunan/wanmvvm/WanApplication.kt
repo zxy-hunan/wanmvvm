@@ -2,6 +2,7 @@ package com.zyx_hunan.wanmvvm
 
 import android.app.Application
 import android.content.Context
+import com.zyx_hunan.wanmvvm.logic.model.Regdata
 
 /**
  *
@@ -15,6 +16,7 @@ class WanApplication : Application() {
 
     companion object {
         lateinit var mContext: Context
+        var user: Regdata? =null
     }
 
 
