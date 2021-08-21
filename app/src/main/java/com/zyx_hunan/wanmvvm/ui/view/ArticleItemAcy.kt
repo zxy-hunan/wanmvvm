@@ -6,10 +6,8 @@ import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.FrameLayout
 import android.widget.ZoomButtonsController
 import androidx.appcompat.app.AppCompatActivity
-import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.webview.QMUIWebView
 import com.qmuiteam.qmui.widget.webview.QMUIWebViewClient
 import com.zyx_hunan.wanmvvm.R
@@ -68,25 +66,26 @@ class ArticleItemAcy : AppCompatActivity() {
                 oldScrollY
             )
         })
-        val containerLp = binding.webviewcontainer.layoutParams as FrameLayout.LayoutParams
-        binding.webviewcontainer.fitsSystemWindows = !needDispatchSafeAreaInset
-        containerLp.topMargin = if (needDispatchSafeAreaInset) 0 else QMUIResHelper.getAttrDimen(
-            this,
-            R.attr.qmui_topbar_height
-        )
-        binding.webviewcontainer.layoutParams = containerLp
+
         mWebView?.let {
             //QMUIWebViewClient(needDispatchSafeAreaInset, true)
-            it.webChromeClient=WebChromeClient()
-
-            it.webViewClient = getWebViewClient()
+            it.webChromeClient=object : WebChromeClient() {
+                override fun onProgressChanged(view: WebView, newProgress: Int) {
+                    //显示进度条
+                    binding.progressBar.setProgress(newProgress)
+                    if (newProgress == 100) {
+                        //加载完毕隐藏进度条
+                        binding.progressBar.setVisibility(View.GONE)
+                    }
+                    super.onProgressChanged(view, newProgress)
+                }
+            }
+//            it.webViewClient = getWebViewClient()
             it.requestFocus(View.FOCUS_DOWN)
             setZoomControlGone(it)
             it.loadUrl(url)
         }
     }
-
-
 
 
     protected fun onScrollWebContent(

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  Tencent is pleased to support the open source community by making QMUI_Android available.
 
  Copyright (C) 2017-2018 THL A29 Limited, a Tencent company. All rights reserved.
@@ -15,18 +14,11 @@
  limitations under the License.
 -->
 
-<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/qmui_skin_support_color_background">
-
-    <com.qmuiteam.qmui.widget.webview.QMUIWebViewContainer
-        android:id="@+id/webviewcontainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </com.qmuiteam.qmui.widget.webview.QMUIWebViewContainer>
+    android:background="?attr/qmui_skin_support_color_background"
+    android:orientation="vertical">
 
 
     <com.qmuiteam.qmui.widget.QMUITopBarLayout
@@ -34,16 +26,20 @@
         android:layout_width="match_parent"
         android:layout_height="47dp"
         android:background="@color/btn_ghost_blue_border_normal"
-        android:fitsSystemWindows="true">
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxHeight="2dp"
-            android:minHeight="2dp"
-            android:layout_gravity="bottom"/>
-    </com.qmuiteam.qmui.widget.QMUITopBarLayout>
+        android:fitsSystemWindows="true"/>
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_gravity="bottom"
+        android:progressDrawable="@drawable/progressbar"
+        android:maxHeight="2dp"
+        android:minHeight="2dp" />
 
-</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
+    <com.qmuiteam.qmui.widget.webview.QMUIWebViewContainer
+        android:id="@+id/webviewcontainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
