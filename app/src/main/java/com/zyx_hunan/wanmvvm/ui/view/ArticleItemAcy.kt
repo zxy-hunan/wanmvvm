@@ -77,7 +77,8 @@ class ArticleItemAcy : AppCompatActivity() {
         binding.webviewcontainer.layoutParams = containerLp
         mWebView?.let {
             //QMUIWebViewClient(needDispatchSafeAreaInset, true)
-            it.webChromeClient = WebChromeClient()
+            it.webChromeClient=WebChromeClient()
+
             it.webViewClient = getWebViewClient()
             it.requestFocus(View.FOCUS_DOWN)
             setZoomControlGone(it)

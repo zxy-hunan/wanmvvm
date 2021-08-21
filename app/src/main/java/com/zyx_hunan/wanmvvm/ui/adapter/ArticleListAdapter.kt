@@ -50,8 +50,9 @@ class ArticleListAdapter(private val ctx: Context, list: List<Articledata>?) :
                     textView.letterSpacing = 0.05F
                     text = item.title
                     accessoryType = QMUICommonListItemView.ACCESSORY_TYPE_NONE
-                    setTipPosition(QMUICommonListItemView.TIP_POSITION_LEFT)
-                    showNewTip(item.fresh)
+                    setTipPosition(QMUICommonListItemView.TIP_POSITION_RIGHT)
+                    Log.e("test", "item.fresh=" + item.fresh)
+                    showRedDot(item.fresh)
                 }
                 with(it) {
                     setText(R.id.textView3, item.shareUser)
