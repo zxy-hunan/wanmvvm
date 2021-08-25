@@ -11,9 +11,7 @@ import android.widget.TextView
  *
  *@time 2021,2021/7/21 0021,下午 2:09
  */
-class TextView {
-}
 
 fun TextView.value() = this.text.toString()
 
-fun TextView.isEmpty()= TextUtils.isEmpty(this.text?.toString())
+fun TextView.isEmpty()= TextUtils.isEmpty(this.text)

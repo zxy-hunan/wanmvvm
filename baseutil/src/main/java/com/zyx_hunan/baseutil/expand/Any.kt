@@ -1,6 +1,9 @@
 package com.zyx_hunan.baseutil.expand
 
 import android.content.Context
+import android.text.TextUtils
+import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,4 +31,17 @@ fun Any.convertDate(): String? {
     return date
 }
 
-fun Any?.isNull() = (this == null)
+fun Any?.isNull() = when (this) {
+    this is TextView -> {
+        (this as TextView).isEmpty()
+    }
+    "" -> {
+        TextUtils.isEmpty(this.toString())
+    }
+    null -> {
+        TextUtils.isEmpty(this.toString())
+    }
+    else -> {
+        this == null
+    }
+}

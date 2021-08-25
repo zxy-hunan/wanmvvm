@@ -2,12 +2,15 @@ package com.zyx_hunan.wanmvvm.ui.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.youth.banner.Banner
 import com.youth.banner.indicator.RoundLinesIndicator
 import com.zyx_hunan.baseutil.expand.convertDate
+import com.zyx_hunan.baseutil.expand.isEmpty
+import com.zyx_hunan.baseutil.expand.isNull
 import com.zyx_hunan.baseview.BaseRecyclerAdapter
 import com.zyx_hunan.baseview.RecyclerViewHolder
 import com.zyx_hunan.wanmvvm.R
@@ -55,7 +58,14 @@ class ArticleListAdapter(private val ctx: Context, list: List<Articledata>?) :
                     showRedDot(item.fresh)
                 }
                 with(it) {
-                    setText(R.id.textView3, item.shareUser)
+
+                    Log.e("test", "shareuser:" + TextUtils.isEmpty(item.shareUser))
+
+                    Log.e("test", "shareuser:" + item.shareUser.isNull())
+                    Log.e("test", "shareuser:${item.author}")
+
+                    var authour = if (item.shareUser.isNull()) item.author else item.shareUser
+                    setText(R.id.textView3, authour)
                     setText(R.id.textView4, item.publishTime.convertDate())
                     setText(R.id.textView5, "${item.superChapterName} / ${item.chapterName}")
                     setOnItemClickListener(object : OnItemClickListener {
