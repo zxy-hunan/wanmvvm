@@ -26,9 +26,9 @@ import com.zyx_hunan.wanmvvm.ui.view.ArticleItemAcy
  *
  *@time 2021,2021/7/24 0024,下午 2:21
  */
-class ArticleListAdapter(private val ctx: Context, list: List<Articledata>?) :
+class ArticleListAdapter(private val ctx: Context, val list: List<Articledata>?) :
     BaseRecyclerAdapter<Articledata>(ctx, list) {
-    private var vType = 1
+    private var vType = 0
     private val bannerData = mutableListOf<Bannerdata>()
     private val bannerAdapter = ImageAdapter(bannerData)
     var banner: Banner<Bannerdata, ImageAdapter>? = null
@@ -44,37 +44,38 @@ class ArticleListAdapter(private val ctx: Context, list: List<Articledata>?) :
     }
 
 
-    override fun bindData(holder: RecyclerViewHolder?, position: Int, item: Articledata) {
+    override fun bindData(holder: RecyclerViewHolder?, position: Int, articledata: Articledata) {
+        Log.e("test", "bindData:vType,$vType;position,$position;item,$articledata;")
         if (vType == 1) {
-            holder?.let {
-                val itemView = it?.getView(R.id.QMUICommonListItemView) as QMUICommonListItemView
-                itemView.run {
-                    textView.textSize = 16F
-                    textView.letterSpacing = 0.05F
-                    text = item.title
-                    accessoryType = QMUICommonListItemView.ACCESSORY_TYPE_NONE
-                    setTipPosition(QMUICommonListItemView.TIP_POSITION_RIGHT)
-                    Log.e("test", "item.fresh=" + item.fresh)
-                    showRedDot(item.fresh)
-                }
-                with(it) {
-
-                    Log.e("test", "shareuser:" + TextUtils.isEmpty(item.shareUser))
-
-                    Log.e("test", "shareuser:" + item.shareUser.isNull())
-                    Log.e("test", "shareuser:${item.author}")
-
-                    var authour = if (item.shareUser.isNull()) item.author else item.shareUser
-                    setText(R.id.textView3, authour)
-                    setText(R.id.textView4, item.publishTime.convertDate())
-                    setText(R.id.textView5, "${item.superChapterName} / ${item.chapterName}")
-                    setOnItemClickListener(object : OnItemClickListener {
-                        override fun onItemClick(itemView: View?, pos: Int) {
-                            val intent = Intent(ctx, ArticleItemAcy::class.java)
-                            intent.putExtra("url", item.link)
-                            ctx.startActivity(intent)
-                        }
-                    })
+            var item = list?.get(position - 1)
+            item?.run {
+                holder?.let {
+                    val itemView =
+                        it?.getView(R.id.QMUICommonListItemView) as QMUICommonListItemView
+                    itemView.run {
+                        textView.textSize = 16F
+                        textView.letterSpacing = 0.05F
+                        text = item.title
+                        accessoryType = QMUICommonListItemView.ACCESSORY_TYPE_NONE
+                        setTipPosition(QMUICommonListItemView.TIP_POSITION_RIGHT)
+                        Log.e("test", "item.fresh=" + item.fresh)
+                        showRedDot(item.fresh)
+                    }
+                    with(it) {
+                        var authour = if (item.shareUser.isNull()) item.author else item.shareUser
+                        setText(R.id.textView3, authour)
+                        setText(R.id.textView4, item.publishTime.convertDate())
+                        setText(R.id.textView5, "${item.superChapterName} / ${item.chapterName}")
+                        setOnItemClickListener(object : OnItemClickListener {
+                            override fun onItemClick(itemView: View?, pos: Int) {
+                                val intent = Intent(ctx, ArticleItemAcy::class.java)
+                                intent.putExtra("url", list?.get(pos-1)?.link)
+                                intent.putExtra("title", list?.get(pos-1)?.title)
+                                intent.putExtra("collect", list?.get(pos-1)?.collect)
+                                ctx.startActivity(intent)
+                            }
+                        })
+                    }
                 }
             }
         } else {
@@ -94,8 +95,7 @@ class ArticleListAdapter(private val ctx: Context, list: List<Articledata>?) :
     override fun getItemViewType(position: Int): Int {
         Log.e("test", "position:$position")
         return if (position == 0) {
-            vType = 0
-            return 0
+            0
         } else {
             1
         }

@@ -1,4 +1,6 @@
 package com.zyx_hunan.wanmvvm.ui.view.fragment
+
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
@@ -28,11 +30,11 @@ class WechatFragment : BaseFragment<FragmentWechatBinding>() {
     private lateinit var adapter: WechatListAdapter
     private lateinit var adapter1: WechatListDetailAdapter
     private lateinit var cid: String
-    private var tempCid: String=""
+    private var tempCid: String = ""
     private var page: Int = 0
 
     override fun requestData() {
-        Log.e("BaseFragment","requestData()")
+        Log.e("BaseFragment", "requestData()")
         viewModel.getWechatList()
     }
 
@@ -46,55 +48,59 @@ class WechatFragment : BaseFragment<FragmentWechatBinding>() {
             binding.recyclerView.layoutManager = LinearLayoutManager(activity)
             binding.recyclerView.adapter = adapter1
             setOnclick()
-        }
 
-        viewModel.weChatLiveData.observe(this, Observer {
-            if (it.isSuccess) {
-                it.getOrNull()?.let {
-                    val listTrans= mutableListOf<WcData>()
-                    val list = it as List<WcData>
-                    list?.run {
-                        var i=0
-                        while (i<size){
-                            if (i==0){
-                                this[i].selected=true
+
+            viewModel.weChatLiveData.observe(it, Observer {
+                Log.e("wechat", "observe:${it}")
+                it?.let {
+                    if (it.isSuccess) {
+                        it.getOrNull()?.let {
+                            val listTrans = mutableListOf<WcData>()
+                            val list = it as List<WcData>
+                            list?.run {
+                                var i = 0
+                                while (i < size) {
+                                    if (i == 0) {
+                                        this[i].selected = true
+                                    }
+                                    this[i].selected = false
+                                    listTrans.add(this[i])
+                                    i++
+                                }
                             }
-                            this[i].selected=false
-                            listTrans.add(this[i])
-                            i++
+                            listWeChatAll.addAll(listTrans)
+                            adapter.setData(listWeChatAll)
+                            list?.let {
+                                cid = it[0].id.toString()
+                                page = 1
+                                viewModel.weChatDetail(cid, page)
+                            }
                         }
                     }
-                    listWeChatAll.addAll(listTrans)
-                    adapter.setData(listWeChatAll)
-                    list?.let {
-                        cid = it[0].id.toString()
-                        page = 1
-                        viewModel.weChatDetail(cid, page)
-                    }
                 }
-            }
-        })
+            })
 
-        viewModel.weChatarticleLiveData.observe(this, Observer {
-            if (it.isSuccess) {
-                it.getOrNull()?.let {
-                    if (cid != tempCid){
-                        listArticleAll.clear()
+            viewModel.weChatarticleLiveData.observe(it, Observer {
+                if (it.isSuccess) {
+                    it.getOrNull()?.let {
+                        if (cid != tempCid) {
+                            listArticleAll.clear()
+                        }
+                        tempCid = cid
+                        listArticleAll.addAll(it as List<Articledata>)
+                        adapter1.setData(listArticleAll)
                     }
-                    tempCid=cid
-                    listArticleAll.addAll(it as List<Articledata>)
-                    adapter1.setData(listArticleAll)
                 }
-            }
-        })
+            })
+        }
     }
 
     private fun setOnclick() {
-        adapter.setOnItemClickListener(object : BaseRecyclerAdapter.OnItemClickListener{
+        adapter.setOnItemClickListener(object : BaseRecyclerAdapter.OnItemClickListener {
             override fun onItemClick(itemView: View?, pos: Int) {
                 adapter.setDefaultItem(pos)
-                page=1
-                cid=listWeChatAll.get(pos).id.toString()
+                page = 1
+                cid = listWeChatAll.get(pos).id.toString()
                 viewModel.weChatDetail(cid, page)
             }
         })

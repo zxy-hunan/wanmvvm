@@ -1,6 +1,5 @@
 package com.zyx_hunan.wanmvvm.logic.net
 
-import com.zyx_hunan.wanmvvm.logic.net.req.RegisterReq
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

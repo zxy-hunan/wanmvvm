@@ -38,15 +38,15 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         }
 
         viewModel.articleData.observe(this, Observer {
-            if (it.isSuccess) {
-                it.getOrNull()?.let {
-                    listArticleAll.addAll(it)
-                    adapter.setData(listArticleAll)
-                    pullAction?.let {
-                        binding.pullLayout.finishActionRun(it)
+                if (it.isSuccess) {
+                    it.getOrNull()?.let {
+                        listArticleAll.addAll(it)
+                        adapter.setData(listArticleAll)
+                        pullAction?.let {
+                            binding.pullLayout.finishActionRun(it)
+                        }
                     }
                 }
-            }
         })
 
         viewModel.bannerData.observe(this, Observer { it ->

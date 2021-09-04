@@ -19,16 +19,18 @@ import com.zyx_hunan.wanmvvm.ui.view.ArticleItemAcy
  *
  *@time 2021,2021/7/30 0030,下午 3:17
  */
-class WechatListDetailAdapter (private val ctx: Context, list: List<Articledata>?) :
+class WechatListDetailAdapter(private val ctx: Context, val list: List<Articledata>?) :
     BaseRecyclerAdapter<Articledata>(ctx, list) {
 
     override fun getItemLayoutId(viewType: Int): Int {
-        return  R.layout.article_list_item
+        return R.layout.article_list_item
     }
 
 
-    override fun bindData(holder: RecyclerViewHolder?, position: Int, item: Articledata) {
-            holder?.let {
+    override fun bindData(holder: RecyclerViewHolder?, position: Int, articledata: Articledata) {
+        holder?.let {
+            var item = list?.get(position)
+            item?.run {
                 val itemView = it?.getView(R.id.QMUICommonListItemView) as QMUICommonListItemView
                 itemView.run {
                     textView.textSize = 16F
@@ -39,17 +41,22 @@ class WechatListDetailAdapter (private val ctx: Context, list: List<Articledata>
                     showNewTip(item.fresh)
                 }
                 with(it) {
+
                     setText(R.id.textView3, item.shareUser)
                     setText(R.id.textView4, item.publishTime.convertDate())
                     setText(R.id.textView5, "${item.superChapterName} / ${item.chapterName}")
-                    setOnItemClickListener(object : OnItemClickListener {
-                        override fun onItemClick(itemView: View?, pos: Int) {
-                            val intent = Intent(ctx, ArticleItemAcy::class.java)
-                            intent.putExtra("url", item.link)
-                            ctx.startActivity(intent)
-                        }
-                    })
+
                 }
             }
+        }
+        setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(itemView: View?, pos: Int) {
+                val intent = Intent(ctx, ArticleItemAcy::class.java)
+                intent.putExtra("url", list?.get(pos)?.link)
+                intent.putExtra("title", list?.get(pos)?.title)
+                intent.putExtra("collect", list?.get(pos)?.collect)
+                ctx.startActivity(intent)
+            }
+        })
     }
 }

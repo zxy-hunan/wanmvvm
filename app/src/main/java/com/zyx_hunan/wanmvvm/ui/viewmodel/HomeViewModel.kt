@@ -1,5 +1,6 @@
 package com.zyx_hunan.wanmvvm.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
@@ -18,6 +19,7 @@ class HomeViewModel : ViewModel() {
     private val articleLiveData = MutableLiveData<Int>()
 
     val articleData = Transformations.switchMap(articleLiveData) {
+        Log.e("ViewModel","articleLiveData:${articleLiveData.value}")
         MainRepository.articleList(it)
     }
 
