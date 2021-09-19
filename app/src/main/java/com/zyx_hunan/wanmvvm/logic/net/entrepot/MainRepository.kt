@@ -34,6 +34,24 @@ object MainRepository {
         emit(result)
     }
 
+    fun hotkey() = liveData(Dispatchers.IO) {
+        val result = try {
+            val hotKeyBean: HotKeyListBean = WanNet.hotkey()
+            if (hotKeyBean.errorCode == 0) {
+                val data = hotKeyBean.data
+                Log.i("test", data.toString())
+                Result.success(data)
+            } else {
+                Result.failure(RuntimeException("response errorCode is${hotKeyBean.errorCode}"))
+            }
+        } catch (e: Exception) {
+            Log.e("test", e.message + e.toString())
+            Result.failure<List<HotKeyListBean>>(e)
+        }
+        emit(result)
+    }
+
+
     fun bannerList(num: Int) =
         liveData(Dispatchers.IO) {
             if (num != 0) {

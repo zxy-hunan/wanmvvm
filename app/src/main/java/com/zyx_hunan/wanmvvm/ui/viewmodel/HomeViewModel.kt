@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.zyx_hunan.wanmvvm.logic.model.HotKeyListBean
 import com.zyx_hunan.wanmvvm.logic.net.entrepot.MainRepository
 
 /**
@@ -36,4 +37,10 @@ class HomeViewModel : ViewModel() {
     } else {
         articleLiveData.value = articleLiveData.value?.plus(1)
     }
+
+    //搜索热词
+    val hotKeyData = Transformations.switchMap(articleLiveData) {
+        MainRepository.hotkey()
+    }
+
 }

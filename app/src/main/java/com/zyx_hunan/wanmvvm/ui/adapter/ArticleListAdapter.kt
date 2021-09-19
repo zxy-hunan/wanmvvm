@@ -2,9 +2,11 @@ package com.zyx_hunan.wanmvvm.ui.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.opengl.Visibility
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.youth.banner.Banner
 import com.youth.banner.indicator.RoundLinesIndicator
@@ -47,31 +49,28 @@ class ArticleListAdapter(private val ctx: Context, val list: List<Articledata>?)
     override fun bindData(holder: RecyclerViewHolder?, position: Int, articledata: Articledata) {
         Log.e("test", "bindData:vType,$vType;position,$position;item,$articledata;")
         if (vType == 1) {
-            var item = list?.get(position - 1)
+            var item: Articledata? = null
+            if (position != 0) {
+                item = list?.get(position - 1)
+            }
             item?.run {
                 holder?.let {
-                    val itemView =
-                        it?.getView(R.id.QMUICommonListItemView) as QMUICommonListItemView
-                    itemView.run {
-                        textView.textSize = 16F
-                        textView.letterSpacing = 0.05F
-                        text = item.title
-                        accessoryType = QMUICommonListItemView.ACCESSORY_TYPE_NONE
-                        setTipPosition(QMUICommonListItemView.TIP_POSITION_RIGHT)
-                        Log.e("test", "item.fresh=" + item.fresh)
-                        showRedDot(item.fresh)
-                    }
+                    val freshText = it?.getView(R.id.textView2) as TextView
                     with(it) {
+                        if (item.fresh) freshText.visibility =
+                            View.VISIBLE else freshText.visibility = View.GONE
+
                         var authour = if (item.shareUser.isNull()) item.author else item.shareUser
+                        setText(R.id.QMUICommonListItemView, item.title)
                         setText(R.id.textView3, authour)
                         setText(R.id.textView4, item.publishTime.convertDate())
                         setText(R.id.textView5, "${item.superChapterName} / ${item.chapterName}")
                         setOnItemClickListener(object : OnItemClickListener {
                             override fun onItemClick(itemView: View?, pos: Int) {
                                 val intent = Intent(ctx, ArticleItemAcy::class.java)
-                                intent.putExtra("url", list?.get(pos-1)?.link)
-                                intent.putExtra("title", list?.get(pos-1)?.title)
-                                intent.putExtra("collect", list?.get(pos-1)?.collect)
+                                intent.putExtra("url", list?.get(pos - 1)?.link)
+                                intent.putExtra("title", list?.get(pos - 1)?.title)
+                                intent.putExtra("collect", list?.get(pos - 1)?.collect)
                                 ctx.startActivity(intent)
                             }
                         })

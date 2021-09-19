@@ -2,24 +2,39 @@ package com.zyx_hunan.wanmvvm.ui.view
 
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.LayoutInflater
+import android.widget.ListView
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.ViewModelProvider
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
-import com.qmuiteam.qmui.widget.tab.QMUIBasicTabSegment
 import com.qmuiteam.qmui.widget.tab.QMUITabBuilder
 import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.databinding.ActivityMainBinding
+import com.zyx_hunan.wanmvvm.logic.model.HotKeyBean
+import com.zyx_hunan.wanmvvm.ui.adapter.HotKeyAdapter
 import com.zyx_hunan.wanmvvm.ui.view.fragment.*
+import com.zyx_hunan.wanmvvm.ui.viewmodel.HomeViewModel
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var pagerMap: MutableMap<Int, Fragment>? = null
-    private var checkedIndex=0
-    private var tabNames= mutableMapOf(0 to "首页",1 to "体系",2 to "问答",3 to "公众号",4 to "我的")
-
+    private val viewModel by lazy { ViewModelProvider(this).get(HomeViewModel::class.java) }
+    private var checkedIndex = 0
+    private var tabNames = mutableMapOf(0 to "首页", 1 to "体系", 2 to "问答", 3 to "公众号", 4 to "我的")
+    private var hotKeyView: TextView? = null
+    private var search: RelativeLayout? = null
+    private var listItemHeight = 0
+    private val mHandler = Handler(Looper.getMainLooper())
+    private lateinit var list: List<HotKeyBean>
+    var index = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,27 +42,46 @@ class MainActivity : AppCompatActivity(){
         initTabs()
         initPagers()
         setContentView(binding.root)
-        binding.topbar.setTitle(tabNames[checkedIndex]).setTextColor(resources.getColor(R.color.white))
-        binding.tabs.addOnTabSelectedListener(object :QMUIBasicTabSegment.OnTabSelectedListener{
-            //被选中
-            override fun onTabSelected(index: Int) {
-                binding.topbar.setTitle(tabNames[index])
-            }
 
-            //被取消
-            override fun onTabUnselected(index: Int) {
-            }
+        val view = LayoutInflater.from(this).inflate(R.layout.searchlayout, null, false)
+        hotKeyView = view.findViewById<TextView>(R.id.hot_key)
+        search = view.findViewById<RelativeLayout>(R.id.search)
+        binding.topbar.addView(view)
 
-            //选中状态下再次被选中
-            override fun onTabReselected(index: Int) {
+        viewModel.hotKeyData.observe(this, {
+            if (it.isSuccess) {
+                it.getOrNull()?.let {
+                    list = it as List<HotKeyBean>
+                    list?.let { hotKeyView?.setText(list[0].name)
+                    mHandler.postDelayed(task, 1000) }
+                }
             }
-
-            //双击时
-            override fun onDoubleTap(index: Int) {
-            }
-
         })
+        viewModel.articleList()
     }
+
+    private val task: Runnable = object : Runnable {
+        override fun run() {
+            if (index > list.size - 1 || index < 0) {
+                index = 0
+            }
+            if (index == list.size - 1) {
+                index--
+            } else if (index == 0) {
+                index++
+            } else if (index != list.size - 1 && index != 0) {
+                val random = (0..1).random()
+                if (random == 0) {
+                    index ++
+                } else {
+                    index --
+                }
+            }
+            hotKeyView?.setText(list[index].name)
+            mHandler.postDelayed(this, 3 * 1000) //延迟5秒,再次执行task本身,实现了5s一次的循环效果
+        }
+    }
+
 
     class PagerAdapter(fm: FragmentManager, private val pagerMap: MutableMap<Int, Fragment>) :
         FragmentPagerAdapter(fm) {
@@ -55,14 +89,19 @@ class MainActivity : AppCompatActivity(){
         override fun getItem(position: Int): Fragment = pagerMap.get(position)!!
     }
 
-
     private fun initPagers() {
-        val homeFragment = HomeFragment()
+        val homeFragment = MainHomeFragment()
         val knowledgeFragment = KnowledgeFragment()
         val questionFragment = QuestionFragment()
         val wechatFragment = WechatFragment()
         val mineFragment = MineFragment()
-        pagerMap = mutableMapOf(0 to homeFragment, 1 to knowledgeFragment, 2 to questionFragment, 3 to wechatFragment, 4 to mineFragment)
+        pagerMap = mutableMapOf(
+            0 to homeFragment,
+            1 to knowledgeFragment,
+            2 to questionFragment,
+            3 to wechatFragment,
+            4 to mineFragment
+        )
         binding.pager.adapter = PagerAdapter(
             supportFragmentManager,
             pagerMap!!

@@ -23,3 +23,14 @@ data class Bannerdata(
     val type: Int,
     val url: String
 )
+
+
+data class HotKeyListBean(val data: List<HotKeyBean>, val errorCode: Int, val errorMsg: String)
+
+data class HotKeyBean(
+    val id: String = "",
+    val link: String = "",
+    val name: String = "",
+    val order: String = "",
+    val visible: String = ""
+)

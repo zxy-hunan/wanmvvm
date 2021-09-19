@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
-import com.zyx_hunan.baseview.BaseFragment
 import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.WanApplication
 import com.zyx_hunan.wanmvvm.databinding.FragmentMineBinding

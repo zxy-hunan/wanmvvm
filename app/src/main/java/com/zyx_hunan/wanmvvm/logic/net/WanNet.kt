@@ -35,6 +35,9 @@ object WanNet {
 
     suspend fun wendaList(page:Int) = netService.wendaList(page).await()
 
+    suspend fun hotkey() = netService.hotkey().await()
+
+
 
     private suspend fun <T> Call<T>.await(): T {
         return suspendCoroutine {

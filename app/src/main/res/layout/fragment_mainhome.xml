@@ -1,0 +1,24 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/qmui_config_color_white"
+    android:orientation="vertical">
+
+    <com.qmuiteam.qmui.widget.tab.QMUITabSegment
+        android:id="@+id/tabSegment"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/qmui_config_color_white"
+        app:qmui_bottomDividerColor="?attr/qmui_skin_support_color_separator"
+        app:qmui_bottomDividerHeight="1px" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/contentViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fitsSystemWindows="true" />
+
+</LinearLayout>

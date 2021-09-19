@@ -57,6 +57,8 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
             }
         })
 
+
+
         binding.pullLayout.setActionListener {
             pullAction = it
             if (it.pullEdge == QMUIPullLayout.PULL_EDGE_TOP) {

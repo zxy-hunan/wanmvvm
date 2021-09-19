@@ -43,5 +43,9 @@ interface NetService {
     @POST("/lg/collect/{id}/json")
     fun collectArticle(@Path("id") id: Int):Call<QuestionListModel>
 
+    @GET("hotkey/json")
+    fun hotkey():Call<HotKeyListBean>
+
+
 
 }
