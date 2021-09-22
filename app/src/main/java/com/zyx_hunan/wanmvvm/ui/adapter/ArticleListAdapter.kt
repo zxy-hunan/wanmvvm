@@ -19,6 +19,7 @@ import com.zyx_hunan.wanmvvm.logic.model.Bannerdata
 import com.zyx_hunan.wanmvvm.logic.model.Data
 import com.zyx_hunan.wanmvvm.logic.net.DataType
 import com.zyx_hunan.wanmvvm.ui.view.ArticleItemAcy
+import com.zyx_hunan.wanmvvm.ui.view.acy.VideoListActivity
 
 /**
  *
@@ -116,7 +117,8 @@ class ArticleListAdapter(private val ctx: Context, val list: List<AllData>?) :
                         intent.putExtra("collect", it.collect)
                         ctx.startActivity(intent)
                     }else if (it.type == DataType.OPENVIDEO){
-
+                        val intent = Intent(ctx, VideoListActivity::class.java)
+                        ctx.startActivity(intent)
                     }else{
 
                     }

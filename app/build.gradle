@@ -12,7 +12,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-rc01"
-    
+
     implementation project(':baseutil')
     implementation project(':baseview')
 
@@ -38,11 +38,18 @@ dependencies {
 
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
 
+    implementation 'net.butterflytv.utils:rtmp-client:3.1.0'
+
+    implementation 'com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer:v8.1.6-jitpack'
+
 }
 
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
+    //避免编译不能用于在编译类路径中发现的注解处理器，因为它们中的任何更改都需要运行注解处理任务
+    kapt.includeCompileClasspath = false
+
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
@@ -53,9 +60,12 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi', 'armeabi-v7a', 'x86'
+        }
     }
 
     buildTypes {
@@ -71,7 +81,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
 
     viewBinding {
         enabled = true
