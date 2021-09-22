@@ -17,7 +17,7 @@ import kotlin.coroutines.suspendCoroutine
  *@time 2021,2021/7/20 0020,下午 4:06
  */
 object WanNet {
-    private val netService = ServiceCreator.create<NetService>()
+    private val netService = ServiceCreator.create<NetService>(Constant.WANANDROID_BASEURL)
 
     suspend fun register(map: Map<String,String>) = netService.register(map).await()
 

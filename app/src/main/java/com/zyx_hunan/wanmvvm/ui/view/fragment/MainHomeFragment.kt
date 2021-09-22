@@ -23,11 +23,11 @@ class MainHomeFragment: BaseFragment<FragmentMainhomeBinding>() {
     private var pagerMap: MutableMap<Int, Fragment>? = null
     private var tabNames = mutableMapOf(0 to "推荐", 1 to "体系", 2 to "问答", 3 to "公众号")
     override fun requestData() {
+        initPagers()
     }
 
     override fun onResume() {
         super.onResume()
-        initPagers()
     }
 
 

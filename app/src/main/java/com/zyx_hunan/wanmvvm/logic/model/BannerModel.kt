@@ -1,7 +1,5 @@
 package com.zyx_hunan.wanmvvm.logic.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 
 /**
  *

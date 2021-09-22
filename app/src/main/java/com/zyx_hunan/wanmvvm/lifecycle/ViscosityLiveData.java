@@ -3,6 +3,7 @@ package com.zyx_hunan.wanmvvm.lifecycle;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +16,7 @@ import java.util.Map;
  * @author Administrator
  * @time 2021, 2021-09-01,下午 4:29
  */
-public abstract class ViscosityLiveData<T> extends LiveData<T> {
+public class ViscosityLiveData<T> extends MutableLiveData<T> {
 
     @Override
     public void observe(@NonNull @NotNull LifecycleOwner owner, @NonNull @NotNull Observer<? super T> observer) {

@@ -2,8 +2,9 @@ package com.zyx_hunan.wanmvvm.logic.net.entrepot
 
 import android.util.Log
 import androidx.lifecycle.liveData
-import com.zyx_hunan.wanmvvm.logic.Repository
 import com.zyx_hunan.wanmvvm.logic.model.*
+import com.zyx_hunan.wanmvvm.logic.net.DataType
+import com.zyx_hunan.wanmvvm.logic.net.OpenNet
 import com.zyx_hunan.wanmvvm.logic.net.WanNet
 import kotlinx.coroutines.Dispatchers
 import java.lang.Exception
@@ -21,9 +22,17 @@ object MainRepository {
         val result = try {
             val articleModel: ArticleModel = WanNet.articleList(page)
             if (articleModel.errorCode == 0) {
+                val allData= mutableListOf<AllData>()
                 val data = articleModel.data.articleList
-                Log.i("test", data.toString())
-                Result.success(data)
+                for (aData:Articledata in data){
+                    val tidyData=AllData(DataType.WANARTICLE,aData.author
+                    ,aData.chapterName,aData.collect,aData.fresh,aData.id,aData.link
+                    ,aData.publishTime,aData.shareUser,aData.superChapterName,aData.title,null,null,null,null)
+                    allData.add(tidyData)
+                }
+
+                Log.i("test", allData.toString())
+                Result.success(allData)
             } else {
                 Result.failure(RuntimeException("response errorCode is${articleModel.errorCode}"))
             }
@@ -72,6 +81,8 @@ object MainRepository {
             }
             emit(result)
         }
+
+    suspend fun openTabFeed() = OpenNet.openTabFeed()
 
 
 }

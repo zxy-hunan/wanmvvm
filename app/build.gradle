@@ -43,7 +43,10 @@ dependencies {
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
-
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
     defaultConfig {
         applicationId "com.zyx_hunan.wanmvvm"
         minSdkVersion 21
@@ -68,6 +71,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
 
     viewBinding {
         enabled = true
