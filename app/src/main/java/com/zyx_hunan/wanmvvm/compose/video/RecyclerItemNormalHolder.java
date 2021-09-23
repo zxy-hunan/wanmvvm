@@ -3,6 +3,7 @@ package com.zyx_hunan.wanmvvm.compose.video;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
@@ -27,12 +28,17 @@ public class RecyclerItemNormalHolder extends RecyclerItemBaseHolder {
 
     ImageView imageView;
 
+    TextView textitle, textdesc;
+
     GSYVideoOptionBuilder gsyVideoOptionBuilder;
 
     public RecyclerItemNormalHolder(Context context, View v) {
         super(v);
         this.context = context;
         gsyVideoPlayer = v.findViewById(R.id.video_item_player);
+
+        textitle = v.findViewById(R.id.textView7);
+        textdesc = v.findViewById(R.id.textView8);
         imageView = new ImageView(context);
         gsyVideoOptionBuilder = new GSYVideoOptionBuilder();
     }
@@ -41,14 +47,11 @@ public class RecyclerItemNormalHolder extends RecyclerItemBaseHolder {
 
         String url;
         String title;
-        if (position % 2 == 0) {
-            url = "https://pointshow.oss-cn-hangzhou.aliyuncs.com/McTk51586843620689.mp4";
-            title = "这是title";
-        } else {
-            url = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
-            title = "哦？Title？";
-        }
+        url = videoModel.getPlayUrl();
+        title = videoModel.getTitle();
 
+        textitle.setText(title);
+        textdesc.setText(videoModel.getDescription());
 
         Map<String, String> header = new HashMap<>();
         header.put("ee", "33");
@@ -56,43 +59,43 @@ public class RecyclerItemNormalHolder extends RecyclerItemBaseHolder {
         //防止错位，离开释放
         //gsyVideoPlayer.initUIState();
         gsyVideoOptionBuilder
-            .setIsTouchWiget(false)
-            //.setThumbImageView(imageView)
-            .setUrl(url)
-            .setVideoTitle(title)
-            .setCacheWithPlay(false)
-            .setRotateViewAuto(true)
-            .setLockLand(true)
-            .setPlayTag(TAG)
-            .setMapHeadData(header)
-            .setShowFullAnimation(true)
-            .setNeedLockFull(true)
-            .setPlayPosition(position)
-            .setVideoAllCallBack(new GSYSampleCallBack() {
-                @Override
-                public void onPrepared(String url, Object... objects) {
-                    super.onPrepared(url, objects);
-                    if (!gsyVideoPlayer.isIfCurrentIsFullscreen()) {
-                        //静音
+                .setIsTouchWiget(false)
+                .setThumbImageView(imageView)
+                .setUrl(url)
+                .setVideoTitle(title)
+                .setCacheWithPlay(false)
+                .setRotateViewAuto(true)
+                .setLockLand(true)
+                .setPlayTag(TAG)
+                .setMapHeadData(header)
+                .setShowFullAnimation(true)
+                .setNeedLockFull(true)
+                .setPlayPosition(position)
+                .setVideoAllCallBack(new GSYSampleCallBack() {
+                    @Override
+                    public void onPrepared(String url, Object... objects) {
+                        super.onPrepared(url, objects);
+                        if (!gsyVideoPlayer.isIfCurrentIsFullscreen()) {
+                            //静音
+                            GSYVideoManager.instance().setNeedMute(false);
+                        }
+
+                    }
+
+                    @Override
+                    public void onQuitFullscreen(String url, Object... objects) {
+                        super.onQuitFullscreen(url, objects);
+                        //全屏不静音
                         GSYVideoManager.instance().setNeedMute(true);
                     }
 
-                }
-
-                @Override
-                public void onQuitFullscreen(String url, Object... objects) {
-                    super.onQuitFullscreen(url, objects);
-                    //全屏不静音
-                    GSYVideoManager.instance().setNeedMute(true);
-                }
-
-                @Override
-                public void onEnterFullscreen(String url, Object... objects) {
-                    super.onEnterFullscreen(url, objects);
-                    GSYVideoManager.instance().setNeedMute(false);
-                    gsyVideoPlayer.getCurrentPlayer().getTitleTextView().setText((String) objects[0]);
-                }
-            }).build(gsyVideoPlayer);
+                    @Override
+                    public void onEnterFullscreen(String url, Object... objects) {
+                        super.onEnterFullscreen(url, objects);
+                        GSYVideoManager.instance().setNeedMute(false);
+                        gsyVideoPlayer.getCurrentPlayer().getTitleTextView().setText((String) objects[0]);
+                    }
+                }).build(gsyVideoPlayer);
 
 
         //增加title
@@ -108,7 +111,7 @@ public class RecyclerItemNormalHolder extends RecyclerItemBaseHolder {
                 resolveFullBtn(gsyVideoPlayer);
             }
         });
-        gsyVideoPlayer.loadCoverImageBy(R.mipmap.xxx2, R.mipmap.xxx2);
+//        gsyVideoPlayer.loadCoverImageBy(R.mipmap.xxx2, R.mipmap.xxx2);
     }
 
     /**

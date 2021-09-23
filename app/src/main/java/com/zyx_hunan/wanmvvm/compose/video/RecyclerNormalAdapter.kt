@@ -11,7 +11,7 @@ import com.zyx_hunan.wanmvvm.R
  * @author: ZXY
  * @date: 2021/9/22
  */
-class RecyclerNormalAdapter(var context: Context?,var itemDataList: List<VideoModel>?)
+class RecyclerNormalAdapter(var context: Context?,var itemDataList: MutableList<VideoModel>?)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -36,8 +36,8 @@ class RecyclerNormalAdapter(var context: Context?,var itemDataList: List<VideoMo
         return 1
     }
 
-    fun setListData(data: List<VideoModel>?) {
-        itemDataList = data
+    fun setListData(data: MutableList<VideoModel>?) {
+        itemDataList=data
         notifyDataSetChanged()
     }
 

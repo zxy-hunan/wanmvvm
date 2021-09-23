@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.zyx_hunan.wanmvvm.compose.video.SampleVideo
+        android:id="@+id/video_item_player"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="1dp"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="1dp"
+        android:layout_height="1dp"/>
+
+</FrameLayout>

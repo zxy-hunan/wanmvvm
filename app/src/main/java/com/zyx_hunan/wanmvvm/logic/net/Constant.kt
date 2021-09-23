@@ -8,6 +8,6 @@ object Constant {
 }
 
 enum class DataType{
-     //wanAndroid文章、开眼视频图片、开眼视频、开眼卡片
-     WANARTICLE,OPENPHOTO,OPENVIDEO,OPENCARD
+     //wanAndroid文章、开眼视频图片、开眼视频、开眼卡片、小视频
+     WANARTICLE,OPENPHOTO,OPENVIDEO,OPENCARD,OPENSVIDEO
 }

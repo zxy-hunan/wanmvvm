@@ -1,7 +1,9 @@
 package com.zyx_hunan.wanmvvm.logic.net.entrepot
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.liveData
+import com.zyx_hunan.wanmvvm.compose.video.VideoModel
 import com.zyx_hunan.wanmvvm.logic.model.*
 import com.zyx_hunan.wanmvvm.logic.net.DataType
 import com.zyx_hunan.wanmvvm.logic.net.OpenNet
@@ -22,12 +24,27 @@ object MainRepository {
         val result = try {
             val articleModel: ArticleModel = WanNet.articleList(page)
             if (articleModel.errorCode == 0) {
-                val allData= mutableListOf<AllData>()
+                val allData = mutableListOf<AllData>()
                 val data = articleModel.data.articleList
-                for (aData:Articledata in data){
-                    val tidyData=AllData(DataType.WANARTICLE,aData.author
-                    ,aData.chapterName,aData.collect,aData.fresh,aData.id,aData.link
-                    ,aData.publishTime,aData.shareUser,aData.superChapterName,aData.title,null,null,null,null)
+                for (aData: Articledata in data) {
+                    val tidyData = AllData(
+                        DataType.WANARTICLE,
+                        aData.author,
+                        aData.chapterName,
+                        aData.collect,
+                        aData.fresh,
+                        aData.id,
+                        aData.link,
+                        aData.publishTime,
+                        aData.shareUser,
+                        aData.superChapterName,
+                        aData.title,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    )
                     allData.add(tidyData)
                 }
 
@@ -84,5 +101,39 @@ object MainRepository {
 
     suspend fun openTabFeed() = OpenNet.openTabFeed()
 
+    suspend fun openTabFeed(date: Long,num: Long) = OpenNet.openTabFeed(date,num)
 
+
+
+    fun related(id: Long) =
+        liveData(Dispatchers.IO) {
+            val result = try {
+                val openFeedTab: OpenFeedTab = OpenNet.related(id)
+                if (openFeedTab.count.toLong() != 0) {
+                    val videoList= mutableListOf<VideoModel>()
+                    val data = openFeedTab.itemList
+                    data?.let {
+                        for (item in it) {
+                            if (item.data.id!=0) {
+                                var video = VideoModel(
+                                    item.data.id,
+                                    item.data.title,
+                                    item.data.description,
+                                    item.data.cover?.feed,
+                                    item.data.playUrl
+                                )
+                                videoList.add(video)
+                            }
+                        }
+                    }
+                    Result.success(videoList)
+                } else {
+                    Result.failure(RuntimeException("response errorCode is"))
+                }
+            } catch (e: Exception) {
+                Log.e("test", e.message + e.toString())
+                Result.failure<List<VideoModel>>(e)
+            }
+            emit(result)
+        }
 }

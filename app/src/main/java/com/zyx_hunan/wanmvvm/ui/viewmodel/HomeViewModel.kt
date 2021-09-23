@@ -9,6 +9,7 @@ import com.zyx_hunan.wanmvvm.lifecycle.ViscosityLiveData
 import com.zyx_hunan.wanmvvm.logic.model.BannerModel
 import com.zyx_hunan.wanmvvm.logic.model.HotKeyListBean
 import com.zyx_hunan.wanmvvm.logic.model.OpenFeedTab
+import com.zyx_hunan.wanmvvm.logic.net.OpenNet
 import com.zyx_hunan.wanmvvm.logic.net.WanNet
 import com.zyx_hunan.wanmvvm.logic.net.entrepot.MainRepository
 import kotlinx.coroutines.launch
@@ -22,6 +23,8 @@ import kotlinx.coroutines.launch
  *@time 2021,2021/7/24 0024,下午 2:00
  */
 class HomeViewModel : ViewModel() {
+     val date = MutableLiveData<Long>()
+     val num = MutableLiveData<Long>()
 
     private val articleLiveData = MutableLiveData<Int>()
 
@@ -29,7 +32,7 @@ class HomeViewModel : ViewModel() {
     val openFeedTabLiveData = ViscosityLiveData<OpenFeedTab>()
 
     val articleData = Transformations.switchMap(articleLiveData) {
-        Log.e("ViewModel","articleLiveData:${articleLiveData.value}")
+        Log.e("ViewModel", "articleLiveData:${articleLiveData.value}")
         MainRepository.articleList(it)
     }
 
@@ -45,6 +48,11 @@ class HomeViewModel : ViewModel() {
         articleLiveData.value = 0
     } else {
         articleLiveData.value = articleLiveData.value?.plus(1)
+        if (date.value != 0L && num.value != 0L) {
+            openTabFeed(date.value!!, num.value!!)
+        } else {
+
+        }
     }
 
     //搜索热词
@@ -52,11 +60,32 @@ class HomeViewModel : ViewModel() {
         MainRepository.hotkey()
     }
 
-    fun openTabFeed(){
-        viewModelScope.launch{
+    //开眼数据
+    fun openTabFeed() {
+        viewModelScope.launch {
             val openFeedTab: OpenFeedTab = MainRepository.openTabFeed()
             openFeedTabLiveData.postValue(openFeedTab)
         }
+    }
+
+    fun openTabFeed(date: Long, num: Long) {
+        viewModelScope.launch {
+            val openFeedTab: OpenFeedTab = MainRepository.openTabFeed(date, num)
+            openFeedTabLiveData.postValue(openFeedTab)
+        }
+    }
+
+
+    private val videoLiveData = MutableLiveData<Long>()
+
+
+    val videoData = Transformations.switchMap(videoLiveData) {
+        MainRepository.related(it)
+    }
+
+
+    fun videoList(id: Long = 0) {
+        videoLiveData.value = id
     }
 
 }

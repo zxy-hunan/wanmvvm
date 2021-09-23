@@ -23,6 +23,7 @@
         <activity android:name=".ui.view.ArticleItemAcy"/>
         <activity android:name=".ui.view.SettingAcy"/>
         <activity android:name=".ui.view.acy.VideoListActivity"/>
+        <activity android:name=".ui.view.acy.VideoPagerActivity"/>
     </application>
 
 </manifest>

@@ -3,6 +3,7 @@ package com.zyx_hunan.wanmvvm.logic.net
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Query
 import java.lang.RuntimeException
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -16,6 +17,12 @@ object OpenNet {
     private val netService = ServiceCreator.create<OpenService>(Constant.OPENEYE_BASEURL)
 
     suspend fun openTabFeed() = netService.openTabFeed().await()
+
+    suspend fun openTabFeed(date: Long,num: Long) = netService.openTabFeed().await()
+
+    suspend fun related(id:Long) = netService.related(id).await()
+
+
 
 
     private suspend fun <T> Call<T>.await(): T {

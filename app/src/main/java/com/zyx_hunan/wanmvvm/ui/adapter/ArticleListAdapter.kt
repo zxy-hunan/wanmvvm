@@ -6,6 +6,9 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.youth.banner.Banner
 import com.youth.banner.indicator.RoundLinesIndicator
@@ -14,6 +17,7 @@ import com.zyx_hunan.baseutil.expand.isNull
 import com.zyx_hunan.baseview.BaseRecyclerAdapter
 import com.zyx_hunan.baseview.RecyclerViewHolder
 import com.zyx_hunan.wanmvvm.R
+import com.zyx_hunan.wanmvvm.compose.video.VideoModel
 import com.zyx_hunan.wanmvvm.logic.model.AllData
 import com.zyx_hunan.wanmvvm.logic.model.Bannerdata
 import com.zyx_hunan.wanmvvm.logic.model.Data
@@ -42,7 +46,9 @@ class ArticleListAdapter(private val ctx: Context, val list: List<AllData>?) :
             R.layout.openvideolayout
         } else if (viewType == DataType.OPENPHOTO.hashCode()) {
             R.layout.banner_item
-        } else {
+        } else if (viewType == DataType.OPENSVIDEO.hashCode()) {
+            R.layout.svideo_item
+        }else{
             R.layout.openvideolayout
         }
     }
@@ -98,7 +104,20 @@ class ArticleListAdapter(private val ctx: Context, val list: List<AllData>?) :
                     }
                 }
             }
-        } else {
+        } else if (item.type == DataType.OPENSVIDEO) {
+            item?.run {
+                holder?.let {
+                    val recycle = it?.getView(R.id.svideorecycle) as RecyclerView
+                    with(it) {
+                        recycle.layoutManager = LinearLayoutManager(ctx).apply {
+                            this.orientation = LinearLayoutManager.HORIZONTAL
+                        }
+                        val adapter=SvideoListAdapter(ctx,item.urls,item.videos)
+                        recycle.adapter=adapter
+                    }
+                }
+            }
+        }else {
 
         }
 
@@ -116,10 +135,13 @@ class ArticleListAdapter(private val ctx: Context, val list: List<AllData>?) :
                         intent.putExtra("title", it.title)
                         intent.putExtra("collect", it.collect)
                         ctx.startActivity(intent)
-                    }else if (it.type == DataType.OPENVIDEO){
+                    } else if (it.type == DataType.OPENVIDEO) {
                         val intent = Intent(ctx, VideoListActivity::class.java)
+                        val video =
+                            VideoModel(it.id, it.title, it.description, it.homepage, it.playUrl)
+                        intent.putExtra("videotex", video)
                         ctx.startActivity(intent)
-                    }else{
+                    } else {
 
                     }
                 }
@@ -136,7 +158,9 @@ class ArticleListAdapter(private val ctx: Context, val list: List<AllData>?) :
             DataType.OPENVIDEO.hashCode()
         } else if (list?.get(position)?.type == DataType.OPENPHOTO) {
             DataType.OPENPHOTO.hashCode()
-        } else {
+        } else if (list?.get(position)?.type == DataType.OPENSVIDEO) {
+            DataType.OPENSVIDEO.hashCode()
+        }else{
             DataType.OPENCARD.hashCode()
         }
     }

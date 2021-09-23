@@ -25,51 +25,71 @@ import java.util.*
  *
  *@time 2021,2021/7/23 0023,下午 4:10
  */
-class HomeFragment: BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val viewModel by lazy { ViewModelProvider(this).get(HomeViewModel::class.java) }
     private val listArticleAll = mutableListOf<AllData>()
     private lateinit var adapter: ArticleListAdapter
-    private var pullAction: QMUIPullLayout.PullAction?=null
-    private var wanSuccess=false
-    private var openSuccess=false
-    private lateinit var wanData:List<AllData>
-    private lateinit var openData:List<AllData>
+    private var pullAction: QMUIPullLayout.PullAction? = null
+    private var wanSuccess = false//wanandroid
+    private var openSuccess = false//开眼
+    private var openVideoSuccess = false//小视频
+    private lateinit var wanData: List<AllData>
+    private lateinit var openData: List<AllData>
+    private lateinit var sVideoData: List<AllData>
+    private var sVideoId: Long = 0
 
     override fun requestData() {
         viewModel.articleList()
         viewModel.openTabFeed()
     }
 
-    private val mHandler=object : Handler(Looper.getMainLooper()){
+    private val mHandler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
-            when(msg.what){
-                DataType.WANARTICLE.hashCode()->{
-                    wanSuccess=true
-                    wanData=msg.obj as List<AllData>
+            when (msg.what) {
+                DataType.WANARTICLE.hashCode() -> {
+                    wanSuccess = true
+                    wanData = msg.obj as List<AllData>
                     this.sendEmptyMessage(0)
                 }
 
-                DataType.OPENPHOTO.hashCode()->{
-                    openSuccess=true
-                    openData=msg.obj as List<AllData>
+                DataType.OPENPHOTO.hashCode() -> {
+                    openSuccess = true
+                    openData = msg.obj as List<AllData>
+                    if (sVideoId.toInt() != 0) {
+                        viewModel.videoList(sVideoId)
+                    } else {
+                        openVideoSuccess = true
+                    }
                     this.sendEmptyMessage(0)
                 }
 
-                0->{
-                    if(wanSuccess&&openSuccess)
+                DataType.OPENSVIDEO.hashCode() -> {
+                    openVideoSuccess = true
+                    sVideoData = msg.obj as List<AllData>
+                    this.sendEmptyMessage(0)
+                }
+
+                0 -> {
+                    if (wanSuccess && openSuccess && openVideoSuccess)
 //                        if(wanSuccess)
-                    tidyData(wanData,openData)
+                        tidyData(wanData, openData, sVideoData)
                 }
             }
         }
     }
 
-    private fun tidyData(wanData:List<AllData>,openData:List<AllData>){
-        wanSuccess=false
-        openSuccess=false
+    private fun tidyData(
+        wanData: List<AllData>,
+        openData: List<AllData>,
+        sVideoData: List<AllData>
+    ) {
+        wanSuccess = false
+        openSuccess = false
+        openVideoSuccess = false
         val listTidyData = mutableListOf<AllData>()
         listTidyData.addAll(wanData)
         listTidyData.addAll(openData)
+        listTidyData.addAll(sVideoData)
         listTidyData.shuffle()
         listArticleAll.addAll(listTidyData)
         adapter.setData(listArticleAll)
@@ -87,44 +107,73 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
 
         //wanAndroid文章数据列表
         viewModel.articleData.observe(viewLifecycleOwner, Observer {
-            Log.e("test","openTab:wanandroid")
-                if (it.isSuccess) {
-                    it.getOrNull()?.let {
+            Log.e("test", "openTab:wanandroid")
+            if (it.isSuccess) {
+                it.getOrNull()?.let {
 //                        listArticleAll.addAll(it)
-                        mHandler.sendMessage(getMessage(DataType.WANARTICLE.hashCode(),it))
+                    mHandler.sendMessage(getMessage(DataType.WANARTICLE.hashCode(), it))
 
-                        pullAction?.let {
-                            binding.pullLayout.finishActionRun(it)
-                        }
+                    pullAction?.let {
+                        binding.pullLayout.finishActionRun(it)
                     }
                 }
+            }
         })
 
         //banner
- /*       viewModel.bannerData.observe(this, Observer { it ->
-            if (it.isSuccess) {
-                it.getOrNull()?.let {
-                    adapter.setBannerData(it as List<Bannerdata>)
-                }
-            }
-        })*/
-
+        /*       viewModel.bannerData.observe(this, Observer { it ->
+                   if (it.isSuccess) {
+                       it.getOrNull()?.let {
+                           adapter.setBannerData(it as List<Bannerdata>)
+                       }
+                   }
+               })*/
 
 
         //开眼数据列表
         viewModel.openFeedTabLiveData.observe(viewLifecycleOwner, Observer {
-            Log.e("test","openTab:${it.nextPageUrl}")
-            var openDataList=mutableListOf<AllData>()
+            Log.e("test", "openTab:${it.nextPageUrl}")
+            var openDataList = mutableListOf<AllData>()
             it?.let {
-                for (item in it.itemList){
+                var nextPage=it.nextPageUrl
+                if (nextPage.isNullOrEmpty()){
+                    viewModel.date.postValue(0)
+                    viewModel.num.postValue(0)
+                }else{
+                    var date=nextPage.substring(nextPage.indexOf("date=")+5,nextPage.indexOf("&"))
+                    var num=nextPage.substring(nextPage.indexOf("&num=")+5,nextPage.length)
+                    viewModel.date.postValue(date?.toLong())
+                    viewModel.num.postValue(num?.toLong())
+                }
+
+                for (item in it.itemList) {
                     item.data.content?.data?.let {
-                        var openData:AllData?=null
-                        if (it.dataType=="VideoBeanForClient"){
-                            openData= AllData(DataType.OPENVIDEO,it.id,it.title,it.description
-                            ,it.playUrl,it.url,it.urls,it.cover?.feed)
-                        }else if (it.dataType=="UgcPictureBean"){
-                            openData= AllData(DataType.OPENPHOTO,it.id,it.title,it.description
-                                ,it.playUrl,it.url,it.urls,it.cover?.feed)
+                        var openData: AllData? = null
+                        if (it.dataType == "VideoBeanForClient") {
+                            if (it.id.toInt() != 0) {
+                                sVideoId = it.id
+                            }
+                            openData = AllData(
+                                DataType.OPENVIDEO,
+                                it.id,
+                                it.title,
+                                it.description,
+                                it.playUrl,
+                                it.url,
+                                it.urls,
+                                it.cover?.feed
+                            )
+                        } else if (it.dataType == "UgcPictureBean") {
+                            openData = AllData(
+                                DataType.OPENPHOTO,
+                                it.id,
+                                it.title,
+                                it.description,
+                                it.playUrl,
+                                it.url,
+                                it.urls,
+                                it.cover?.feed
+                            )
                         }
                         /*else{
                             openData= AllData(DataType.OPENCARD,it.id,it.title,it.description
@@ -136,7 +185,29 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
                     }
                 }
             }
-            mHandler.sendMessage(getMessage(DataType.OPENPHOTO.hashCode(),openDataList))
+            mHandler.sendMessage(getMessage(DataType.OPENPHOTO.hashCode(), openDataList))
+        })
+
+
+        //小视频数据
+        viewModel.videoData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            if (it.isSuccess) {
+                it.getOrNull()?.let {
+                    var sVideoList = mutableListOf<AllData>()
+                    var urls = mutableListOf<String>()
+                    for (item in it) {
+                        if (item.id?.toInt() != 0) {
+                            item.playUrl?.let { urls.add(item.playUrl + "*>" + item.feed + "<*" + item.title) }
+                        }
+                    }
+                    var openData = AllData(
+                        DataType.OPENSVIDEO,
+                        urls, it
+                    )
+                    sVideoList.add(openData)
+                    mHandler.sendMessage(getMessage(DataType.OPENSVIDEO.hashCode(), sVideoList))
+                }
+            }
         })
 
 
@@ -152,10 +223,10 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
     }
 
 
-    private fun getMessage(dataType:Int, any: Any):Message{
-        var msg=Message.obtain()
-        msg.what=dataType
-        msg.obj=any
+    private fun getMessage(dataType: Int, any: Any): Message {
+        var msg = Message.obtain()
+        msg.what = dataType
+        msg.obj = any
         return msg
     }
 }

@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:text="TextView"
         android:textSize="16sp"
         android:textColor="@color/white"
@@ -32,7 +32,7 @@
     <com.zyx_hunan.wanmvvm.compose.video.SampleVideo
         android:id="@+id/video_item_player"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="300dp"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="3dp"
         app:layout_constraintBottom_toTopOf="@+id/divider"

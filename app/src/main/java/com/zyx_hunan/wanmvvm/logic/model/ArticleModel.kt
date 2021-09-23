@@ -2,6 +2,7 @@ package com.zyx_hunan.wanmvvm.logic.model
 
 import com.google.gson.annotations.SerializedName
 import com.zyx_hunan.baseutil.expand.isNull
+import com.zyx_hunan.wanmvvm.compose.video.VideoModel
 import com.zyx_hunan.wanmvvm.logic.net.DataType
 
 /**
@@ -27,7 +28,8 @@ data class AllData(
     val title: String?,
     val description: String?, val playUrl: String?,
     val urls: List<String>?,
-    val homepage: String?
+    val homepage: String?,
+    val videos:List<VideoModel>?
 ) {
     constructor(
         type: DataType?,
@@ -38,12 +40,21 @@ data class AllData(
         urls: List<String>?,homepage: String?
     ) : this(
         type, "", "", false, false, id,
-        url, 0, "", "", title, description, playUrl, urls,homepage
+        url, 0, "", "", title, description, playUrl, urls,homepage,null
     ){
         if (url.isNullOrEmpty()){
             link=homepage
         }
     }
+
+    constructor(
+        type: DataType?,
+        urls: List<String>?,
+        videos:List<VideoModel>?
+    ) : this(
+        type, "", "", false, false, 0L,
+        "", 0, "", "", "", "", "", urls,"",videos
+    )
 }
 
 
@@ -135,6 +146,13 @@ data class OpenFeedTabItemData(
 //    val header: OpenFeedTabItemDataHeader?,
     val content: OpenFeedTabItemDataContent?,
 //    val adTrack: String?
+    val id: Long,
+    val title: String?,
+    val description: String?,
+    val cover: OpenFeedTabItemDataContentDataCover?,
+    val playUrl: String,
+    val url: String?,
+    val urls: List<String>?
 )
 
 data class OpenFeedTabItemDataHeader(
