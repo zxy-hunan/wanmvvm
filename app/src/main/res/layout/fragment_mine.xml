@@ -6,17 +6,32 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rel_login"
         android:layout_width="match_parent"
         android:padding="5dp"
         android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/imagehead"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="5dp"
+            android:src="@mipmap/ic_icon"/>
 
         <TextView
             android:id="@+id/textlogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="去登陆"
+            android:text="登陆/注册"
             android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/imagehead"
+            android:layout_centerInParent="true"
             android:textColor="@color/black"/>
+
     </RelativeLayout>
 
     <ScrollView

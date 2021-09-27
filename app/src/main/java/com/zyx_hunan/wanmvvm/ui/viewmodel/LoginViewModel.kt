@@ -1,9 +1,12 @@
 package com.zyx_hunan.wanmvvm.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import cn.jpush.im.android.api.JMessageClient
+import cn.jpush.im.api.BasicCallback
 import com.zyx_hunan.wanmvvm.WanApplication
 import com.zyx_hunan.wanmvvm.logic.Repository
 import com.zyx_hunan.wanmvvm.logic.database.AppDataBase
@@ -21,6 +24,7 @@ class LoginViewModel : ViewModel() {
     private val loginLiveData = MutableLiveData<Map<String, String>>()
     private val userLiveData = MutableLiveData<String>()
     private val userLocalData = MutableLiveData<List<Regdata>>()
+    val imData = MutableLiveData<Int>()
 
     val liveData = Transformations.switchMap(loginLiveData) {
         Repository.login(it)
@@ -41,5 +45,16 @@ class LoginViewModel : ViewModel() {
 
     fun findLocal(type: Int = 0) =
         if (type != 1) userLiveData.value = "1" else userLocalData.value=null
+
+    fun loginIm(name: String, pwd: String) {
+        JMessageClient.login(name,pwd,object : BasicCallback(){
+            override fun gotResult(p0: Int, p1: String?) {
+                Log.e("im","login,p0:${p0},p1:${p1}")
+                if (p0==0){
+                    imData.postValue(p0)
+                }
+            }
+        })
+    }
 
 }

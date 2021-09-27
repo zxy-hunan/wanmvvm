@@ -16,7 +16,7 @@ import java.util.*
  *
  *@time 2021,2021/7/24 0024,下午 2:23
  */
-abstract class BaseRecyclerAdapter<T>(ctx: Context, list:List<T>?) :
+abstract class BaseRecyclerAdapter<T>(ctx: Context, list: List<T>?) :
     RecyclerView.Adapter<RecyclerViewHolder?>() {
     private val mData: MutableList<T> = ArrayList()
     private val mContext: Context
@@ -26,7 +26,8 @@ abstract class BaseRecyclerAdapter<T>(ctx: Context, list:List<T>?) :
     fun setData(list: List<T>?) {
         mData.clear()
         list?.let {
-            mData.addAll(it) }
+            mData.addAll(it)
+        }
         notifyDataSetChanged()
     }
 
@@ -40,6 +41,11 @@ abstract class BaseRecyclerAdapter<T>(ctx: Context, list:List<T>?) :
             mContext,
             mInflater.inflate(getItemLayoutId(viewType), parent, false)
         )
+        return holder
+    }
+
+    override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
+        bindData(holder, position, mData[position])
         if (mClickListener != null) {
             holder.itemView.setOnClickListener(View.OnClickListener {
                 mClickListener!!.onItemClick(
@@ -54,11 +60,6 @@ abstract class BaseRecyclerAdapter<T>(ctx: Context, list:List<T>?) :
                 true
             })
         }
-        return holder
-    }
-
-    override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
-        bindData(holder, position, mData[position])
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -113,7 +114,8 @@ abstract class BaseRecyclerAdapter<T>(ctx: Context, list:List<T>?) :
 
     init {
         list?.let {
-            mData.addAll(it) }
+            mData.addAll(it)
+        }
         mContext = ctx
         mInflater = LayoutInflater.from(ctx)
     }

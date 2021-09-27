@@ -1,7 +1,9 @@
 package com.zyx_hunan.baseview
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import java.lang.reflect.ParameterizedType
@@ -16,6 +18,7 @@ import java.lang.reflect.ParameterizedType
  */
 
 open class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
+    open  var mHandler: Handler?=null
     lateinit var binding: VB
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +30,27 @@ open class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
             setContentView(binding.root)
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mHandler?.let { it.removeCallbacks(task) }
+    }
+    var ouTime = 3
+    val task: Runnable = object : Runnable {
+        override fun run() {
+            ouTime--
+
+            if (ouTime == 0) {
+                mHandler?.sendEmptyMessage(-1)
+                mHandler?.removeCallbacks(this)
+            } else {
+                mHandler?.postDelayed(this, 1000)
+            }
+
+        }
+    }
+
+
 }
 
 

@@ -41,6 +41,9 @@ class MineFragment : Fragment(),View.OnClickListener {
     }
 
     private fun createView() {
+        binding.relLogin.setOnClickListener {
+            startActivity(Intent(activity, LoginAcy::class.java))
+        }
         binding.textlogin.text="当前登录用户:  ${WanApplication.user?.username}"
         val height =
             QMUIResHelper.getAttrDimen(activity, com.qmuiteam.qmui.R.attr.qmui_list_item_height)
@@ -48,7 +51,7 @@ class MineFragment : Fragment(),View.OnClickListener {
         val item1: QMUICommonListItemView =
             binding.groupListView.createItemView(
                 ContextCompat.getDrawable(activity!!, R.mipmap.item_icony),
-                "收藏文章",
+                "收藏",
                 "",
                 QMUICommonListItemView.VERTICAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
@@ -57,36 +60,17 @@ class MineFragment : Fragment(),View.OnClickListener {
         val item2: QMUICommonListItemView =
             binding.groupListView.createItemView(
                 ContextCompat.getDrawable(activity!!, R.mipmap.item_icone),
-                "分享文章",
-                "",
-                QMUICommonListItemView.VERTICAL,
-                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                height
-            )
-        val item3: QMUICommonListItemView =
-            binding.groupListView.createItemView(
-                ContextCompat.getDrawable(activity!!, R.mipmap.item_icons),
-                "收藏网站",
-                "",
-                QMUICommonListItemView.VERTICAL,
-                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                height
-            )
-        val item4: QMUICommonListItemView =
-            binding.groupListView.createItemView(
-                ContextCompat.getDrawable(activity!!, R.mipmap.item_iconsi),
-                "分享项目",
+                "分享",
                 "",
                 QMUICommonListItemView.VERTICAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
                 height
             )
 
+
         QMUIGroupListView.newSection(activity).setTitle("个人中心")
             .addItemView(item1,this)
-            .addItemView(item2,this)
-            .addItemView(item3,this)
-            .addItemView(item4,this).addTo(binding.groupListView)
+            .addItemView(item2,this).addTo(binding.groupListView)
 
         val item5: QMUICommonListItemView =
             binding.groupListView.createItemView(

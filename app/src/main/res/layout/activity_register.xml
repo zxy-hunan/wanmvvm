@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".ui.view.MainActivity">
 
 
@@ -23,11 +25,12 @@
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginBottom="30dp"
-        android:ems="10"
         android:background="@drawable/et_shape"
+        android:ems="10"
         android:hint="请输入用户名"
         app:layout_constraintBottom_toTopOf="@+id/pwd"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -59,23 +62,55 @@
         app:layout_constraintTop_toBottomOf="@+id/pwd" />
 
 
-
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
         android:id="@+id/register"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="确认"
-        android:onClick="register"
         android:layout_gravity="center"
+        android:layout_marginTop="30dp"
         android:clickable="true"
         android:gravity="center"
+        android:onClick="register"
         android:padding="10dp"
+        android:text="确认"
         app:layout_constraintEnd_toEndOf="@+id/name"
-        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintStart_toStartOf="@+id/textView12"
         app:layout_constraintTop_toBottomOf="@+id/pwd2"
         app:qmui_radius="4dp"
         tools:ignore="MissingConstraints,OnClick" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户名:"
+        app:layout_constraintBottom_toBottomOf="@+id/name"
+        app:layout_constraintEnd_toStartOf="@+id/name"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/name" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="密码（默认8个1）:"
+        app:layout_constraintBottom_toBottomOf="@+id/pwd"
+        app:layout_constraintEnd_toStartOf="@+id/pwd"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/pwd" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="确认密码:"
+        app:layout_constraintBottom_toBottomOf="@+id/pwd2"
+        app:layout_constraintEnd_toStartOf="@+id/pwd2"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/pwd2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zyx_hunan.wanmvvm">
+    package="com.zyx_hunan.wanmvvm"
+    xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,19 +12,33 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.WanMvvm">
-        <activity android:name=".ui.view.MainActivity">
+        <activity android:name=".ui.view.acy.WelcomeWanAndroidAcy">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.view.MainActivity"/>
         <activity android:name=".ui.view.RegisterAcy"/>
         <activity android:name=".ui.view.LoginAcy"/>
         <activity android:name=".ui.view.ArticleItemAcy"/>
         <activity android:name=".ui.view.SettingAcy"/>
         <activity android:name=".ui.view.acy.VideoListActivity"/>
         <activity android:name=".ui.view.acy.VideoPagerActivity"/>
+        <activity android:name=".ui.view.acy.AddFriendAcy"/>
+        <activity android:name=".ui.view.acy.FriendDetailAcy"/>
+        <activity android:name=".ui.adapter.ImChatAcy"/>
+        <service android:name="cn.jpush.android.service.PushService"
+            android:process=":multiprocess"
+            tools:node="replace" />
+
+        <service android:name=".ui.service.ImService"
+            android:process=":pushcore">
+            <intent-filter>
+                <action android:name="cn.jiguang.user.service.action" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

@@ -1,5 +1,9 @@
 package com.zyx_hunan.wanmvvm.ui.view.fragment
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -23,11 +27,16 @@ class MainHomeFragment: BaseFragment<FragmentMainhomeBinding>() {
     private var pagerMap: MutableMap<Int, Fragment>? = null
     private var tabNames = mutableMapOf(0 to "推荐", 1 to "体系", 2 to "问答", 3 to "公众号")
     override fun requestData() {
-        initPagers()
+
     }
 
     override fun onResume() {
         super.onResume()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initPagers()
     }
 
 

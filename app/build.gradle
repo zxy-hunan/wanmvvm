@@ -42,6 +42,11 @@ dependencies {
 
     implementation 'com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer:v8.1.6-jitpack'
 
+    implementation 'cn.jiguang.sdk:jmessage:2.9.2'  // 此处以JMessage 2.9.2 版本为例。
+
+    implementation 'cn.jiguang.sdk:jcore:2.3.0'  // 此处以JCore 2.3.0 版本为例。
+
+
 }
 
 android {
@@ -63,9 +68,16 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
-            //设置支持的SO库架构
-            abiFilters 'armeabi', 'armeabi-v7a', 'x86'
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "d96241a0ef6d2eadfeb97e13", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "c97486ab4b7b3664da3a905e", //暂时填写默认值即可.
+        ]
     }
 
     buildTypes {

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:background="@color/btn_ghost_blue_border_normal"
+        android:fitsSystemWindows="true" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFEDEDED">
+
+        <RelativeLayout
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:alpha="0.7"
+            android:background="@drawable/et_shape">
+
+            <EditText
+                android:id="@+id/editnum"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="15dp"
+                android:layout_toEndOf="@id/iv_search"
+                android:background="@null"
+                android:hint="请输入搜索号码"
+                android:gravity="center|left" />
+
+            <ImageView
+                android:id="@+id/iv_search"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="15dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_search" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/search"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:text="我的号码:" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/search"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_toRightOf="@id/textView13"
+            android:text="111" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llsearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:padding="20dp">
+
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@mipmap/ic_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
+            android:text="搜索:"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/searchnum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="12345"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
