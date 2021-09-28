@@ -1,7 +1,12 @@
 package com.zyx_hunan.wanmvvm.ui.view.fragment
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +35,7 @@ class ImChatGroupFragment : BaseFragment<FragmentImchatGroupBinding>() {
         activity?.let {
             viewModel.contactList.observe(it, Observer {
                 it?.let {
+                    list.clear()
                     list.addAll(it)
                     adapter.setData(list)
                 }
@@ -49,10 +55,26 @@ class ImChatGroupFragment : BaseFragment<FragmentImchatGroupBinding>() {
 
     }
 
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser){
+            viewModel.getContactList()
+        }
+    }
 
     override fun onResume() {
         super.onResume()
+    }
 
+    val handler:Handler=object:Handler(Looper.getMainLooper()) {
+        override fun handleMessage(msg: Message) {
+        }
+    }
+
+    inner class UpdateFriendListReceiver() : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+           handler.sendEmptyMessage(0)
+        }
     }
 
 }

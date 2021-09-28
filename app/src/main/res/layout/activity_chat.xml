@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:background="#FFEDEDED">
 
     <com.qmuiteam.qmui.widget.QMUITopBarLayout
@@ -15,23 +15,12 @@
         android:fitsSystemWindows="true" />
 
 
-    <FrameLayout
-        android:layout_alignParentBottom="true"
-        android:id="@+id/frame_layout"
-        android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:background="@color/white">
-
-    </FrameLayout>
-
-
-
 
     <RelativeLayout
-        android:layout_above="@+id/frame_layout"
+        android:layout_alignParentBottom="true"
         android:id="@+id/rl_bottom"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
+        android:layout_height="50dp"
         android:background="@color/white">
 
 
@@ -44,17 +33,18 @@
             android:layout_height="20dp"/>
 
 
-        <TextView
-            android:paddingLeft="10dp"
+        <EditText
             android:id="@+id/et"
-            android:textCursorDrawable="@drawable/et_cursor"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="35dp"
             android:background="@drawable/et_bg"
-            android:layout_width="243dp"
-            android:layout_height="35dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/iv_emoji"
             android:padding="5dp"
-            />
+            android:paddingLeft="10dp"
+            android:textCursorDrawable="@drawable/et_cursor" />
 
         <EditText
             android:visibility="invisible"
@@ -90,13 +80,15 @@
 
         <TextView
             android:id="@+id/tv_send"
-            android:visibility="invisible"
+            android:visibility="gone"
             android:layout_centerVertical="true"
             android:layout_marginRight="7dp"
+            android:layout_marginLeft="@dimen/dp_10"
             android:layout_alignParentRight="true"
             android:background="@color/btn_ghost_blue_border_normal"
             android:layout_width="40dp"
             android:layout_height="21dp"
+            android:onClick="sendTextMessage"
             android:textSize="13dp"
             android:gravity="center"
             android:text="发送"

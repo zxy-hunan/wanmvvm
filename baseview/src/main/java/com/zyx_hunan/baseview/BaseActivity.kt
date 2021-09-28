@@ -1,12 +1,16 @@
 package com.zyx_hunan.baseview
 
+import android.content.BroadcastReceiver
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.viewbinding.ViewBinding
 import java.lang.reflect.ParameterizedType
+
 
 /**
  *
@@ -18,7 +22,8 @@ import java.lang.reflect.ParameterizedType
  */
 
 open class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
-    open  var mHandler: Handler?=null
+    private val UPDATEBROADCAST="com.zxy_hunan.wan"
+    open var mHandler: Handler? = null
     lateinit var binding: VB
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +40,7 @@ open class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         super.onDestroy()
         mHandler?.let { it.removeCallbacks(task) }
     }
+
     var ouTime = 3
     val task: Runnable = object : Runnable {
         override fun run() {
@@ -48,6 +54,22 @@ open class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
             }
 
         }
+    }
+
+
+     fun registerBc(bcReeiver:BroadcastReceiver){
+        val filter = IntentFilter(UPDATEBROADCAST)
+        LocalBroadcastManager.getInstance(this).registerReceiver(bcReeiver,filter)
+    }
+
+
+     fun unRegisterBc(bcReeiver:BroadcastReceiver){
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(bcReeiver)
+    }
+
+
+    fun sendBdMessage(){
+        LocalBroadcastManager.getInstance(this).sendBroadcast(Intent(UPDATEBROADCAST))
     }
 
 

@@ -46,7 +46,7 @@ dependencies {
 
     implementation 'cn.jiguang.sdk:jcore:2.3.0'  // 此处以JCore 2.3.0 版本为例。
 
-
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
 }
 
 android {

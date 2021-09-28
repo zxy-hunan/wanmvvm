@@ -20,7 +20,7 @@
             android:layout_centerVertical="true"
             android:layout_width="46dp"
             android:layout_height="46dp"
-            android:background="@mipmap/ic_icon"/>
+            android:background="@mipmap/icon_new_friend"/>
         <TextView
             android:layout_marginLeft="67dp"
             android:layout_centerVertical="true"
@@ -48,7 +48,7 @@
         <View
             android:layout_marginLeft="12dp"
             android:layout_gravity="center_vertical"
-            android:background="@mipmap/ic_icon"
+            android:background="@mipmap/icon_group_chat"
             android:layout_width="46dp"
             android:layout_height="46dp"/>
         <TextView

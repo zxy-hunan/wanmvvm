@@ -5,15 +5,20 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import cn.jpush.im.android.api.model.UserInfo
 import cn.jpush.im.api.BasicCallback
+import com.qmuiteam.qmui.skin.QMUISkinManager
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog.MessageDialogBuilder
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.zyx_hunan.baseview.BaseActivity
 import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.databinding.ActivityUserImdetailBinding
 import com.zyx_hunan.wanmvvm.ui.adapter.ImChatAcy
+import com.zyx_hunan.wanmvvm.ui.view.fragment.ImChatGroupFragment
 import com.zyx_hunan.wanmvvm.ui.viewmodel.ImChatViewModel
 import java.util.*
 
@@ -25,6 +30,7 @@ class FriendDetailAcy : BaseActivity<ActivityUserImdetailBinding>() {
     private val viewModel by lazy { ViewModelProvider(this).get(ImChatViewModel::class.java) }
     var userName = ""
     var userInfo: UserInfo? = null
+    val broadcastReceiver=ImChatGroupFragment().UpdateFriendListReceiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +39,8 @@ class FriendDetailAcy : BaseActivity<ActivityUserImdetailBinding>() {
         binding.topbar.setTitle("详细信息").setTextColor(resources.getColor(R.color.white))
         binding.topbar.addLeftBackImageButton().setOnClickListener { finish() }
 
+        binding.tvName.text = userName
+        binding.textView15.text="昵称:${userName}"
         viewModel.getUserInfo(userName)
 
         viewModel.userInfo.observe(this, Observer {
@@ -43,21 +51,20 @@ class FriendDetailAcy : BaseActivity<ActivityUserImdetailBinding>() {
             }
         })
 
+        registerBc(broadcastReceiver)
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unRegisterBc(broadcastReceiver)
     }
 
 
     fun delete(view: View) {
         userInfo?.let {
-            it.removeFromFriendList(object : BasicCallback() {
-                override fun gotResult(p0: Int, p1: String?) {
+            showMessageNegativeDialog(it)
 
-                    if (p0 == 0) {
-                        showDialog("删除成功")
-                    } else {
-                        showDialog("删除失败")
-                    }
-                }
-            })
         }
     }
 
@@ -80,5 +87,32 @@ class FriendDetailAcy : BaseActivity<ActivityUserImdetailBinding>() {
 
 
     val handler: Handler = Handler(Looper.getMainLooper())
+
+
+    private fun showMessageNegativeDialog(userInfo: UserInfo) {
+        MessageDialogBuilder(this)
+            .setTitle("标题")
+            .setMessage("确定要删除吗？")
+            .setSkinManager(QMUISkinManager.defaultInstance(this))
+            .addAction(
+                "取消"
+            ) { dialog, index -> dialog.dismiss() }
+            .addAction(
+                0, "删除", QMUIDialogAction.ACTION_PROP_NEGATIVE
+            ) { dialog, index ->
+                dialog.dismiss()
+                userInfo.removeFromFriendList(object : BasicCallback() {
+                    override fun gotResult(p0: Int, p1: String?) {
+                        if (p0 == 0) {
+                            showDialog("删除成功")
+                            sendBdMessage()
+                        } else {
+                            showDialog("删除失败")
+                        }
+                    }
+                })
+            }
+            .create(com.qmuiteam.qmui.R.style.QMUI_Dialog).show()
+    }
 
 }
