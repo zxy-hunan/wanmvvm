@@ -1,9 +1,13 @@
 package com.zyx_hunan.wanmvvm.logic.net.entrepot
 
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.liveData
+import com.zyx_hunan.wanmvvm.WanApplication
 import com.zyx_hunan.wanmvvm.compose.video.VideoModel
+import com.zyx_hunan.wanmvvm.logic.Repository
+import com.zyx_hunan.wanmvvm.logic.database.AppDataBase
+import com.zyx_hunan.wanmvvm.logic.database.dao.HistoryRecordDao
+import com.zyx_hunan.wanmvvm.logic.database.entity.HistoryRecord
 import com.zyx_hunan.wanmvvm.logic.model.*
 import com.zyx_hunan.wanmvvm.logic.net.DataType
 import com.zyx_hunan.wanmvvm.logic.net.OpenNet
@@ -20,6 +24,7 @@ import java.lang.Exception
  *@time 2021,2021/7/24 0024,下午 1:57
  */
 object MainRepository {
+    private var historyRecordDao: HistoryRecordDao = AppDataBase.getDataBase(WanApplication.mContext).historyRecorDao
     fun articleList(page: Int) = liveData(Dispatchers.IO) {
         val result = try {
             val articleModel: ArticleModel = WanNet.articleList(page)
@@ -73,6 +78,31 @@ object MainRepository {
         } catch (e: Exception) {
             Log.e("test", e.message + e.toString())
             Result.failure<List<HotKeyListBean>>(e)
+        }
+        emit(result)
+    }
+
+    suspend fun articleSearch(page:Int,map: Map<String,String>) = WanNet.articleSearch(page,map)
+
+
+
+
+    fun addHistoryRecord(txt:String){
+       historyRecordDao?.inserthistory(HistoryRecord(txt,0))
+    }
+
+    fun findHistory() = liveData(Dispatchers.IO) {
+        val result = try {
+            var his: List<HistoryRecord>? = null
+            his = historyRecordDao?.finAllhistory()
+
+            if (his != null) {
+                Result.success(his)
+            } else {
+                Result.failure(RuntimeException("his is null"))
+            }
+        } catch (e: Exception) {
+            Result.failure<List<HistoryRecord>>(e)
         }
         emit(result)
     }

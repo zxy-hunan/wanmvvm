@@ -46,6 +46,9 @@ interface NetService {
     @GET("hotkey/json")
     fun hotkey():Call<HotKeyListBean>
 
+    @FormUrlEncoded
+    @POST("/article/query/{page}/json")
+    fun articleSearch(@Path("page") page: Int,@FieldMap map: Map<String, String>): Call<ArticleModel>
 
 
 }

@@ -1,7 +1,6 @@
 package com.zyx_hunan.wanmvvm.logic.database.dao
 
 import androidx.room.*
-import com.zyx_hunan.wanmvvm.logic.database.entity.User
 import com.zyx_hunan.wanmvvm.logic.model.Regdata
 
 /**

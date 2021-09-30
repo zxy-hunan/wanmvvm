@@ -1,15 +1,14 @@
 package com.zyx_hunan.wanmvvm.ui.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.View
-import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
+import android.widget.TextView
 import com.zyx_hunan.baseutil.expand.convertDate
+import com.zyx_hunan.baseutil.expand.isNull
 import com.zyx_hunan.baseview.BaseRecyclerAdapter
 import com.zyx_hunan.baseview.RecyclerViewHolder
 import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.logic.model.QuestionModel
-import com.zyx_hunan.wanmvvm.ui.view.ArticleItemAcy
 
 /**
  *
@@ -28,34 +27,16 @@ class QuestionListAdapter(private val ctx: Context, list: List<QuestionModel>?) 
 
     override fun bindData(holder: RecyclerViewHolder?, position: Int, item: QuestionModel) {
             holder?.let {
-                val itemView = it?.getView(R.id.QMUICommonListItemView) as QMUICommonListItemView
-                itemView.run {
-                    textView.textSize = 16F
-                    textView.letterSpacing = 0.05F
-                    text = item.title
-                    accessoryType = QMUICommonListItemView.ACCESSORY_TYPE_NONE
-//                    addAccessoryCustomView(likeBtn)
-                    setTipPosition(QMUICommonListItemView.TIP_POSITION_LEFT)
-                    showNewTip(item.fresh)
-                }
+                val freshText = it?.getView(R.id.textView2) as TextView
                 with(it) {
-                    setText(R.id.textView3, item.shareUser)
-                    setText(R.id.textView4, item.publishTime.convertDate())
+                    if (item.fresh) freshText.visibility =
+                        View.VISIBLE else freshText.visibility = View.GONE
+
+                    var authour = if (item.shareUser.isNull()) item.author else item.shareUser
+                    setText(R.id.QMUICommonListItemView, item.title)
+                    setText(R.id.textView3, authour)
+                    setText(R.id.textView4, item.publishTime?.convertDate())
                     setText(R.id.textView5, "${item.superChapterName} / ${item.chapterName}")
-                    if(item.collect) setBackground(R.id.imageheart,R.mipmap.heartsel) else setBackground(R.id.imageheart,R.mipmap.heartunsle)
-                    setOnItemClickListener(object : OnItemClickListener {
-                        override fun onItemClick(itemView: View?, pos: Int) {
-                            val intent = Intent(ctx, ArticleItemAcy::class.java)
-                            intent.putExtra("url", item.link)
-                            intent.putExtra("title", item.title)
-                            intent.putExtra("collect", item.collect)
-                            ctx.startActivity(intent)
-                        }
-                    })
-
-                    setClickListener(R.id.imageheart){
-
-                    }
                 }
             }
     }

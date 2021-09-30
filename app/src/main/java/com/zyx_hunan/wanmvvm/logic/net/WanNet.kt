@@ -37,6 +37,7 @@ object WanNet {
 
     suspend fun hotkey() = netService.hotkey().await()
 
+    suspend fun articleSearch(page:Int,map: Map<String,String>) = netService.articleSearch(page,map).await()
 
 
     private suspend fun <T> Call<T>.await(): T {

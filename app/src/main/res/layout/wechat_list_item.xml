@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="46dp"
     android:id="@+id/layout"
-    tools:context=".ui.view.MainActivity"
+    tools:context=".ui.view.acy.MainActivity"
     tools:ignore="MissingDefaultResource">
 
     <TextView

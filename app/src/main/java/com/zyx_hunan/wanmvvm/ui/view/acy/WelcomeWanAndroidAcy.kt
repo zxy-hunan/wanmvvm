@@ -15,7 +15,6 @@ import com.zyx_hunan.baseview.BaseActivity
 import com.zyx_hunan.wanmvvm.WanApplication
 import com.zyx_hunan.wanmvvm.databinding.AcyWelcomeBinding
 import com.zyx_hunan.wanmvvm.logic.model.Regdata
-import com.zyx_hunan.wanmvvm.ui.view.MainActivity
 import com.zyx_hunan.wanmvvm.ui.viewmodel.LoginViewModel
 import java.util.*
 

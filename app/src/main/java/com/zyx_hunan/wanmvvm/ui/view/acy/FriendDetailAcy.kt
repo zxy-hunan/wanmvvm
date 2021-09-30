@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import cn.jpush.im.android.api.model.UserInfo
@@ -17,7 +16,6 @@ import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.zyx_hunan.baseview.BaseActivity
 import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.databinding.ActivityUserImdetailBinding
-import com.zyx_hunan.wanmvvm.ui.adapter.ImChatAcy
 import com.zyx_hunan.wanmvvm.ui.view.fragment.ImChatGroupFragment
 import com.zyx_hunan.wanmvvm.ui.viewmodel.ImChatViewModel
 import java.util.*

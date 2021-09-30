@@ -14,8 +14,8 @@ import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.WanApplication
 import com.zyx_hunan.wanmvvm.databinding.FragmentMineBinding
-import com.zyx_hunan.wanmvvm.ui.view.LoginAcy
-import com.zyx_hunan.wanmvvm.ui.view.SettingAcy
+import com.zyx_hunan.wanmvvm.ui.view.acy.LoginAcy
+import com.zyx_hunan.wanmvvm.ui.view.acy.SettingAcy
 import com.zyx_hunan.wanmvvm.ui.viewmodel.KnowledgeViewModel
 
 /**
@@ -90,14 +90,14 @@ class MineFragment : Fragment(),View.OnClickListener {
     override fun onResume() {
         super.onResume()
         binding.textlogin.setOnClickListener {
-            startActivity(Intent(activity,LoginAcy::class.java))
+            startActivity(Intent(activity, LoginAcy::class.java))
         }
     }
 
     override fun onClick(v: View?) {
         if (v is QMUICommonListItemView){
              when(v.text){
-                 "系统设置" -> startActivity(Intent(activity,SettingAcy::class.java))
+                 "系统设置" -> startActivity(Intent(activity, SettingAcy::class.java))
              }
         }
     }

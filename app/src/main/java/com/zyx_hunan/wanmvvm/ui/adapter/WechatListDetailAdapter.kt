@@ -3,13 +3,14 @@ package com.zyx_hunan.wanmvvm.ui.adapter
 import android.content.Context
 import android.content.Intent
 import android.view.View
-import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
+import android.widget.TextView
 import com.zyx_hunan.baseutil.expand.convertDate
+import com.zyx_hunan.baseutil.expand.isNull
 import com.zyx_hunan.baseview.BaseRecyclerAdapter
 import com.zyx_hunan.baseview.RecyclerViewHolder
 import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.logic.model.Articledata
-import com.zyx_hunan.wanmvvm.ui.view.ArticleItemAcy
+import com.zyx_hunan.wanmvvm.ui.view.acy.ArticleItemAcy
 
 /**
  *
@@ -31,21 +32,16 @@ class WechatListDetailAdapter(private val ctx: Context, val list: List<Articleda
         holder?.let {
             var item = list?.get(position)
             item?.run {
-                val itemView = it?.getView(R.id.QMUICommonListItemView) as QMUICommonListItemView
-                itemView.run {
-                    textView.textSize = 16F
-                    textView.letterSpacing = 0.05F
-                    text = item.title
-                    accessoryType = QMUICommonListItemView.ACCESSORY_TYPE_NONE
-                    setTipPosition(QMUICommonListItemView.TIP_POSITION_LEFT)
-                    showNewTip(item.fresh)
-                }
+                val freshText = it?.getView(R.id.textView2) as TextView
                 with(it) {
+                    if (item.fresh) freshText.visibility =
+                        View.VISIBLE else freshText.visibility = View.GONE
 
-                    setText(R.id.textView3, item.shareUser)
-                    setText(R.id.textView4, item.publishTime.convertDate())
+                    var authour = if (item.shareUser.isNull()) item.author else item.shareUser
+                    setText(R.id.QMUICommonListItemView, item.title)
+                    setText(R.id.textView3, authour)
+                    setText(R.id.textView4, item.publishTime?.convertDate())
                     setText(R.id.textView5, "${item.superChapterName} / ${item.chapterName}")
-
                 }
             }
         }

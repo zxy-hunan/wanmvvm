@@ -2,13 +2,11 @@ package com.zyx_hunan.wanmvvm.ui.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.view.LayoutInflater
 import android.view.View
 import cn.jpush.im.android.api.model.UserInfo
 import com.zyx_hunan.baseview.BaseRecyclerAdapter
 import com.zyx_hunan.baseview.RecyclerViewHolder
 import com.zyx_hunan.wanmvvm.R
-import com.zyx_hunan.wanmvvm.ui.view.ArticleItemAcy
 import com.zyx_hunan.wanmvvm.ui.view.acy.FriendDetailAcy
 
 /**
@@ -37,7 +35,7 @@ class FriendAdapter(private val ctx: Context, list: List<UserInfo>?) :
             setOnItemClickListener(object : OnItemClickListener {
                 override fun onItemClick(itemView: View?, pos: Int) {
                     val intent = Intent(ctx, FriendDetailAcy::class.java)
-                    intent.putExtra("name", item.userName)
+                    intent.putExtra("name",getItem(pos).userName)
                     ctx.startActivity(intent)
                 }
 

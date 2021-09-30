@@ -2,7 +2,6 @@ package com.zyx_hunan.wanmvvm.ui.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import cn.jpush.im.android.api.ContactManager
 import cn.jpush.im.android.api.JMessageClient
@@ -10,8 +9,6 @@ import cn.jpush.im.android.api.callback.GetUserInfoCallback
 import cn.jpush.im.android.api.callback.GetUserInfoListCallback
 import cn.jpush.im.android.api.model.UserInfo
 import cn.jpush.im.api.BasicCallback
-import com.zyx_hunan.wanmvvm.logic.database.entity.User
-import com.zyx_hunan.wanmvvm.logic.net.entrepot.QuestionRepository
 
 /**
  *

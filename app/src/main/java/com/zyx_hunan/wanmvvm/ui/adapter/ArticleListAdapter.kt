@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -19,10 +18,8 @@ import com.zyx_hunan.baseview.RecyclerViewHolder
 import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.compose.video.VideoModel
 import com.zyx_hunan.wanmvvm.logic.model.AllData
-import com.zyx_hunan.wanmvvm.logic.model.Bannerdata
-import com.zyx_hunan.wanmvvm.logic.model.Data
 import com.zyx_hunan.wanmvvm.logic.net.DataType
-import com.zyx_hunan.wanmvvm.ui.view.ArticleItemAcy
+import com.zyx_hunan.wanmvvm.ui.view.acy.ArticleItemAcy
 import com.zyx_hunan.wanmvvm.ui.view.acy.VideoListActivity
 
 /**

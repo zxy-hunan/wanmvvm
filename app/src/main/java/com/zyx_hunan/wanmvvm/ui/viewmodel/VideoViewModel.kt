@@ -1,14 +1,9 @@
 package com.zyx_hunan.wanmvvm.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.zyx_hunan.wanmvvm.lifecycle.ViscosityLiveData
-import com.zyx_hunan.wanmvvm.logic.model.OpenFeedTab
 import com.zyx_hunan.wanmvvm.logic.net.entrepot.MainRepository
-import kotlinx.coroutines.launch
 
 /**
  *

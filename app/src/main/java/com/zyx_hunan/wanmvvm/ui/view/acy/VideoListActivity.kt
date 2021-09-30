@@ -47,6 +47,8 @@ class VideoListActivity : BaseActivity<ActivityVideolistBinding>() {
     }
 
     private fun initView() {
+        binding.topbar.setTitle("视频").setTextColor(resources.getColor(R.color.white))
+        binding.topbar.addLeftBackImageButton().setOnClickListener { finish() }
         dataList.add(videotex)
         //限定范围为屏幕一半的上下偏移180
         val playTop = CommonUtil.getScreenHeight(this) / 2 - CommonUtil.dip2px(this, 180f)

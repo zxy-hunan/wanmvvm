@@ -1,6 +1,5 @@
 package com.zyx_hunan.wanmvvm.ui.view.fragment
 
-import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer

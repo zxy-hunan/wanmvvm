@@ -1,5 +1,7 @@
 package com.zyx_hunan.wanmvvm.logic.model
 
+import java.io.Serializable
+
 
 /**
  *
@@ -31,4 +33,4 @@ data class HotKeyBean(
     val name: String = "",
     val order: String = "",
     val visible: String = ""
-)
+) : Serializable
