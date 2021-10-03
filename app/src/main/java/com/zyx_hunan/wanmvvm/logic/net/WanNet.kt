@@ -19,9 +19,9 @@ import kotlin.coroutines.suspendCoroutine
 object WanNet {
     private val netService = ServiceCreator.create<NetService>(Constant.WANANDROID_BASEURL)
 
-    suspend fun register(map: Map<String,String>) = netService.register(map).await()
+    suspend fun register(map: Map<String, String>) = netService.register(map).await()
 
-    suspend fun login(map: Map<String,String>) = netService.login(map).await()
+    suspend fun login(map: Map<String, String>) = netService.login(map).await()
 
     suspend fun articleList(page: Int) = netService.articleList(page).await()
 
@@ -31,13 +31,18 @@ object WanNet {
 
     suspend fun weChatChapters() = netService.weChatChapters().await()
 
-    suspend fun weChatDetail(cid:String,page:Int) = netService.weChatDetail(cid,page).await()
+    suspend fun weChatDetail(cid: String, page: Int) = netService.weChatDetail(cid, page).await()
 
-    suspend fun wendaList(page:Int) = netService.wendaList(page).await()
+    suspend fun wendaList(page: Int) = netService.wendaList(page).await()
+
+    suspend fun collectArticle(id: Long, type: Int) =
+        if (type == 0) netService.collectArticle(id).await() else netService.unCollectArticle(id)
+            .await()
 
     suspend fun hotkey() = netService.hotkey().await()
 
-    suspend fun articleSearch(page:Int,map: Map<String,String>) = netService.articleSearch(page,map).await()
+    suspend fun articleSearch(page: Int, map: Map<String, String>) =
+        netService.articleSearch(page, map).await()
 
 
     private suspend fun <T> Call<T>.await(): T {

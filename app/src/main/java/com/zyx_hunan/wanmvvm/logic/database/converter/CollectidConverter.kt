@@ -3,9 +3,6 @@ package com.zyx_hunan.wanmvvm.logic.database.converter
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.zyx_hunan.wanmvvm.logic.model.ChapterTop
-import com.zyx_hunan.wanmvvm.logic.model.Collectid
-import java.util.*
 
 /**
  *
@@ -19,18 +16,18 @@ class CollectidConverter {
     private val gson = Gson()
 
     @TypeConverter
-    fun stringToList(data: String?): List<Collectid>? {
+    fun stringToList(data: Long?): List<Long>? {
         if (data == null) {
             return listOf()
         }
 
-        val listType = object : TypeToken<List<Collectid>>() {}.type
+        val listType = object : TypeToken<List<Long>>() {}.type
 
-        return gson.fromJson(data, listType)
+        return gson.fromJson(data.toString(), listType)
     }
 
     @TypeConverter
-    fun listToString(someObjects: List<Collectid>): String {
+    fun listToString(someObjects: List<Long>): String {
         return if(someObjects==null){
             ""
         }else {

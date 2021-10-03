@@ -89,15 +89,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
+
+    <LinearLayout
         android:id="@+id/imageheart"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/QMUICommonListItemView"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/QMUICommonListItemView"
-        app:srcCompat="@mipmap/heartunsle" />
+        app:layout_constraintTop_toTopOf="@+id/QMUICommonListItemView">
+
+        <ImageView
+            android:id="@+id/heartimg"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@mipmap/heartunsle" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView"

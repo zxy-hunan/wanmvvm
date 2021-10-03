@@ -2,6 +2,10 @@ package com.zyx_hunan.wanmvvm.logic.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
+import com.google.gson.annotations.SerializedName
+import com.zyx_hunan.wanmvvm.logic.database.converter.CollectidConverter
 
 /**
  *
@@ -18,7 +22,10 @@ data class Regdata(
     val admin: Boolean,
     val chapterTops: List<ChapterTop> = listOf(),
     val coinCount: Int,
-    val collectIds: List<Collectid> = listOf(), val icon: String, val id: Int,
+//    @SerializedName("collectIds")
+//    @TypeConverters(CollectidConverter::class)
+//    var collectIds: List<Long>,
+    val icon: String, val id: Int,
     val nickname: String,
     val password: String,
     val publicName: String,
@@ -30,6 +37,6 @@ data class Regdata(
     var c_id: Long = 0
 }
 
-data class Collectid(val t: String)
+data class Collectid(val t: Long)
 
 data class ChapterTop(val t: String)

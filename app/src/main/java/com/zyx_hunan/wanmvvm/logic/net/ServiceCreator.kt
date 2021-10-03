@@ -4,6 +4,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 /**
@@ -24,12 +25,14 @@ object ServiceCreator {
             .readTimeout(15000L, TimeUnit.MILLISECONDS)
             .writeTimeout(15000L, TimeUnit.MILLISECONDS)
             .connectTimeout(15000L, TimeUnit.MILLISECONDS)
+            .cookieJar(CookieJar())
     }
 
     private val retrofit =
         Retrofit.Builder()
             .baseUrl(Constant.WANANDROID_BASEURL)
             .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(ScalarsConverterFactory.create())
             .client(client.build())
             .build()
 

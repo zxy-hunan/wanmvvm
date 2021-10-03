@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zyx_hunan.wanmvvm.logic.database.entity.HistoryRecord
 import com.zyx_hunan.wanmvvm.logic.model.Articledata
 import com.zyx_hunan.wanmvvm.logic.net.entrepot.MainRepository
 import kotlinx.coroutines.launch

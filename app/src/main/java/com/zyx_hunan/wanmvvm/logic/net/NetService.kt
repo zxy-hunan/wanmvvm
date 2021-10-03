@@ -41,7 +41,10 @@ interface NetService {
     fun wendaList(@Path("page") page: Int): Call<QuestionListModel>
 
     @POST("/lg/collect/{id}/json")
-    fun collectArticle(@Path("id") id: Int):Call<QuestionListModel>
+    fun collectArticle(@Path("id") id: Long):Call<QuestionListModel>
+
+    @POST("/lg/uncollect_originId/{id}/json")
+    fun unCollectArticle(@Path("id") id: Long):Call<QuestionListModel>
 
     @GET("hotkey/json")
     fun hotkey():Call<HotKeyListBean>

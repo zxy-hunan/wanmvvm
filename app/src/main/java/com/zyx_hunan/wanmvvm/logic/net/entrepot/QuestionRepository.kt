@@ -20,7 +20,7 @@ object QuestionRepository {
         val result = try {
             val questionListModel: QuestionListModel = WanNet.wendaList(page)
             if (questionListModel.errorCode == 0) {
-                val data = questionListModel.data.datas
+                val data = questionListModel.data?.datas
                 Log.i("test", data.toString())
                 Result.success(data)
             } else {

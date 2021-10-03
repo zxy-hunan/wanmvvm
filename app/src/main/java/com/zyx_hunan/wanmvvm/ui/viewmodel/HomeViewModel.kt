@@ -6,11 +6,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zyx_hunan.wanmvvm.lifecycle.ViscosityLiveData
-import com.zyx_hunan.wanmvvm.logic.model.BannerModel
-import com.zyx_hunan.wanmvvm.logic.model.HotKeyListBean
 import com.zyx_hunan.wanmvvm.logic.model.OpenFeedTab
-import com.zyx_hunan.wanmvvm.logic.net.OpenNet
-import com.zyx_hunan.wanmvvm.logic.net.WanNet
 import com.zyx_hunan.wanmvvm.logic.net.entrepot.MainRepository
 import kotlinx.coroutines.launch
 
@@ -22,7 +18,7 @@ import kotlinx.coroutines.launch
  *
  *@time 2021,2021/7/24 0024,下午 2:00
  */
-class HomeViewModel : ViewModel() {
+class HomeViewModel : BaseViewModel() {
      val date = MutableLiveData<Long>()
      val num = MutableLiveData<Long>()
 

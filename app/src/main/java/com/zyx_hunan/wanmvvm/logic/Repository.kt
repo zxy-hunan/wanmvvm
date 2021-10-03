@@ -5,6 +5,7 @@ import androidx.lifecycle.liveData
 import com.zyx_hunan.wanmvvm.WanApplication
 import com.zyx_hunan.wanmvvm.logic.database.AppDataBase
 import com.zyx_hunan.wanmvvm.logic.database.dao.UserDao
+import com.zyx_hunan.wanmvvm.logic.model.QuestionListModel
 import com.zyx_hunan.wanmvvm.logic.model.Regdata
 import com.zyx_hunan.wanmvvm.logic.model.RegisterModel
 import com.zyx_hunan.wanmvvm.logic.net.WanNet
@@ -77,6 +78,22 @@ object Repository {
             }
         } catch (e: Exception) {
             Result.failure<List<Regdata>>(e)
+        }
+        emit(result)
+    }
+
+
+    fun collect(id:Long,type:Int) = liveData(Dispatchers.IO) {
+        val result = try {
+            val questionListModel: QuestionListModel = WanNet.collectArticle(id,type)
+            if (questionListModel.errorCode == 0) {
+                Result.success(null)
+            } else {
+                Result.failure(RuntimeException("response errorCode is${questionListModel.errorCode}"))
+            }
+        } catch (e: Exception) {
+            Log.e("test", e.message + e.toString())
+            Result.failure<List<QuestionListModel>>(e)
         }
         emit(result)
     }

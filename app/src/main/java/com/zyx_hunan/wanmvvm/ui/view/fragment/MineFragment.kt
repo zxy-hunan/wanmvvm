@@ -11,9 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
+import com.zyx_hunan.baseutil.expand.isNull
 import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.WanApplication
 import com.zyx_hunan.wanmvvm.databinding.FragmentMineBinding
+import com.zyx_hunan.wanmvvm.logic.model.Regdata
 import com.zyx_hunan.wanmvvm.ui.view.acy.LoginAcy
 import com.zyx_hunan.wanmvvm.ui.view.acy.SettingAcy
 import com.zyx_hunan.wanmvvm.ui.viewmodel.KnowledgeViewModel
@@ -51,7 +53,7 @@ class MineFragment : Fragment(),View.OnClickListener {
         val item1: QMUICommonListItemView =
             binding.groupListView.createItemView(
                 ContextCompat.getDrawable(activity!!, R.mipmap.item_icony),
-                "收藏",
+                "我的收藏",
                 "",
                 QMUICommonListItemView.VERTICAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
@@ -60,7 +62,7 @@ class MineFragment : Fragment(),View.OnClickListener {
         val item2: QMUICommonListItemView =
             binding.groupListView.createItemView(
                 ContextCompat.getDrawable(activity!!, R.mipmap.item_icone),
-                "分享",
+                "我的分享",
                 "",
                 QMUICommonListItemView.VERTICAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
@@ -97,8 +99,21 @@ class MineFragment : Fragment(),View.OnClickListener {
     override fun onClick(v: View?) {
         if (v is QMUICommonListItemView){
              when(v.text){
-                 "系统设置" -> startActivity(Intent(activity, SettingAcy::class.java))
+                 "系统设置" -> jumpAcy(WanApplication.user,0)
              }
+        }
+    }
+
+
+    private fun jumpAcy(user: Regdata?, type:Int){
+        if(user.isNull()){
+            startActivity(Intent(activity, LoginAcy::class.java))
+        }else{
+            when(type){
+                0->{
+                    startActivity(Intent(activity, SettingAcy::class.java))
+                }
+            }
         }
     }
 

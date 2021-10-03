@@ -5,6 +5,7 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,7 @@ import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.compose.video.VideoModel
 import com.zyx_hunan.wanmvvm.logic.model.AllData
 import com.zyx_hunan.wanmvvm.logic.net.DataType
+import com.zyx_hunan.wanmvvm.ui.listener.HeartListener
 import com.zyx_hunan.wanmvvm.ui.view.acy.ArticleItemAcy
 import com.zyx_hunan.wanmvvm.ui.view.acy.VideoListActivity
 
@@ -35,6 +37,7 @@ class ArticleListAdapter(private val ctx: Context, val list: List<AllData>?) :
     private val bannerData = mutableListOf<AllData>()
     private val bannerAdapter = ImageAdapter(bannerData)
     var banner: Banner<AllData, ImageAdapter>? = null
+    var heartListener: HeartListener? = null
 
     override fun getItemLayoutId(viewType: Int): Int {
         return if (viewType == DataType.WANARTICLE.hashCode()) {
@@ -45,7 +48,7 @@ class ArticleListAdapter(private val ctx: Context, val list: List<AllData>?) :
             R.layout.banner_item
         } else if (viewType == DataType.OPENSVIDEO.hashCode()) {
             R.layout.svideo_item
-        }else{
+        } else {
             R.layout.openvideolayout
         }
     }
@@ -65,7 +68,21 @@ class ArticleListAdapter(private val ctx: Context, val list: List<AllData>?) :
                         setText(R.id.textView3, authour)
                         setText(R.id.textView4, item.publishTime?.convertDate())
                         setText(R.id.textView5, "${item.superChapterName} / ${item.chapterName}")
+
+                        val imageheart = it?.getView(R.id.imageheart) as LinearLayout
+                        val image = it?.getView(R.id.heartimg) as ImageView
+                        imageheart?.run {
+                            setOnClickListener {
+                                heartListener?.click(position,item)
+                            }
+                        }
+                        if (item.collect == true) {
+                            image.setImageResource(R.mipmap.heartsel)
+                        } else {
+                            image.setImageResource(R.mipmap.heartunsle)
+                        }
                     }
+
                 }
             }
         } else if (item.type == DataType.OPENVIDEO) {
@@ -109,12 +126,12 @@ class ArticleListAdapter(private val ctx: Context, val list: List<AllData>?) :
                         recycle.layoutManager = LinearLayoutManager(ctx).apply {
                             this.orientation = LinearLayoutManager.HORIZONTAL
                         }
-                        val adapter=SvideoListAdapter(ctx,item.urls,item.videos)
-                        recycle.adapter=adapter
+                        val adapter = SvideoListAdapter(ctx, item.urls, item.videos)
+                        recycle.adapter = adapter
                     }
                 }
             }
-        }else {
+        } else {
 
         }
 
@@ -157,7 +174,7 @@ class ArticleListAdapter(private val ctx: Context, val list: List<AllData>?) :
             DataType.OPENPHOTO.hashCode()
         } else if (list?.get(position)?.type == DataType.OPENSVIDEO) {
             DataType.OPENSVIDEO.hashCode()
-        }else{
+        } else {
             DataType.OPENCARD.hashCode()
         }
     }

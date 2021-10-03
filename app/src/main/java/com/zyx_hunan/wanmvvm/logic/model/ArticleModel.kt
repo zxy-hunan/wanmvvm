@@ -18,7 +18,7 @@ data class AllData(
     val type: DataType?,
     val author: String?,
     val chapterName: String?,
-    val collect: Boolean?,
+    var collect: Boolean?,
     val fresh: Boolean,
     val id: Long?,
     var link: String?,

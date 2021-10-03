@@ -5,17 +5,19 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout
 import com.zyx_hunan.baseview.BaseFragment
+import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.databinding.FragmentHomeBinding
 import com.zyx_hunan.wanmvvm.logic.model.AllData
 import com.zyx_hunan.wanmvvm.logic.net.DataType
 import com.zyx_hunan.wanmvvm.ui.adapter.ArticleListAdapter
+import com.zyx_hunan.wanmvvm.ui.listener.HeartListener
 import com.zyx_hunan.wanmvvm.ui.viewmodel.HomeViewModel
-import java.util.*
 
 /**
  *
@@ -25,7 +27,7 @@ import java.util.*
  *
  *@time 2021,2021/7/23 0023,下午 4:10
  */
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), HeartListener {
     private val viewModel by lazy { ViewModelProvider(this).get(HomeViewModel::class.java) }
     private val listArticleAll = mutableListOf<AllData>()
     private lateinit var adapter: ArticleListAdapter
@@ -78,6 +80,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
+    //整理数据
     private fun tidyData(
         wanData: List<AllData>,
         openData: List<AllData>,
@@ -96,6 +99,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
 
+    //收藏按钮
+    override fun click(pos: Int, item: Any) {
+        item as AllData
+        if (item.collect == true) {
+            item.collect = false
+            item.id?.let {
+                viewModel.collect(item.id, 1)
+            }
+        } else {
+            item.collect = true
+            item.id?.let {
+                viewModel.collect(item.id, 0)
+            }
+        }
+        adapter.notifyItemChanged(pos)
+    }
+
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -103,7 +124,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             adapter = ArticleListAdapter(it, listArticleAll)
             binding.recyclerView.layoutManager = LinearLayoutManager(activity)
             binding.recyclerView.adapter = adapter
+            adapter.heartListener = this
         }
+
+        viewModel.collectData.observe(viewLifecycleOwner, Observer {
+            if (it.isSuccess) {
+                Toast.makeText(activity, "success", Toast.LENGTH_SHORT).show()
+            }
+        })
 
         //wanAndroid文章数据列表
         viewModel.articleData.observe(viewLifecycleOwner, Observer {
@@ -120,28 +148,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
         })
 
-        //banner
-        /*       viewModel.bannerData.observe(this, Observer { it ->
-                   if (it.isSuccess) {
-                       it.getOrNull()?.let {
-                           adapter.setBannerData(it as List<Bannerdata>)
-                       }
-                   }
-               })*/
-
-
         //开眼数据列表
         viewModel.openFeedTabLiveData.observe(viewLifecycleOwner, Observer {
             Log.e("test", "openTab:${it.nextPageUrl}")
             var openDataList = mutableListOf<AllData>()
             it?.let {
-                var nextPage=it.nextPageUrl
-                if (nextPage.isNullOrEmpty()){
+                var nextPage = it.nextPageUrl
+                if (nextPage.isNullOrEmpty()) {
                     viewModel.date.postValue(0)
                     viewModel.num.postValue(0)
-                }else{
-                    var date=nextPage.substring(nextPage.indexOf("date=")+5,nextPage.indexOf("&"))
-                    var num=nextPage.substring(nextPage.indexOf("&num=")+5,nextPage.length)
+                } else {
+                    var date =
+                        nextPage.substring(nextPage.indexOf("date=") + 5, nextPage.indexOf("&"))
+                    var num = nextPage.substring(nextPage.indexOf("&num=") + 5, nextPage.length)
                     viewModel.date.postValue(date?.toLong())
                     viewModel.num.postValue(num?.toLong())
                 }
@@ -175,10 +194,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                                 it.cover?.feed
                             )
                         }
-                        /*else{
-                            openData= AllData(DataType.OPENCARD,it.id,it.title,it.description
-                                ,it.playUrl,it.url,it.urls,it.cover?.feed)
-                        }*/
                         if (openData != null) {
                             openDataList.add(openData)
                         }
@@ -229,4 +244,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         msg.obj = any
         return msg
     }
+
+
 }

@@ -11,7 +11,7 @@ import java.io.Serializable
  *@time 2021,2021/8/11 0011,下午 2:14
  */
 data class QuestionListModel(
-    val data: QuestionDataModel,
+    val data: QuestionDataModel?,
     val errorCode: Int,
     val errorMsg: String
 )
