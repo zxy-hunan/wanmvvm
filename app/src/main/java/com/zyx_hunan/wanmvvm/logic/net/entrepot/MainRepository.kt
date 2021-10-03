@@ -133,8 +133,6 @@ object MainRepository {
 
     suspend fun openTabFeed(date: Long,num: Long) = OpenNet.openTabFeed(date,num)
 
-
-
     fun related(id: Long) =
         liveData(Dispatchers.IO) {
             val result = try {
@@ -166,4 +164,47 @@ object MainRepository {
             }
             emit(result)
         }
+
+
+    //收藏的文章
+    fun articleCollectList(page: Int) = liveData(Dispatchers.IO) {
+        val result = try {
+            val articleModel: ArticleModel = WanNet.articleCollectList(page)
+            if (articleModel.errorCode == 0) {
+                val allData = mutableListOf<AllData>()
+                val data = articleModel.data.articleList
+                for (aData: Articledata in data) {
+                    val tidyData = AllData(
+                        DataType.WANARTICLE,
+                        aData.author,
+                        aData.chapterName,
+                        aData.collect,
+                        aData.fresh,
+                        aData.id,
+                        aData.link,
+                        aData.publishTime,
+                        aData.shareUser,
+                        aData.superChapterName,
+                        aData.title,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    )
+                    allData.add(tidyData)
+                }
+
+                Log.i("test", allData.toString())
+                Result.success(allData)
+            } else {
+                Result.failure(RuntimeException("response errorCode is${articleModel.errorCode}"))
+            }
+        } catch (e: Exception) {
+            Log.e("test", e.message + e.toString())
+            Result.failure<List<Articledata>>(e)
+        }
+        emit(result)
+    }
+
 }

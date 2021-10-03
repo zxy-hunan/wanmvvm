@@ -25,6 +25,9 @@ object WanNet {
 
     suspend fun articleList(page: Int) = netService.articleList(page).await()
 
+    //收藏的文章
+    suspend fun articleCollectList(page: Int) = netService.articleCollectList(page).await()
+
     suspend fun bannerList() = netService.bannerList().await()
 
     suspend fun knowledgeList() = netService.knowledgeList().await()

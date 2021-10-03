@@ -1,11 +1,14 @@
 package com.zyx_hunan.wanmvvm.ui.view.acy
 
-import android.content.Intent
+import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.zyx_hunan.baseutil.expand.isNull
+import com.qmuiteam.qmui.util.QMUIResHelper
+import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
+import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import com.zyx_hunan.baseview.BaseActivity
-import com.zyx_hunan.wanmvvm.WanApplication
+import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.databinding.ActivitySettingBinding
 import com.zyx_hunan.wanmvvm.ui.viewmodel.RegisterViewModel
 
@@ -17,27 +20,65 @@ import com.zyx_hunan.wanmvvm.ui.viewmodel.RegisterViewModel
  *
  *@time 2021,2021/7/21 0021,上午 9:29
  */
-class SettingAcy : BaseActivity<ActivitySettingBinding>() {
+class SettingAcy : BaseActivity<ActivitySettingBinding>(),View.OnClickListener {
     private val viewModel by lazy { ViewModelProvider(this).get(RegisterViewModel::class.java) }
 
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding.topbar.setTitle("系统设置").setTextColor(resources.getColor(R.color.white))
+        binding.topbar.addLeftBackImageButton().setOnClickListener { finish() }
+        createView()
+    }
+
     override fun onResume() {
         super.onResume()
-        if (WanApplication.user.isNull()) {
-            binding.button.text = "立即登录"
-        } else {
-            binding.button.text = "退出登录"
-        }
     }
 
-    fun loginOrLoginOut(view: View) {
-        if (WanApplication.user.isNull()) {
-            startActivity(Intent(this, LoginAcy::class.java))
-        } else {
-            WanApplication.user = null
-            binding.button.text = "立即登录"
-        }
+
+    private fun createView() {
+        val height =
+            QMUIResHelper.getAttrDimen(this, com.qmuiteam.qmui.R.attr.qmui_list_item_height)
+
+        val item1: QMUICommonListItemView =
+            binding.groupListView.createItemView(
+                ContextCompat.getDrawable(this, R.mipmap.item_icony),
+                "隐私政策",
+                "",
+                QMUICommonListItemView.VERTICAL,
+                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                height
+            )
+        val item2: QMUICommonListItemView =
+            binding.groupListView.createItemView(
+                ContextCompat.getDrawable(this, R.mipmap.item_icone),
+                "问题反馈",
+                "",
+                QMUICommonListItemView.VERTICAL,
+                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                height
+            )
+        val item3: QMUICommonListItemView =
+            binding.groupListView.createItemView(
+                ContextCompat.getDrawable(this, R.mipmap.item_icone),
+                "关于玩安卓",
+                "",
+                QMUICommonListItemView.VERTICAL,
+                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                height
+            )
+
+
+        QMUIGroupListView.newSection(this)
+            .addItemView(item1,this)
+            .addItemView(item2,this)
+            .addItemView(item3,this).addTo(binding.groupListView)
 
     }
+
+    override fun onClick(v: View?) {
+
+    }
+
 
 }

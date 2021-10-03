@@ -16,6 +16,7 @@ import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.WanApplication
 import com.zyx_hunan.wanmvvm.databinding.FragmentMineBinding
 import com.zyx_hunan.wanmvvm.logic.model.Regdata
+import com.zyx_hunan.wanmvvm.ui.view.acy.CollectShareAcy
 import com.zyx_hunan.wanmvvm.ui.view.acy.LoginAcy
 import com.zyx_hunan.wanmvvm.ui.view.acy.SettingAcy
 import com.zyx_hunan.wanmvvm.ui.viewmodel.KnowledgeViewModel
@@ -92,7 +93,11 @@ class MineFragment : Fragment(),View.OnClickListener {
     override fun onResume() {
         super.onResume()
         binding.textlogin.setOnClickListener {
-            startActivity(Intent(activity, LoginAcy::class.java))
+            if(WanApplication.user.isNull()) {
+                startActivity(Intent(activity, LoginAcy::class.java))
+            }else{
+                //个人积分
+            }
         }
     }
 
@@ -100,6 +105,7 @@ class MineFragment : Fragment(),View.OnClickListener {
         if (v is QMUICommonListItemView){
              when(v.text){
                  "系统设置" -> jumpAcy(WanApplication.user,0)
+                 "我的收藏" ->jumpAcy(WanApplication.user,1)
              }
         }
     }
@@ -112,6 +118,9 @@ class MineFragment : Fragment(),View.OnClickListener {
             when(type){
                 0->{
                     startActivity(Intent(activity, SettingAcy::class.java))
+                }
+                1 ->{
+                    startActivity(Intent(activity, CollectShareAcy::class.java))
                 }
             }
         }

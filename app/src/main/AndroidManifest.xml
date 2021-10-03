@@ -31,6 +31,7 @@
         <activity android:name=".ui.view.acy.ImChatAcy"
             android:windowSoftInputMode= "adjustPan" />
         <activity android:name=".ui.view.acy.SearchAcy"/>
+        <activity android:name=".ui.view.acy.CollectShareAcy"/>
         <service android:name="cn.jpush.android.service.PushService"
             android:process=":multiprocess"
             tools:node="replace" />

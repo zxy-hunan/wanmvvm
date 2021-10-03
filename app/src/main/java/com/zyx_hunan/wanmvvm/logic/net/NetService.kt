@@ -25,6 +25,9 @@ interface NetService {
     @GET("/article/list/{page}/json")
     fun articleList(@Path("page") page: Int): Call<ArticleModel>
 
+    @GET("/lg/collect/list/{page}/json")
+    fun articleCollectList(@Path("page") page: Int): Call<ArticleModel>
+
     @GET("/banner/json")
     fun bannerList(): Call<BannerModel>
 
