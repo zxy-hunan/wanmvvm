@@ -23,3 +23,11 @@ Retrofit等等
 
 ![首页](https://github.com/zxy-hunan/wanmvvm/blob/master/Screenshot_2021-10-06-13-57-00-326_com.zyx_hunan.wanmvvm.png)
 
+![聊天](https://github.com/zxy-hunan/wanmvvm/blob/master/Screenshot_2021-10-06-13-58-30-675_com.zyx_hunan.wanmvvm.png)
+
+![联系人](https://github.com/zxy-hunan/wanmvvm/blob/master/Screenshot_2021-10-06-13-58-51-465_com.zyx_hunan.wanmvvm.png)
+
+![我的](https://github.com/zxy-hunan/wanmvvm/blob/master/Screenshot_2021-10-06-14-07-08-149_com.zyx_hunan.wanmvvm.png)
+
+
+
