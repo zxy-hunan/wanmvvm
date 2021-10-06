@@ -21,9 +21,5 @@ Retrofit等等
 部分截图
 -------  
 
->python
-
-python learning
-
-https://juejin.cn/post/7015839791291826206/
+![](https://github.com/zxy-hunan/wanmvvm/blob/master/Screenshot_2021-10-06-13-57-00-326_com.zyx_hunan.wanmvvm.png)
 
