@@ -37,11 +37,11 @@
             android:id="@+id/et"
             android:layout_width="match_parent"
             android:layout_height="35dp"
+            android:layout_toLeftOf="@id/tv_send"
             android:layout_centerVertical="true"
             android:layout_marginLeft="35dp"
             android:background="@drawable/et_bg"
             android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/iv_emoji"
             android:padding="5dp"
             android:paddingLeft="10dp"
             android:textCursorDrawable="@drawable/et_cursor" />
@@ -60,34 +60,15 @@
             android:layout_height="25dp"/>
 
 
-        <ImageView
-            android:id="@+id/iv_emoji"
-            android:src="@mipmap/smile_face"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="47dp"
-            android:layout_alignParentRight="true"
-            android:layout_width="21dp"
-            android:layout_height="21dp"/>
-
-        <ImageView
-            android:id="@+id/iv_option"
-            android:src="@mipmap/add"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="12dp"
-            android:layout_alignParentRight="true"
-            android:layout_width="21dp"
-            android:layout_height="21dp"/>
-
         <TextView
             android:id="@+id/tv_send"
-            android:visibility="gone"
             android:layout_centerVertical="true"
             android:layout_marginRight="7dp"
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_alignParentRight="true"
             android:background="@color/btn_ghost_blue_border_normal"
-            android:layout_width="40dp"
-            android:layout_height="21dp"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
             android:onClick="sendTextMessage"
             android:textSize="13dp"
             android:gravity="center"

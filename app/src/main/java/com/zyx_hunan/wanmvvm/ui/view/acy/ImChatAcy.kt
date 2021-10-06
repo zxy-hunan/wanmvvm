@@ -3,7 +3,9 @@ package com.zyx_hunan.wanmvvm.ui.view.acy
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.jpush.im.android.api.JMessageClient
 import cn.jpush.im.android.api.content.TextContent
@@ -40,9 +42,16 @@ class ImChatAcy : BaseActivity<ActivityChatBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         type = intent.getIntExtra("type", 0)
+        userName = intent.getStringExtra("name").toString()
+        nickname = intent.getStringExtra("nickname").toString()
         JMessageClient.registerEventReceiver(this, 0)
         binding.topbar.addLeftBackImageButton().setOnClickListener { finish() }
         initData(type)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        JMessageClient.enterSingleConversation(userName)
     }
 
 
@@ -86,21 +95,24 @@ class ImChatAcy : BaseActivity<ActivityChatBinding>() {
             var textContent = TextContent(content)
             var m = conversation?.createSendMessage(textContent)
             var bean = ChatBean(m, ChatBean.TEXT_SEND)
+            list.add(bean)
             adapter?.itemCount?.let { adapter?.add(it, bean) }
             m?.setOnSendCompleteCallback(object : BasicCallback() {
                 override fun gotResult(p0: Int, p1: String?) {
+                    Log.e("chat", "result:"+p1+";p0"+p0)
                     if (p0 == 0) {
+                        Toast.makeText(this@ImChatAcy,"发送成功",Toast.LENGTH_SHORT).show()
 //                        adapter?.notifyItemChanged(list.size-1)
                     }
                 }
             })
+            JMessageClient.sendMessage(m)
         }
     }
 
     private fun initData(type: Int) {
         if (type == 0) {
-            userName = intent.getStringExtra("name").toString()
-            nickname = intent.getStringExtra("nickname").toString()
+
             if (userName.isNullOrEmpty()) {
                 binding.topbar.setTitle(nickname).setTextColor(resources.getColor(R.color.white))
             } else {
@@ -150,7 +162,9 @@ class ImChatAcy : BaseActivity<ActivityChatBinding>() {
     private fun initList() {
         adapter = ChatAdapter(this, list)
         binding.recycleChat.adapter = adapter
-        binding.recycleChat.layoutManager = LinearLayoutManager(this)
+        val lmanager=LinearLayoutManager(this)
+        lmanager.stackFromEnd=true
+        binding.recycleChat.layoutManager = lmanager
     }
 
 

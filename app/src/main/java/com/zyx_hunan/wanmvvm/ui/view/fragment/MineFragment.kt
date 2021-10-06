@@ -16,6 +16,7 @@ import com.zyx_hunan.wanmvvm.R
 import com.zyx_hunan.wanmvvm.WanApplication
 import com.zyx_hunan.wanmvvm.databinding.FragmentMineBinding
 import com.zyx_hunan.wanmvvm.logic.model.Regdata
+import com.zyx_hunan.wanmvvm.ui.view.acy.CenterMineAcy
 import com.zyx_hunan.wanmvvm.ui.view.acy.CollectShareAcy
 import com.zyx_hunan.wanmvvm.ui.view.acy.LoginAcy
 import com.zyx_hunan.wanmvvm.ui.view.acy.SettingAcy
@@ -29,7 +30,7 @@ import com.zyx_hunan.wanmvvm.ui.viewmodel.KnowledgeViewModel
  *
  *@time 2021,2021/7/30 0030,上午 11:05
  */
-class MineFragment : Fragment(),View.OnClickListener {
+class MineFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentMineBinding
     private val viewModel by lazy { ViewModelProvider(this).get(KnowledgeViewModel::class.java) }
 
@@ -44,10 +45,6 @@ class MineFragment : Fragment(),View.OnClickListener {
     }
 
     private fun createView() {
-        binding.relLogin.setOnClickListener {
-            startActivity(Intent(activity, LoginAcy::class.java))
-        }
-        binding.textlogin.text="当前登录用户:  ${WanApplication.user?.username}"
         val height =
             QMUIResHelper.getAttrDimen(activity, com.qmuiteam.qmui.R.attr.qmui_list_item_height)
 
@@ -72,8 +69,8 @@ class MineFragment : Fragment(),View.OnClickListener {
 
 
         QMUIGroupListView.newSection(activity).setTitle("个人中心")
-            .addItemView(item1,this)
-            .addItemView(item2,this).addTo(binding.groupListView)
+            .addItemView(item1, this)
+            .addItemView(item2, this).addTo(binding.groupListView)
 
         val item5: QMUICommonListItemView =
             binding.groupListView.createItemView(
@@ -86,40 +83,45 @@ class MineFragment : Fragment(),View.OnClickListener {
             )
 
         QMUIGroupListView.newSection(activity).setTitle("设置")
-            .addItemView(item5,this).addTo(binding.groupListView)
+            .addItemView(item5, this).addTo(binding.groupListView)
     }
 
 
     override fun onResume() {
         super.onResume()
+        binding.textlogin.text = "注册/登录"
+        WanApplication.user?.let {
+            binding.textlogin.text = "${it.username}"
+        }
         binding.textlogin.setOnClickListener {
-            if(WanApplication.user.isNull()) {
+            if (WanApplication.user == null) {
                 startActivity(Intent(activity, LoginAcy::class.java))
-            }else{
+            } else {
                 //个人积分
+                startActivity(Intent(activity, CenterMineAcy::class.java))
             }
         }
     }
 
     override fun onClick(v: View?) {
-        if (v is QMUICommonListItemView){
-             when(v.text){
-                 "系统设置" -> jumpAcy(WanApplication.user,0)
-                 "我的收藏" ->jumpAcy(WanApplication.user,1)
-             }
+        if (v is QMUICommonListItemView) {
+            when (v.text) {
+                "系统设置" -> jumpAcy(WanApplication.user, 0)
+                "我的收藏" -> jumpAcy(WanApplication.user, 1)
+            }
         }
     }
 
 
-    private fun jumpAcy(user: Regdata?, type:Int){
-        if(user.isNull()){
+    private fun jumpAcy(user: Regdata?, type: Int) {
+        if (user.isNull()) {
             startActivity(Intent(activity, LoginAcy::class.java))
-        }else{
-            when(type){
-                0->{
+        } else {
+            when (type) {
+                0 -> {
                     startActivity(Intent(activity, SettingAcy::class.java))
                 }
-                1 ->{
+                1 -> {
                     startActivity(Intent(activity, CollectShareAcy::class.java))
                 }
             }

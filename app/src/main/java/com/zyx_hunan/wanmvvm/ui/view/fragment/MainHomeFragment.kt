@@ -73,19 +73,19 @@ class MainHomeFragment: BaseFragment<FragmentMainhomeBinding>() {
         binding.tabSegment.setPadding(space, 0, space, 0)
         binding.tabSegment.addOnTabSelectedListener(object : QMUITabSegment.OnTabSelectedListener {
             override fun onTabSelected(index: Int) {
-                Toast.makeText(context, "select index $index", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, "select index $index", Toast.LENGTH_SHORT).show()
             }
 
             override fun onTabUnselected(index: Int) {
-                Toast.makeText(context, "unSelect index $index", Toast.LENGTH_SHORT).show()
+                //        Toast.makeText(context, "unSelect index $index", Toast.LENGTH_SHORT).show()
             }
 
             override fun onTabReselected(index: Int) {
-                Toast.makeText(context, "reSelect index $index", Toast.LENGTH_SHORT).show()
+                //     Toast.makeText(context, "reSelect index $index", Toast.LENGTH_SHORT).show()
             }
 
             override fun onDoubleTap(index: Int) {
-                Toast.makeText(context, "double tap index $index", Toast.LENGTH_SHORT).show()
+                //   Toast.makeText(context, "double tap index $index", Toast.LENGTH_SHORT).show()
             }
         })
 

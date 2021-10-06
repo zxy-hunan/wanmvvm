@@ -50,8 +50,11 @@ class ImChatAdapter(private val ctx: Context, list: List<Conversation>?) :
             }
             setOnItemClickListener(object : OnItemClickListener {
                 override fun onItemClick(itemView: View?, pos: Int) {
+                    val info= getItem(pos).targetInfo as UserInfo
                     val intent = Intent(ctx, ImChatAcy::class.java)
-//                    intent.putExtra("name",getItem(pos).userName)
+                    intent.putExtra("type", 0)
+                    intent.putExtra("name", info?.userName)
+                    intent.putExtra("nickname", info?.nickname)
                     ctx.startActivity(intent)
                 }
 

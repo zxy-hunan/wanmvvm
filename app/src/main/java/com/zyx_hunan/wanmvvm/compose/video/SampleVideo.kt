@@ -1,6 +1,7 @@
 package com.zyx_hunan.wanmvvm.compose.video
 
 import android.content.Context
+import android.graphics.Point
 import android.util.AttributeSet
 import android.view.*
 import android.widget.ImageView
@@ -31,7 +32,7 @@ class SampleVideo : StandardGSYVideoPlayer {
 
     override fun init(context: Context?) {
         super.init(context)
-        mCoverImage = findViewById<View>(R.id.thumbImage) as ImageView
+        mCoverImage = findViewById<ImageView>(R.id.thumbImage)
 
         if (mThumbImageViewLayout != null &&
             (mCurrentState == -1 || mCurrentState == CURRENT_STATE_NORMAL || mCurrentState == CURRENT_STATE_ERROR)
@@ -64,6 +65,40 @@ class SampleVideo : StandardGSYVideoPlayer {
         mDefaultRes = res
         mCoverImage!!.setImageResource(id)
     }
+
+
+    override fun startWindowFullscreen(
+        context: Context?,
+        actionBar: Boolean,
+        statusBar: Boolean
+    ): GSYBaseVideoPlayer {
+        val gsyBaseVideoPlayer = super.startWindowFullscreen(context, actionBar, statusBar)
+        val sampleCoverVideo = gsyBaseVideoPlayer as SampleVideo
+        if (mCoverOriginUrl != null) {
+            sampleCoverVideo.loadCoverImage(mCoverOriginUrl!!, mDefaultRes)
+        } else if (mCoverOriginId != 0) {
+            sampleCoverVideo.loadCoverImageBy(mCoverOriginId, mDefaultRes)
+        }
+        return gsyBaseVideoPlayer
+    }
+
+
+    override fun showSmallVideo(
+        size: Point?,
+        actionBar: Boolean,
+        statusBar: Boolean
+    ): GSYBaseVideoPlayer {
+        val sampleCoverVideo: SampleVideo =
+            super.showSmallVideo(
+                size,
+                actionBar,
+                statusBar
+            ) as SampleVideo
+        sampleCoverVideo.mStartButton.visibility = GONE
+        sampleCoverVideo.mStartButton = null
+        return sampleCoverVideo
+    }
+
 
     override fun cloneParams(from: GSYBaseVideoPlayer, to: GSYBaseVideoPlayer) {
         super.cloneParams(from, to)

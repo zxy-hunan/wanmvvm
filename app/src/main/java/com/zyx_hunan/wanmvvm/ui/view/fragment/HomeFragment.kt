@@ -129,7 +129,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HeartListener {
 
         viewModel.collectData.observe(viewLifecycleOwner, Observer {
             if (it.isSuccess) {
-                Toast.makeText(activity, "success", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "操作成功", Toast.LENGTH_SHORT).show()
             }
         })
 

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import com.zyx_hunan.wanmvvm.logic.model.*
+import com.zyx_hunan.wanmvvm.logic.net.DataType
 import com.zyx_hunan.wanmvvm.logic.net.WanNet
 import kotlinx.coroutines.Dispatchers
 import java.lang.Exception
@@ -46,15 +47,37 @@ object WeChatRepository {
             }
             val articleModel: ArticleModel = WanNet.weChatDetail(cid, page)
             if (articleModel.errorCode == 0) {
+                val allData = mutableListOf<AllData>()
                 val data = articleModel.data.articleList
-                Log.i("test", data.toString())
-                Result.success(data)
+                for (aData: Articledata in data) {
+                    val tidyData = AllData(
+                        DataType.WANARTICLE,
+                        aData.author,
+                        aData.chapterName,
+                        aData.collect,
+                        aData.fresh,
+                        aData.id,
+                        aData.link,
+                        aData.publishTime,
+                        aData.shareUser,
+                        aData.superChapterName,
+                        aData.title,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    )
+                    allData.add(tidyData)
+                }
+
+                Result.success(allData)
             } else {
                 Result.failure(RuntimeException("response errorCode is${articleModel.errorCode}"))
             }
         } catch (e: Exception) {
             Log.e("test", e.message + e.toString())
-            Result.failure<List<ArticleModel>>(e)
+            Result.failure<List<AllData>>(e)
         }
         emit(result)
     }

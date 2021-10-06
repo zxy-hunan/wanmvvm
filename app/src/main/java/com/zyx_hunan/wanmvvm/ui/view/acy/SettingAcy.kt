@@ -1,5 +1,6 @@
 package com.zyx_hunan.wanmvvm.ui.view.acy
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -9,6 +10,7 @@ import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import com.zyx_hunan.baseview.BaseActivity
 import com.zyx_hunan.wanmvvm.R
+import com.zyx_hunan.wanmvvm.WanApplication
 import com.zyx_hunan.wanmvvm.databinding.ActivitySettingBinding
 import com.zyx_hunan.wanmvvm.ui.viewmodel.RegisterViewModel
 
@@ -42,7 +44,7 @@ class SettingAcy : BaseActivity<ActivitySettingBinding>(),View.OnClickListener {
 
         val item1: QMUICommonListItemView =
             binding.groupListView.createItemView(
-                ContextCompat.getDrawable(this, R.mipmap.item_icony),
+                ContextCompat.getDrawable(this, R.mipmap.iconsafe),
                 "隐私政策",
                 "",
                 QMUICommonListItemView.VERTICAL,
@@ -51,7 +53,7 @@ class SettingAcy : BaseActivity<ActivitySettingBinding>(),View.OnClickListener {
             )
         val item2: QMUICommonListItemView =
             binding.groupListView.createItemView(
-                ContextCompat.getDrawable(this, R.mipmap.item_icone),
+                ContextCompat.getDrawable(this, R.mipmap.iconquestion),
                 "问题反馈",
                 "",
                 QMUICommonListItemView.VERTICAL,
@@ -60,7 +62,7 @@ class SettingAcy : BaseActivity<ActivitySettingBinding>(),View.OnClickListener {
             )
         val item3: QMUICommonListItemView =
             binding.groupListView.createItemView(
-                ContextCompat.getDrawable(this, R.mipmap.item_icone),
+                ContextCompat.getDrawable(this, R.mipmap.iconabout),
                 "关于玩安卓",
                 "",
                 QMUICommonListItemView.VERTICAL,
@@ -77,6 +79,18 @@ class SettingAcy : BaseActivity<ActivitySettingBinding>(),View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
+        if (v is QMUICommonListItemView) {
+            when (v.text) {
+                "关于玩安卓" -> {
+                    val intent = Intent(this, ArticleItemAcy::class.java)
+                    intent.putExtra("url", "https://www.wanandroid.com/index")
+                    intent.putExtra("title", "关于玩安卓")
+                    intent.putExtra("collect", false)
+                    this.startActivity(intent)
+                }
+            }
+        }
+
 
     }
 

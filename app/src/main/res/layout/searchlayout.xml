@@ -27,7 +27,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="10dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_search" />
+                android:src="@mipmap/ic_search" />
 
             <TextView
                 android:id="@+id/hot_key"
@@ -46,7 +46,7 @@
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
             android:padding="15dp"
-            android:src="@drawable/ic_add" />
+            android:src="@mipmap/ic_add" />
 
     </RelativeLayout>
 </LinearLayout>

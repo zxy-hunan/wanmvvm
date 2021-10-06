@@ -53,6 +53,8 @@ public class RecyclerItemNormalHolder extends RecyclerItemBaseHolder {
         textitle.setText(title);
         textdesc.setText(videoModel.getDescription());
 
+
+
         Map<String, String> header = new HashMap<>();
         header.put("ee", "33");
 
@@ -60,7 +62,7 @@ public class RecyclerItemNormalHolder extends RecyclerItemBaseHolder {
         //gsyVideoPlayer.initUIState();
         gsyVideoOptionBuilder
                 .setIsTouchWiget(false)
-                .setThumbImageView(imageView)
+//                .setThumbImageView(imageView)
                 .setUrl(url)
                 .setVideoTitle(title)
                 .setCacheWithPlay(false)
@@ -111,7 +113,8 @@ public class RecyclerItemNormalHolder extends RecyclerItemBaseHolder {
                 resolveFullBtn(gsyVideoPlayer);
             }
         });
-//        gsyVideoPlayer.loadCoverImageBy(R.mipmap.xxx2, R.mipmap.xxx2);
+        //gsyVideoPlayer.loadCoverImageBy(R.mipmap.xxx2, R.mipmap.xxx2);
+        gsyVideoPlayer.loadCoverImage(videoModel.getFeed(),R.mipmap.xxx1);
     }
 
     /**

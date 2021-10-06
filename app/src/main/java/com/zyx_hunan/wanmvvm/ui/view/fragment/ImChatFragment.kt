@@ -47,7 +47,6 @@ class ImChatFragment : BaseFragment<FragmentImchatBinding>() {
     }
 
 
-
     public fun onEventMainThread(event: MessageEvent) {
         var handlable = false
         var msg = event.message
@@ -69,7 +68,7 @@ class ImChatFragment : BaseFragment<FragmentImchatBinding>() {
                 }
             }
 
-            if(!handlable){
+            if (!handlable) {
                 var conversation = JMessageClient.getSingleConversation(userInfo.userName)
                 if (conversation.targetInfo is UserInfo) {
                     var bean = conversation
@@ -86,7 +85,6 @@ class ImChatFragment : BaseFragment<FragmentImchatBinding>() {
     }
 
 
-
     private fun initView() {
         activity?.let {
             adapter = ImChatAdapter(it, list)
@@ -97,10 +95,13 @@ class ImChatFragment : BaseFragment<FragmentImchatBinding>() {
         }
     }
 
-    private fun loadData(){
+    private fun loadData() {
         list.clear()
-        list.addAll(JMessageClient.getConversationList())
-        adapter.setData(list)
+        var rList = JMessageClient.getConversationList()
+        rList?.let {
+            list.addAll(it)
+            adapter.setData(list)
+        }
     }
 
 }

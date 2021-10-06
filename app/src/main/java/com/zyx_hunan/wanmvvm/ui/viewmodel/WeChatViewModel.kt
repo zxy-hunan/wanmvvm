@@ -23,22 +23,11 @@ class WeChatViewModel : BaseViewModel() {
     private var articleData = SingleLiveData<Result<List<Any>>>()
 
 
-/*    fun getWeChatLiveData(): LiveData<Result<List<Any>>> {
-        WeChatRepository.weChatChapters()
-        Log.e("wechat", "requestBol:" + requestBol.value)
-        launchUI {
-            val result: LiveData<Result<List<Any>>> = WeChatRepository.weChatChapters()
-            articleData.value = result.value
-        }
-        return articleData
-    }*/
 
-
-    val weChatLiveData:LiveData<Result<List<Any>>> = Transformations.switchMap(requestBol) {
+    val weChatLiveData= Transformations.switchMap(requestBol) {
         Log.e("wechat","requestBol:"+requestBol.value)
-        val result: LiveData<Result<List<Any>>> =WeChatRepository.weChatChapters()
-        articleData.value=result.value
-        articleData
+       WeChatRepository.weChatChapters()
+
     }
 
     val weChatarticleLiveData = Transformations.switchMap(articleLiveData) {

@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -38,6 +39,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private var tabNames = mutableMapOf(0 to "首页", 1 to "视频", 2 to "聊天", 3 to "我的")
     private var hotKeyView: TextView? = null
     private var search: RelativeLayout? = null
+    private var add:ImageView?=null
     private var listItemHeight = 0
     private val mmHandler = Handler(Looper.getMainLooper())
     private lateinit var list: List<HotKeyBean>
@@ -54,6 +56,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         val view = LayoutInflater.from(this).inflate(R.layout.searchlayout, null, false)
         hotKeyView = view.findViewById<TextView>(R.id.hot_key)
         search = view.findViewById<RelativeLayout>(R.id.search)
+        add = view.findViewById<ImageView>(R.id.add)
         binding.topbar.addView(view)
 
         viewModel.hotKeyData.observe(this, {
@@ -77,6 +80,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 intent.putExtra("bundle",bundle)
             }
             startActivity(intent)
+        }
+
+        add?.setOnClickListener {
+            startActivity(Intent(this, ShareArticleAcy::class.java))
         }
 
     }

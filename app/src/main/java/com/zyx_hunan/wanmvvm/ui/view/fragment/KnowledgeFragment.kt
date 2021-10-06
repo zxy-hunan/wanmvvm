@@ -1,10 +1,6 @@
 package com.zyx_hunan.wanmvvm.ui.view.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +18,7 @@ import com.zyx_hunan.wanmvvm.ui.viewmodel.KnowledgeViewModel
  *
  *@time 2021,2021/7/29 0029,上午 10:55
  */
-class KnowledgeFragment : BaseFragment<FragmentKnowledgeBinding>() {
+class KnowledgeFragment : BaseFragment<FragmentKnowledgeBinding>(){
     private val viewModel by lazy { ViewModelProvider(this).get(KnowledgeViewModel::class.java) }
     private val listKnowledgeAll = mutableListOf<Children>()
     private lateinit var adapter: KnowledgeAdapter
@@ -30,15 +26,18 @@ class KnowledgeFragment : BaseFragment<FragmentKnowledgeBinding>() {
     override fun requestData() {
         viewModel.getKnowLedgeList()
     }
-    override fun onResume() {
-        super.onResume()
+
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         activity?.let {
             adapter = KnowledgeAdapter(it, listKnowledgeAll)
             binding.recyclerView.layoutManager = LinearLayoutManager(activity)
             binding.recyclerView.adapter = adapter
+
         }
 
-        viewModel.knowledgeLiveData.observe(this, Observer {
+        viewModel.knowledgeLiveData.observe(viewLifecycleOwner, Observer {
             if (it.isSuccess) {
                 it.getOrNull()?.let {
                     listKnowledgeAll.addAll(it as List<Children>)
@@ -47,6 +46,11 @@ class KnowledgeFragment : BaseFragment<FragmentKnowledgeBinding>() {
             }
         })
     }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
 
 
 }

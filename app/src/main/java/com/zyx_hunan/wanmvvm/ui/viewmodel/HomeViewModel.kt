@@ -19,8 +19,8 @@ import kotlinx.coroutines.launch
  *@time 2021,2021/7/24 0024,下午 2:00
  */
 class HomeViewModel : BaseViewModel() {
-     val date = MutableLiveData<Long>()
-     val num = MutableLiveData<Long>()
+    val date = MutableLiveData<Long>()
+    val num = MutableLiveData<Long>()
 
     private val articleLiveData = MutableLiveData<Int>()
 

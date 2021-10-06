@@ -32,6 +32,8 @@
             android:windowSoftInputMode= "adjustPan" />
         <activity android:name=".ui.view.acy.SearchAcy"/>
         <activity android:name=".ui.view.acy.CollectShareAcy"/>
+        <activity android:name=".ui.view.acy.ShareArticleAcy"/>
+        <activity android:name=".ui.view.acy.CenterMineAcy"/>
         <service android:name="cn.jpush.android.service.PushService"
             android:process=":multiprocess"
             tools:node="replace" />

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.widget.Toast
 import androidx.core.content.edit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -49,8 +48,8 @@ class WelcomeWanAndroidAcy : BaseActivity<AcyWelcomeBinding>() {
                         putString("name", name)
                         putString("pwd", pwd)
                     }
-                    Toast.makeText(this@WelcomeWanAndroidAcy, "wanAndroid登录成功", Toast.LENGTH_SHORT)
-                        .show()
+                    /*Toast.makeText(this@WelcomeWanAndroidAcy, "wanAndroid登录成功", Toast.LENGTH_SHORT)
+                        .show()*/
                 }
             } else {
                 it.showToast(this)
@@ -59,7 +58,7 @@ class WelcomeWanAndroidAcy : BaseActivity<AcyWelcomeBinding>() {
 
 
         viewModel.imData.observe(this, Observer {
-            Toast.makeText(this@WelcomeWanAndroidAcy, "im登录成功", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this@WelcomeWanAndroidAcy, "im登录成功", Toast.LENGTH_SHORT).show()
         })
         handler?.postDelayed(timerTask, 3000)
 

@@ -2,9 +2,7 @@ package com.zyx_hunan.wanmvvm
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
 import cn.jpush.im.android.api.JMessageClient
-import cn.jpush.im.android.api.event.ContactNotifyEvent
 import com.zyx_hunan.wanmvvm.logic.model.Regdata
 
 /**

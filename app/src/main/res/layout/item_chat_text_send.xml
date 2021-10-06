@@ -22,31 +22,22 @@
             android:layout_marginRight="13dp"
             android:src="@mipmap/head_default" />
 
-        <ProgressBar
-            android:id="@+id/pb"
-            style="@android:style/Widget.ProgressBar.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/tv" />
-
         <TextView
-
             android:id="@+id/tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="78dp"
+            android:layout_toLeftOf="@id/iv_head"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="13dp"
             android:background="@drawable/chat_send_bg"
             android:maxWidth="200dp"
-            android:paddingBottom="12dp"
-            android:paddingLeft="18dp"
-            android:paddingRight="18dp"
-            android:paddingTop="12dp"
+            android:layout_centerVertical="true"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:textColor="@color/white"
-            android:textSize="13dp" />
+            android:textSize="16sp" />
 
     </RelativeLayout>
 

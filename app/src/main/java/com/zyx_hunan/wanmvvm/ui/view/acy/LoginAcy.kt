@@ -58,7 +58,7 @@ class LoginAcy : BaseActivity<ActivityLoginBinding>() {
                     if (wanSuccess && imSuccess) {
                         wanSuccess = false
                         imSuccess = false
-                        Toast.makeText(this@LoginAcy, "登录成功,正在退出，请稍后。。。", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@LoginAcy, "登录成功。。。", Toast.LENGTH_LONG).show()
                         this.post(task)
                     }
                 }

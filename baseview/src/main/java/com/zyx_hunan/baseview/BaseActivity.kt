@@ -45,7 +45,6 @@ open class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     val task: Runnable = object : Runnable {
         override fun run() {
             ouTime--
-
             if (ouTime == 0) {
                 mHandler?.sendEmptyMessage(-1)
                 mHandler?.removeCallbacks(this)
