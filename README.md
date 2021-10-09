@@ -2,6 +2,10 @@
 一个基于 Kotlin + MVVM + Jetpack 的 玩Android 客户端+开眼视频+im客户端
 ====  
 
+注：
+-------  
+最新的安装包在wanmvvm/app/release/app-release.apk
+
 简介
 -------  
 此app的数据来源与社区开放api（玩安卓，开眼视频），基于极光im目前实现了单聊，im更多功能后续在做更新。
