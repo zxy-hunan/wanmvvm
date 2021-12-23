@@ -138,8 +138,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun initTabs() {
         val builder: QMUITabBuilder = binding.tabs.tabBuilder()
-        builder.setTypeface(null, Typeface.DEFAULT_BOLD)
-        builder.setSelectedIconScale(1.2f)
+        builder.setTypeface(null, Typeface.DEFAULT)
+        builder.setSelectedIconScale(1.0f)
             .setTextSize(
                 QMUIDisplayHelper.sp2px(this, 13),
                 QMUIDisplayHelper.sp2px(this, 15)

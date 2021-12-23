@@ -26,14 +26,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/iv_head"
             android:background="@drawable/chat_receive_bg"
             android:maxWidth="200dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="10dp"
             android:textColor="@color/btn_ghost_blue_border_normal"
             android:textSize="16sp" />
 

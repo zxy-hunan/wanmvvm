@@ -37,11 +37,11 @@
             android:id="@+id/et"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:layout_toLeftOf="@id/tv_send"
             android:layout_centerVertical="true"
             android:layout_marginLeft="35dp"
-            android:background="@drawable/et_bg"
             android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/tv_send"
+            android:background="@drawable/et_bg"
             android:padding="5dp"
             android:paddingLeft="10dp"
             android:textCursorDrawable="@drawable/et_cursor" />
@@ -80,10 +80,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_chat"
-        android:layout_below="@+id/topbar"
-        android:layout_above="@+id/rl_bottom"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_bottom"
+        android:layout_below="@+id/topbar" />
 
 
 </RelativeLayout>

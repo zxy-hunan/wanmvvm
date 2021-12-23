@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout/activity_chat.xml" value="0.5072916666666667" />
+        <entry key="app/src/main/res/layout/activity_user_imdetail.xml" value="0.5072916666666667" />
+        <entry key="app/src/main/res/layout/fragment_imchat_group.xml" value="0.5072916666666667" />
+        <entry key="app/src/main/res/layout/item_chat_text_receive.xml" value="0.5072916666666667" />
+        <entry key="app/src/main/res/layout/item_chat_text_send.xml" value="0.5072916666666667" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
