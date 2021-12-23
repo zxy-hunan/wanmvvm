@@ -141,8 +141,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         builder.setTypeface(null, Typeface.DEFAULT)
         builder.setSelectedIconScale(1.0f)
             .setTextSize(
-                QMUIDisplayHelper.sp2px(this, 13),
-                QMUIDisplayHelper.sp2px(this, 15)
+                QMUIDisplayHelper.sp2px(this, 12),
+                QMUIDisplayHelper.sp2px(this, 13)
             )
             .setDynamicChangeIconColor(false)
         val component = builder

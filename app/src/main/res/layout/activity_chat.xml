@@ -47,34 +47,33 @@
             android:textCursorDrawable="@drawable/et_cursor" />
 
         <EditText
-            android:visibility="invisible"
             android:id="@+id/tv_sound"
-            android:gravity="center"
-            android:text="按住说话"
-            android:paddingLeft="10dp"
-            android:textCursorDrawable="@drawable/et_cursor"
+            android:layout_width="243dp"
+            android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="35dp"
             android:background="@drawable/et_bg"
-            android:layout_width="243dp"
-            android:layout_height="25dp"/>
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:text="按住说话"
+            android:textCursorDrawable="@drawable/et_cursor"
+            android:visibility="invisible" />
 
 
         <TextView
             android:id="@+id/tv_send"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="7dp"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_alignParentRight="true"
-            android:background="@color/btn_ghost_blue_border_normal"
             android:layout_width="60dp"
             android:layout_height="35dp"
-            android:onClick="sendTextMessage"
-            android:textSize="13dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="7dp"
+            android:background="@color/btn_ghost_blue_border_normal"
             android:gravity="center"
+            android:onClick="sendTextMessage"
             android:text="发送"
             android:textColor="@color/white"
-            />
+            android:textSize="13dp" />
 
     </RelativeLayout>
 
