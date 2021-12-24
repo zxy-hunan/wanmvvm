@@ -1,3 +1,4 @@
+[![](https://jitpack.io/v/zxy-hunan/wanmvvm.svg)](https://jitpack.io/#zxy-hunan/wanmvvm)
 
 一个基于 Kotlin + MVVM + Jetpack 的 玩Android 客户端+开眼视频+im客户端
 ====  
