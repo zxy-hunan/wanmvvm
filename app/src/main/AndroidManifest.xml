@@ -12,13 +12,23 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.WanMvvm">
-        <activity android:name=".ui.view.acy.WelcomeWanAndroidAcy">
+
+
+        <activity android:name=".ui.TestAcy">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+<!--        <activity android:name=".ui.view.acy.WelcomeWanAndroidAcy">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
         <activity android:name=".ui.view.acy.MainActivity"/>
         <activity android:name=".ui.view.acy.RegisterAcy"/>
         <activity android:name=".ui.view.acy.LoginAcy"/>

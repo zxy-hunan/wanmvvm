@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/activity_chat.xml" value="0.5072916666666667" />
         <entry key="app/src/main/res/layout/activity_user_imdetail.xml" value="0.5072916666666667" />
+        <entry key="app/src/main/res/layout/acy_test.xml" value="0.5072916666666667" />
         <entry key="app/src/main/res/layout/fragment_imchat_group.xml" value="0.5072916666666667" />
         <entry key="app/src/main/res/layout/item_chat_text_receive.xml" value="0.5072916666666667" />
         <entry key="app/src/main/res/layout/item_chat_text_send.xml" value="0.5072916666666667" />

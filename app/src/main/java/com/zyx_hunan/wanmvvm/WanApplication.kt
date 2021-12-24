@@ -27,7 +27,7 @@ class WanApplication : Application() {
         super.onCreate()
         mContext = applicationContext
         JMessageClient.init(this)
-        NetUtil.options().setApiPath(TestService.class)
+        NetUtil.options().setApiPath(TestService::class.java)
                 .setDefault_time(10)
                 .setUrl("https://www.wanandroid.com")
     }

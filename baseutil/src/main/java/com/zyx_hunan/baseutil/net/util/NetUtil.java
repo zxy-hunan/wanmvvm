@@ -38,7 +38,7 @@ public class NetUtil {
 
 
     public  ApiPath getNet() {
-        return initRetrofit(initOkHttpClient()).create(options.apiPath);
+        return (ApiPath) initRetrofit(initOkHttpClient()).create(options.apiPath);
     }
 
 

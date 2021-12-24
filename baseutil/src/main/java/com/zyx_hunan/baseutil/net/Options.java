@@ -1,10 +1,10 @@
 package com.zyx_hunan.baseutil.net;
 
 
-public class Options {
+public class Options<T> {
     public String url="";
     public int default_time=0;
-    public Class<ApiPath> apiPath = null;
+    public Class<T> apiPath = null;
 
     public String getUrl() {
         return url;
@@ -24,7 +24,7 @@ public class Options {
         return this;
     }
 
-    public Options setApiPath(Class<ApiPath> apiPath) {
+    public Options setApiPath(Class<T> apiPath) {
         this.apiPath = apiPath;
         return this;
     }

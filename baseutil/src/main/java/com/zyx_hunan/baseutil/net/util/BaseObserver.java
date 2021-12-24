@@ -9,21 +9,13 @@ import io.reactivex.disposables.Disposable;
  * 数据返回统一处理  参考https://www.jianshu.com/p/ff619fea7e22
  * @param <T>
  */
-public abstract class BaseObserver<T> implements Observer<BaseResponse<T>> {
+public abstract class BaseObserver<T> implements Observer<T> {
     private static final String TAG = "BaseObserver";
     @Override
-    public void onNext(BaseResponse<T> response) {
+    public void onNext(T response) {
         Log.e(TAG, "BaseObserver onNext");
         //在这边对 基础数据 进行统一处理  举个例子：
-        if(response.getCode()==0){
-            if (response.getEntity()!=null) {
-                onSuccess(response.getEntity());
-            }else{
-                onSuccess(response);
-            }
-        }else{
-            onFailure(null,response.getMsg());
-        }
+        onSuccess(response);
     }
 
     @Override
@@ -45,8 +37,6 @@ public abstract class BaseObserver<T> implements Observer<BaseResponse<T>> {
     }
 
     public abstract void onSuccess(T result);
-
-    public abstract void onSuccess(BaseResponse response);
 
     public abstract void onFailure(Throwable e,String errorMsg);
 

@@ -9,10 +9,7 @@ import android.widget.Toast;
 
 import io.reactivex.disposables.Disposable;
 
-/**
- * Observer加入加载框
- * @param <T>
- */
+
 public abstract class MyObserver<T> extends BaseObserver<T> {
     private boolean mShowDialog;
     private ProgressDialog dialog;
